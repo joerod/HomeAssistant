@@ -3,6 +3,7 @@
 *.spotify-token-cache
 *.log
 *.db
+*.yaml.o
 secrets.yaml
 ip_bans.yaml
 known_devices.yaml
