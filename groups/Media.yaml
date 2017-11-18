@@ -1,0 +1,5 @@
+  Media:
+    view: true
+    entities:
+      - media_player.main_floor
+      - media_player.spotify

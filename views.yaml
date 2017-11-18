@@ -1,0 +1,34 @@
+lights:
+  view: yes
+  name: Lights
+  icon: mdi:lightbulb-on
+  entities:
+    - group.lights
+
+batteries:
+  view: yes
+  name: Batteries
+  icon: mdi:battery
+  entities:
+    - group.batteries
+
+weather:
+  view: yes
+  name: Weather
+  icon: mdi:weather-sunny
+  entities:
+    - group.weather
+
+doorlocks:
+  view: yes
+  name: Door Locks
+  icon: mdi:lock
+  entities:
+    - group.doorlock
+
+cameras:
+  view: yes
+  name: Cameras
+  icon: mdi:camera
+  entities:
+    - group.cameras

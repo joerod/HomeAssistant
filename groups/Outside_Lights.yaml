@@ -1,0 +1,9 @@
+  OutsideLights:
+    view: true
+    entities:
+      - light.garden_lights
+      - switch.front_lights
+      - switch.side_door_light
+      - switch.fence_lights
+      - switch.holiday_lights
+      - switch.pool_light

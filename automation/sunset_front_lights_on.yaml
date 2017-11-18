@@ -1,0 +1,11 @@
+alias: 'Sunset Outside lights on'
+trigger:
+  platform: sun
+  event: sunset
+action:
+  - service: light.turn_on
+    entity_id: light.garden_lights
+  - service: switch.turn_on  
+    entity_id: switch.front_lights
+  - service: switch.turn_on  
+    entity_id: switch.side_door_light

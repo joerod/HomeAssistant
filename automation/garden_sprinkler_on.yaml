@@ -1,0 +1,12 @@
+# Turns on sprinkler if its not going to rain that day
+alias: 'Garden Sprinkler On'
+trigger:
+  platform: time
+  at: '03:00:00'
+condition:
+  condition: numeric_state
+  entity_id: sensor.dark_sky_precip_probability
+  below: 35
+action:
+  service: switch.turn_on
+  entity_id: switch.garden_sprinkler

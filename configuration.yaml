@@ -1,0 +1,84 @@
+homeassistant:
+  name: Rodriguez Home
+  latitude: 40.7225147
+  longitude: -73.8744618
+  elevation: 12
+  unit_system: imperial
+  time_zone: America/New_York
+
+http:
+  api_password: !secret http_password
+  ip_ban_enabled: True
+  login_attempts_threshold: 3    
+  base_url: !secret http_base_url 
+
+frontend:
+config:
+updater:
+discovery:
+conversation:
+history:
+logbook:
+sun:
+ios:
+
+device_tracker:
+  platform: ios
+  track_new_devices: yes
+  interval_seconds: 60
+  consider_home: 120
+
+# Weather
+sensor:
+  - platform: darksky
+    api_key: !secret dark_sky_password
+    monitored_conditions:
+      - summary
+      - icon
+      - nearest_storm_distance 
+      - precip_intensity_max
+      - temperature
+      - precip_type
+      - precip_probability
+      - precip_intensity
+      - cloud_cover
+  - platform: bitcoin
+    display_options:
+      - market_price_usd
+
+# Text to speech
+tts:
+  platform: google
+
+wink:
+
+nest:
+  client_id: !secret nest_id
+  client_secret: !secret nest_password
+
+media_player:
+  - platform: cast
+  - platform: plex
+    entity_namespace: 'plex'
+    include_non_clients: true
+    scan_interval: 5
+    show_all_controls: false
+    use_episode_art: true 
+  - platform: spotify
+    client_id: !secret spotify_id
+    client_secret: !secret spotify_secret
+
+ifttt:
+  key: !secret ifttt_password
+
+google:
+  client_id: !secret google_id
+  client_secret: !secret google_password
+
+notify:
+  name: Rodriguez_home
+  platform: pushbullet
+  api_key: !secret pushbullet_password
+
+group: !include_dir_merge_named groups
+automation: !include_dir_list automation

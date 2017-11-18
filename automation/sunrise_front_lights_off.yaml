@@ -1,0 +1,11 @@
+alias: 'Sunrise Outside Lights off'
+trigger:
+  platform: sun
+  event: sunrise
+action:
+  - service: light.turn_off
+    entity_id: light.garden_lights
+  - service: switch.turn_off 
+    entity_id: switch.front_lights
+  - service: switch.turn_off  
+    entity_id: switch.side_door_light

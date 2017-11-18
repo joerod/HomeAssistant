@@ -1,0 +1,5 @@
+  Batteries:
+    view: true
+    entities:
+      - lock.front_door.attribute.battery_level
+      - lock.side_door.attribute.battery_level  

@@ -1,0 +1,7 @@
+alias: 'Sunrise Turn Off Arabellas Light'
+trigger:
+  platform: sun
+  event: sunrise 
+action:
+  service: light.turn_off
+  entity_id: light.arabellas_night_light__

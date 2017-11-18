@@ -1,0 +1,11 @@
+*.conf
+*.uuid
+*.spotify-token-cache
+*.log
+*.db
+secrets.yaml
+ip_bans.yaml
+known_devices.yaml
+config.json
+AccessoryInfo.*.json
+IdentifierCache.*.json

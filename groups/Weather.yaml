@@ -1,0 +1,7 @@
+  weather:
+    view: true
+    entities:
+      - sun.sun
+      - sensor.dark_sky_temperature
+      - sensor.dark_sky_precip_probability
+      - sensor.dark_sky_precip_intensity
