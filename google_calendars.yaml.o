@@ -1,5 +1,0 @@
-- cal_id: en.usa#holiday@group.v.calendar.google.com
-  entities:
-  - device_id: holidays_in_united_states
-    name: Holidays
-    track: true
