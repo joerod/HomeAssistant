@@ -4,6 +4,4 @@
       - lock.front_door
       - lock.side_door 
       - binary_sensor.basement_door_opened
-      - lock.front_door
-      - lock.side_door
       

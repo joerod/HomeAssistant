@@ -2,6 +2,4 @@
     view: true
     entities:
       - media_player.spotify
-      - media_player.plex
-      - media_player.chromecast
       - media_player.basement
