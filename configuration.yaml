@@ -1,7 +1,7 @@
 homeassistant:
   name: Rodriguez Home
-  latitude: 40.7225147
-  longitude: -73.8744618
+  latitude: !secret home_lat 
+  longitude: !secret home_lon
   elevation: 12
   unit_system: imperial
   time_zone: America/New_York
@@ -58,8 +58,8 @@ nest:
 
 media_player:
   - platform: cast
-  - platform: plex
   - platform: sonos
+  - platform: plex
     entity_namespace: 'plex'
     include_non_clients: true
     scan_interval: 5

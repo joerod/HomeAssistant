@@ -1,22 +1,5 @@
-################
-# TAB ORDERING #
-################
-group.insidelights:
-  order: 1
-group.outsidelights:
-  order: 2
-group.cameras:
-  order: 3
-group.doors:
-  order: 4
-group.weather:
-  order: 5
-group.media:
-  order: 6  
+  media_player.spotify:
+    hidden: true
 
-media_player.spotify:
-  hidden: true
-
-media_player.main_floor:
-  hidden: true  
-  
+  media_player.basement:
+    hidden: true  
