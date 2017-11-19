@@ -59,6 +59,7 @@ nest:
 media_player:
   - platform: cast
   - platform: plex
+  - platform: sonos
     entity_namespace: 'plex'
     include_non_clients: true
     scan_interval: 5
@@ -82,3 +83,4 @@ notify:
 
 group: !include_dir_merge_named groups
 automation: !include_dir_list automation
+customize: !include customize.yaml

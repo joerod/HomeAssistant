@@ -3,3 +3,6 @@
     entities:
       - media_player.main_floor
       - media_player.spotify
+      - media_player.plex
+      - media_player.chromecast
+
