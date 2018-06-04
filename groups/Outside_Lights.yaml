@@ -4,6 +4,6 @@
       - light.garden_lights
       - switch.front_lights
       - switch.side_door_light
-      - switch.fence_lights
+      - switch.backyard_fence_lights
       - switch.holiday_lights
       - switch.pool_light

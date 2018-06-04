@@ -6,12 +6,6 @@ homeassistant:
   unit_system: imperial
   time_zone: America/New_York
   customize: !include customize.yaml
-  
-http:
-  api_password: !secret http_password
-  ip_ban_enabled: True
-  login_attempts_threshold: 3    
-  base_url: !secret http_base_url 
 
 frontend:
 config:
@@ -22,6 +16,15 @@ history:
 logbook:
 sun:
 ios:
+wink:
+cloud:
+wake_on_lan:
+  
+http:
+  api_password: !secret http_password
+  ip_ban_enabled: True
+  login_attempts_threshold: 3    
+  base_url: !secret http_base_url 
 
 device_tracker:
   platform: ios
@@ -29,7 +32,6 @@ device_tracker:
   interval_seconds: 60
   consider_home: 120
 
-# Weather
 sensor:
   - platform: darksky
     api_key: !secret dark_sky_password
@@ -42,16 +44,19 @@ sensor:
       - precip_type
       - precip_probability
       - precip_intensity
-      - cloud_cover
-  - platform: bitcoin
-    display_options:
-      - market_price_usd
+      - cloud_cover 
+
+coinbase:
+  api_key: !secret coinbase_key  
+  api_secret: !secret coinbase_secret 
+  exchange_rate_currencies:
+    - BTC
+    - ETH
+    - LTC
 
 # Text to speech
 tts:
   platform: google
-
-wink:
 
 nest:
   client_id: !secret nest_id
@@ -60,6 +65,13 @@ nest:
 media_player:
   - platform: cast
   - platform: sonos
+  - platform: webostv
+    host: 192.168.1.50
+    #other settings
+    turn_on_action:
+      service: wake_on_lan.send_magic_packet
+      data:
+        mac: !secret lg_mac
   - platform: plex
     entity_namespace: 'plex'
     include_non_clients: true
@@ -74,9 +86,10 @@ ifttt:
   key: !secret ifttt_password
 
 notify:
-  name: Rodriguez_home
-  platform: pushbullet
-  api_key: !secret pushbullet_password
+  - name: Rodriguez_home_push_slack
+    platform: slack
+    api_key: !secret slack_api
+    default_channel: !secret slack_chan
 
 group: !include_dir_merge_named groups
 automation: !include_dir_list automation

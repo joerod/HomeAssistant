@@ -3,3 +3,5 @@
     entities:
       - media_player.spotify
       - media_player.basement
+      - media_player.kitchen
+      - media_player.living_room

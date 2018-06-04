@@ -8,5 +8,10 @@ condition:
   entity_id: sensor.dark_sky_precip_probability
   below: 35
 action:
-  service: switch.turn_on
-  entity_id: switch.garden_sprinkler
+  - service: switch.turn_on
+    entity_id: switch.garden_sprinkler
+  - service: notify.rodriguez_home_push_slack
+    data_template:
+      message: >
+        Garden sprinkler has been turned on.
+        Chance of Rain - {{ sensor.dark_sky_precip_probability }}
