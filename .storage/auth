@@ -1,0 +1,180 @@
+{
+    "data": {
+        "credentials": [
+            {
+                "auth_provider_id": null,
+                "auth_provider_type": "homeassistant",
+                "data": {
+                    "username": "joerod"
+                },
+                "id": "e475426c042b427b9223816f9746cec7",
+                "user_id": "26d7b1ba8d114225899b014c4a38a8f9"
+            },
+            {
+                "auth_provider_id": null,
+                "auth_provider_type": "legacy_api_password",
+                "data": {},
+                "id": "57e5221ffe144b62884ff5a0d0388514",
+                "user_id": "6583f0590204472c83248734bb3ef641"
+            }
+        ],
+        "groups": [
+            {
+                "id": "system-admin",
+                "name": "Administrators"
+            },
+            {
+                "id": "system-read-only",
+                "name": "Read Only"
+            },
+            {
+                "id": "system-users",
+                "name": "Users"
+            }
+        ],
+        "refresh_tokens": [
+            {
+                "access_token_expiration": 1800.0,
+                "client_icon": null,
+                "client_id": null,
+                "client_name": null,
+                "created_at": "2019-02-11T01:30:49.158076+00:00",
+                "id": "ff59deada8354f6c87505541e4e8704e",
+                "jwt_key": "c1735ba6f84d41aff9289c338eb1429dea126ee95afbeb9b814958fa18f3bd97b5f5548f15b4623dcdb1b276119e04b2ae1f6f858d806186f90a2310f66a45d0",
+                "last_used_at": "2019-04-25T19:07:08.917718+00:00",
+                "last_used_ip": "172.30.32.2",
+                "token": "540f79614149f631059ebdce46e86d89bb39ce292c58e3c360eb2374b832c072eb3fb67c1f550d4a2b7e62fbc4db568f5a874abb8398e79454a4e5d64da9501c",
+                "token_type": "system",
+                "user_id": "6f54ccceddf8473795b41b041c001ef4"
+            },
+            {
+                "access_token_expiration": 1800.0,
+                "client_icon": null,
+                "client_id": "http://192.168.1.188:8123/",
+                "client_name": null,
+                "created_at": "2019-02-11T01:31:12.673815+00:00",
+                "id": "5b29050b2e7f41fa84068071ea31dba0",
+                "jwt_key": "5b40404a10272fbc69ca0dec521f605a513b7f1cffbfa43e30d10e0763eca70cc9b0bdb5842b5c7e94e03aac381aa0da4043b906585be51610bb5ea817b1ed42",
+                "last_used_at": "2019-04-25T03:47:11.250410+00:00",
+                "last_used_ip": "192.168.1.22",
+                "token": "735216c308e3072f840ef31d1ff281a4ffd6d0900a1b15b26ebcbd62f56d4a005cca8cbd5126eab5560d7c338d821b604ff57e93ddda889b838eb10c690f4e36",
+                "token_type": "normal",
+                "user_id": "26d7b1ba8d114225899b014c4a38a8f9"
+            },
+            {
+                "access_token_expiration": 1800.0,
+                "client_icon": null,
+                "client_id": "http://joerod.com:8123/",
+                "client_name": null,
+                "created_at": "2019-04-24T22:18:27.478485+00:00",
+                "id": "798472d1e385444783f6d456911dcbb5",
+                "jwt_key": "bbaf16a709fcbe1d293c7b0c719d54853dcd549d9e4990a76f199f4b854b106d129003d2fd4d25528bf337fe90051be977377e57dda08320cf9273c33fa4dfc1",
+                "last_used_at": "2019-04-24T23:53:02.243250+00:00",
+                "last_used_ip": "192.168.1.1",
+                "token": "d9049b8c9f385cbf6d74de9829a53eaf9535c95b7f124b2975981af2524a7f6f2f8ef40181d64f0503b2815eefa0ae07bcc5caaae8cc4d6a3b75797a795db097",
+                "token_type": "normal",
+                "user_id": "26d7b1ba8d114225899b014c4a38a8f9"
+            },
+            {
+                "access_token_expiration": 1800.0,
+                "client_icon": null,
+                "client_id": "http://joerod.com:8123/",
+                "client_name": null,
+                "created_at": "2019-04-25T14:19:14.776060+00:00",
+                "id": "c17d67b44f8446998cba86da64219e17",
+                "jwt_key": "5343a5a08ae23826c1055bd26d0ae4263445030500698767d782224cb8a7f3c1a18d00d41eb7a14b663f7a0df99a2b130c1b229332e4e0c01e89799f5ea88095",
+                "last_used_at": "2019-04-25T14:58:41.600078+00:00",
+                "last_used_ip": "192.168.1.1",
+                "token": "2343518db33d02990fb2e7ffe575b0fbca47b1b4f8b4c597e25ed1b3f22d2a47bb26e0911834c4e18b8574ab231b7aad35272a36c9be2764050800dd2a263faa",
+                "token_type": "normal",
+                "user_id": "26d7b1ba8d114225899b014c4a38a8f9"
+            },
+            {
+                "access_token_expiration": 1800.0,
+                "client_icon": null,
+                "client_id": "https://joerod.com:8123/",
+                "client_name": null,
+                "created_at": "2019-04-25T15:34:09.804030+00:00",
+                "id": "3653d8e2ebeb47e694f292a89ef9a18a",
+                "jwt_key": "dd67be1c5798a7dcdf90e5053bbbf1fd0fea9a958272e7857748939603660761d55749585d7e38706b9e514d0bc0f8edab410e9cd11e7de9d5ced227147c33f5",
+                "last_used_at": "2019-04-26T03:10:47.172625+00:00",
+                "last_used_ip": "192.168.1.1",
+                "token": "56d00bbb5a07e8a4713418d8090265507b52fd4ac94a9009bf6cf0855aa3a0c4dd50dee3127b80ba77cb311193df1cd01ff92ed9620e5352d3c36e1614ae8fc4",
+                "token_type": "normal",
+                "user_id": "26d7b1ba8d114225899b014c4a38a8f9"
+            },
+            {
+                "access_token_expiration": 1800.0,
+                "client_icon": null,
+                "client_id": "https://joerod.com:8123/",
+                "client_name": null,
+                "created_at": "2019-04-25T15:35:49.013181+00:00",
+                "id": "75243e2fe1ad4538a5a36c638795e29c",
+                "jwt_key": "811f3d9ed5720dc703aa51a3ad3d5e7049b225c35224f89ac699523956277afea1f715fc9a2dcd34657bd51a535b6a7018076bcb2452928a80e96342e1e1802f",
+                "last_used_at": "2019-04-26T15:35:45.503507+00:00",
+                "last_used_ip": "192.168.1.1",
+                "token": "522b0ec34bb0fc4dfdf5a35a931bfed9210fb9a45b58d1579de8fdee6196d2490ca277a4b761570b5ad182ccf83469b7de695fc2b98ae29064e7f8ecac20de47",
+                "token_type": "normal",
+                "user_id": "26d7b1ba8d114225899b014c4a38a8f9"
+            },
+            {
+                "access_token_expiration": 1800.0,
+                "client_icon": null,
+                "client_id": "https://192.168.1.188:8123/",
+                "client_name": null,
+                "created_at": "2019-04-26T02:06:38.938795+00:00",
+                "id": "b124982befde49cd93f8cd448af8eeab",
+                "jwt_key": "df69e968e07557e6c99f7b6fea6037c49ccadbee1405c96d836335f07406195aca8e2e3afc6a7d974ec2498cc28d24aa6c62f968a9a1e785ff18b05193119cde",
+                "last_used_at": "2019-04-26T14:44:22.436774+00:00",
+                "last_used_ip": "192.168.1.22",
+                "token": "61134c9364f7f3aa9a2bb4cb9d2024f106fed6a38bd5ad497f082fd5f487246cbf7207fafaac94e61ba4625b6e5826093213e3b859d46a654621c1fbaea4c4ea",
+                "token_type": "normal",
+                "user_id": "26d7b1ba8d114225899b014c4a38a8f9"
+            }
+        ],
+        "users": [
+            {
+                "group_ids": [
+                    "system-admin"
+                ],
+                "id": "6f54ccceddf8473795b41b041c001ef4",
+                "is_active": true,
+                "is_owner": false,
+                "name": "Hass.io",
+                "system_generated": true
+            },
+            {
+                "group_ids": [
+                    "system-admin"
+                ],
+                "id": "26d7b1ba8d114225899b014c4a38a8f9",
+                "is_active": true,
+                "is_owner": true,
+                "name": "Joe Rodriguez",
+                "system_generated": false
+            },
+            {
+                "group_ids": [
+                    "system-admin"
+                ],
+                "id": "e28a1fa0be344035b9095edb18b4eb53",
+                "is_active": true,
+                "is_owner": false,
+                "name": "Home Assistant Cloud",
+                "system_generated": true
+            },
+            {
+                "group_ids": [
+                    "system-admin"
+                ],
+                "id": "6583f0590204472c83248734bb3ef641",
+                "is_active": true,
+                "is_owner": false,
+                "name": "Legacy API password user",
+                "system_generated": false
+            }
+        ]
+    },
+    "key": "auth",
+    "version": 1
+}

@@ -1,6 +1,6 @@
 homeassistant:
   name: Rodriguez Home
-  latitude: !secret home_lat 
+  latitude: !secret home_lat
   longitude: !secret home_lon
   elevation: 12
   unit_system: imperial
@@ -8,8 +8,12 @@ homeassistant:
   customize: !include customize.yaml
 
 frontend:
+  javascript_version: latest
+  themes: !include_dir_merge_named themes
+
 config:
 updater:
+person:
 discovery:
 conversation:
 history:
@@ -19,68 +23,38 @@ ios:
 wink:
 cloud:
 wake_on_lan:
-  
+system_health:
+
 http:
-  api_password: !secret http_password
   ip_ban_enabled: True
-  login_attempts_threshold: 3    
-  base_url: !secret http_base_url 
+  login_attempts_threshold: 10
+  base_url: !secret http_base_url
+  ssl_certificate: /ssl/fullchain.pem
+  ssl_key: /ssl/privkey.pem
 
-device_tracker:
-  platform: ios
-  track_new_devices: yes
-  interval_seconds: 60
-  consider_home: 120
-
-sensor:
-  - platform: darksky
-    api_key: !secret dark_sky_password
-    monitored_conditions:
-      - summary
-      - icon
-      - nearest_storm_distance 
-      - precip_intensity_max
-      - temperature
-      - precip_type
-      - precip_probability
-      - precip_intensity
-      - cloud_cover 
-
-coinbase:
-  api_key: !secret coinbase_key  
-  api_secret: !secret coinbase_secret 
-  exchange_rate_currencies:
-    - BTC
-    - ETH
-    - LTC
-
-# Text to speech
+# text to speech
 tts:
-  platform: google
+  platform: google_translate
 
 nest:
   client_id: !secret nest_id
   client_secret: !secret nest_password
 
+
 media_player:
-  - platform: cast
-  - platform: sonos
-  - platform: webostv
-    host: 192.168.1.50
-    #other settings
-    turn_on_action:
-      service: wake_on_lan.send_magic_packet
-      data:
-        mac: !secret lg_mac
-  - platform: plex
-    entity_namespace: 'plex'
-    include_non_clients: true
-    scan_interval: 5
-    show_all_controls: false
-    use_episode_art: true 
   - platform: spotify
     client_id: !secret spotify_id
     client_secret: !secret spotify_secret
+  - platform: plex
+  - platform: yamaha
+    host: 192.168.1.159
+
+vacuum:
+  - platform: roomba
+    name: Rosie
+    host: !secret roomba_host
+    username: !secret roomba_blid
+    password: !secret roomba_password
 
 ifttt:
   key: !secret ifttt_password
@@ -93,3 +67,4 @@ notify:
 
 group: !include_dir_merge_named groups
 automation: !include_dir_list automation
+sensor: !include_dir_merge_list sensors/

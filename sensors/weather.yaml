@@ -1,0 +1,12 @@
+  - platform: darksky
+    api_key: !secret dark_sky_password
+    monitored_conditions:
+      - summary
+      - icon
+      - nearest_storm_distance
+      - precip_intensity_max
+      - temperature
+      - precip_type
+      - precip_probability
+      - precip_intensity
+      - cloud_cover

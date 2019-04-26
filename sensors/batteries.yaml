@@ -1,0 +1,20 @@
+  - platform: template
+    sensors:
+      front_door_lock:
+        value_template: '{% if states.lock.front_door %} {{ states.lock.front_door.attributes.battery_level |int }} {% else %} Unknown {% endif %}'
+        unit_of_measurement: '%'
+      side_door_lock:
+        value_template: '{% if states.lock.side_door %} {{ states.lock.side_door.attributes.battery_level |int }} {% else %} Unknown {% endif %}'
+        unit_of_measurement: '%'
+      basement_door_sensor:
+        value_template: '{% if states.binary_sensor.basement_door_opened %} {{ states.binary_sensor.basement_door_opened.attributes.battery_level |int }} {% else %} Unknown {% endif %}'
+        unit_of_measurement: '%'
+      rosie:
+        value_template: '{% if states.vacuum.rosie %} {{ states.vacuum.rosie.attributes.battery_level |int }} {% else %} Unknown {% endif %}'
+        unit_of_measurement: '%'
+      main_floor_smoke_detector:
+        value_template: '{% if states.binary_sensor.kidde_smoke_detector_livingroom_co_detected %} {{ states.binary_sensor.kidde_smoke_detector_livingroom_co_detected.attributes.battery_level |int }} {% else %} Unknown {% endif %}'
+        unit_of_measurement: '%'
+      joerod_iphone:
+        value_template: '{% if states.device_tracker.joerods_iphone %} {{ states.device_tracker.joerods_iphone.attributes.battery |int }} {% else %} Unknown {% endif %}'
+        unit_of_measurement: '%'

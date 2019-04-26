@@ -1,3 +1,4 @@
+!.*/
 *.conf
 *.uuid
 *.spotify-token-cache
@@ -8,5 +9,8 @@ secrets.yaml
 ip_bans.yaml
 known_devices.yaml
 config.json
+aircast.xml
+airsonos.xml
 AccessoryInfo.*.json
 IdentifierCache.*.json
+
