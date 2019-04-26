@@ -1,0 +1,15 @@
+alias: 'Pool Filter Off'
+trigger:
+  - platform: time
+    at: '7:45:00'
+  - platform: time
+    at: '13:00:00'
+  - platform: time
+    at: '17:45:00'
+condition:
+  condition: state
+  entity_id: switch.pool_filter
+  state: 'on'
+action:
+  service: switch.turn_off
+  entity_id: switch.pool_filter

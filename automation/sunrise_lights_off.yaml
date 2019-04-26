@@ -1,11 +1,13 @@
-alias: 'Sunrise Outside Lights off'
+alias: 'Sunrise Lights Off'
 trigger:
   platform: sun
   event: sunrise
 action:
   - service: light.turn_off
     entity_id: light.garden_lights
-  - service: switch.turn_off 
+  - service: switch.turn_off
     entity_id: switch.front_lights
-  - service: switch.turn_off  
+  - service: switch.turn_off
     entity_id: switch.side_door_light
+  - service: light.turn_off
+    entity_id: light.arabella_s_night_light

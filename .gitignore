@@ -10,3 +10,5 @@ known_devices.yaml
 config.json
 AccessoryInfo.*.json
 IdentifierCache.*.json
+aircast.xml
+airsonos.xml

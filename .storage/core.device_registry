@@ -1,0 +1,285 @@
+{
+    "data": {
+        "devices": [
+            {
+                "area_id": null,
+                "config_entries": [
+                    "b18d51a2c75e4ad6b8838963624c6707"
+                ],
+                "connections": [],
+                "hub_device_id": null,
+                "id": "5d0690f4a1874949b4e13a811111b221",
+                "identifiers": [
+                    [
+                        "sonos",
+                        "RINCON_7828CA07EC5601400"
+                    ]
+                ],
+                "manufacturer": "Sonos",
+                "model": "One",
+                "name": "Kitchen",
+                "name_by_user": null,
+                "sw_version": null
+            },
+            {
+                "area_id": null,
+                "config_entries": [
+                    "b18d51a2c75e4ad6b8838963624c6707"
+                ],
+                "connections": [],
+                "hub_device_id": null,
+                "id": "01c08aac47f64c4384d8b9c1c6442d40",
+                "identifiers": [
+                    [
+                        "sonos",
+                        "RINCON_949F3E8C1ADE01400"
+                    ]
+                ],
+                "manufacturer": "Sonos",
+                "model": "Play:1",
+                "name": "Basement",
+                "name_by_user": null,
+                "sw_version": null
+            },
+            {
+                "area_id": null,
+                "config_entries": [
+                    "0107f2712af1471aa058051db11b4b38"
+                ],
+                "connections": [
+                    [
+                        "upnp",
+                        "uuid:317cc104-c3d8-408f-b0da-2af4f202449e"
+                    ]
+                ],
+                "hub_device_id": null,
+                "id": "0d1447c481af41c794557a2c750ef0e5",
+                "identifiers": [
+                    [
+                        "upnp",
+                        "uuid:317cc104-c3d8-408f-b0da-2af4f202449e_kbyte/sec_sent"
+                    ],
+                    [
+                        "upnp",
+                        "uuid:317cc104-c3d8-408f-b0da-2af4f202449e_kbyte/sec_received"
+                    ],
+                    [
+                        "upnp",
+                        "uuid:317cc104-c3d8-408f-b0da-2af4f202449e_packets_sent"
+                    ],
+                    [
+                        "upnp",
+                        "uuid:317cc104-c3d8-408f-b0da-2af4f202449e_bytes_sent"
+                    ],
+                    [
+                        "upnp",
+                        "uuid:317cc104-c3d8-408f-b0da-2af4f202449e_packets_received"
+                    ],
+                    [
+                        "upnp",
+                        "uuid:317cc104-c3d8-408f-b0da-2af4f202449e"
+                    ],
+                    [
+                        "upnp",
+                        "uuid:317cc104-c3d8-408f-b0da-2af4f202449e_packets/sec_received"
+                    ],
+                    [
+                        "upnp",
+                        "uuid:317cc104-c3d8-408f-b0da-2af4f202449e_bytes_received"
+                    ],
+                    [
+                        "upnp",
+                        "uuid:317cc104-c3d8-408f-b0da-2af4f202449e_packets/sec_sent"
+                    ]
+                ],
+                "manufacturer": "Linux",
+                "model": null,
+                "name": "Verizon FiOS-G1100 packets received",
+                "name_by_user": null,
+                "sw_version": null
+            },
+            {
+                "area_id": null,
+                "config_entries": [
+                    "8064d11437844bdba8c4d008bcaff8d5"
+                ],
+                "connections": [],
+                "hub_device_id": null,
+                "id": "223eeef150cd4e76a26a47e67892a791",
+                "identifiers": [
+                    [
+                        "nest",
+                        "ZZwW85QdlV7lPKEzDIm5ntCvObJvfog7"
+                    ]
+                ],
+                "manufacturer": "Nest Labs",
+                "model": "Thermostat",
+                "name": "Living Room Thermostat",
+                "name_by_user": null,
+                "sw_version": "5.9.3-6"
+            },
+            {
+                "area_id": null,
+                "config_entries": [
+                    "8064d11437844bdba8c4d008bcaff8d5"
+                ],
+                "connections": [],
+                "hub_device_id": null,
+                "id": "179dc452751f4e289841897be874afae",
+                "identifiers": [
+                    [
+                        "nest",
+                        "ZZwW85QdlV5Q5u04MMS-0tCvObJvfog7"
+                    ]
+                ],
+                "manufacturer": "Nest Labs",
+                "model": "Thermostat",
+                "name": "Upstairs Thermostat",
+                "name_by_user": null,
+                "sw_version": "5.9.3-6"
+            },
+            {
+                "area_id": null,
+                "config_entries": [
+                    "8064d11437844bdba8c4d008bcaff8d5"
+                ],
+                "connections": [],
+                "hub_device_id": null,
+                "id": "32c68df3d26649c99e5a925a929ed329",
+                "identifiers": [
+                    [
+                        "nest",
+                        "ZZwW85QdlV5HAvSc5UCpDdCvObJvfog7"
+                    ]
+                ],
+                "manufacturer": "Nest Labs",
+                "model": "Thermostat",
+                "name": "Basement Thermostat",
+                "name_by_user": null,
+                "sw_version": "5.9.3-6"
+            },
+            {
+                "area_id": null,
+                "config_entries": [
+                    "8064d11437844bdba8c4d008bcaff8d5"
+                ],
+                "connections": [],
+                "hub_device_id": null,
+                "id": "c556577a436649899b66da4a345a3ad9",
+                "identifiers": [
+                    [
+                        "nest",
+                        "jBdhvhjipHknGnSTUy3cLdPMAIuTM_ahywhWLRj5zInQrzmyb36IOw"
+                    ]
+                ],
+                "manufacturer": "Nest Labs",
+                "model": "Camera",
+                "name": "Living Room Camera",
+                "name_by_user": null,
+                "sw_version": null
+            },
+            {
+                "area_id": null,
+                "config_entries": [
+                    "8064d11437844bdba8c4d008bcaff8d5"
+                ],
+                "connections": [],
+                "hub_device_id": null,
+                "id": "7deafda89e074b17a7b24926afb1c16d",
+                "identifiers": [
+                    [
+                        "nest",
+                        "qdXDgkE_3pYpf9BHMobtXXyopIrjQcNxds48Nj-Qx1nQrzmyb36IOw"
+                    ]
+                ],
+                "manufacturer": "Nest Labs",
+                "model": "Camera",
+                "name": "Backyard Camera",
+                "name_by_user": null,
+                "sw_version": null
+            },
+            {
+                "area_id": null,
+                "config_entries": [
+                    "8064d11437844bdba8c4d008bcaff8d5"
+                ],
+                "connections": [],
+                "hub_device_id": null,
+                "id": "643099302320402ba6f065c96415002f",
+                "identifiers": [
+                    [
+                        "nest",
+                        "2tAGIcFFeT6W54wLB7NchXYQ_2s_2CmKsG2DMkimEjufUJ3wG4k6DA"
+                    ]
+                ],
+                "manufacturer": "Nest Labs",
+                "model": "Structure",
+                "name": "Rodriguez Home",
+                "name_by_user": null,
+                "sw_version": null
+            },
+            {
+                "area_id": null,
+                "config_entries": [
+                    "8064d11437844bdba8c4d008bcaff8d5"
+                ],
+                "connections": [],
+                "hub_device_id": null,
+                "id": "ce7eddb2c1ce4e8cac4be0d64d9adb20",
+                "identifiers": [
+                    [
+                        "nest",
+                        "_nBTtvdMo3rg41Tjg30QF-7KoSAqOhw2W9g1p4NeRPLQrzmyb36IOw"
+                    ]
+                ],
+                "manufacturer": "Nest Labs",
+                "model": "Camera",
+                "name": "Driveway Camera",
+                "name_by_user": null,
+                "sw_version": null
+            },
+            {
+                "area_id": null,
+                "config_entries": [
+                    "8064d11437844bdba8c4d008bcaff8d5"
+                ],
+                "connections": [],
+                "hub_device_id": null,
+                "id": "d35777da742c4421ba65a7a3d3406b87",
+                "identifiers": [
+                    [
+                        "nest",
+                        "DcIfJx-WFs4NU5xZMFDa3v1xC7gPFUNAyE8cvEwgctvQrzmyb36IOw"
+                    ]
+                ],
+                "manufacturer": "Nest Labs",
+                "model": "Camera",
+                "name": "Basement Camera",
+                "name_by_user": null,
+                "sw_version": null
+            },
+            {
+                "area_id": null,
+                "config_entries": [
+                    "8c7e28cbf1514327ad3c34d86a51359f"
+                ],
+                "connections": [],
+                "hub_device_id": null,
+                "id": "eb9007c850f5428ba2fb4fb0011f6530",
+                "identifiers": [
+                    [
+                        "ios",
+                        "51C3CC91-252C-4F35-A1BE-276D67D43982"
+                    ]
+                ],
+                "manufacturer": "Apple",
+                "model": "iPhone X",
+                "name": "JoeRod's iPhone",
+                "name_by_user": null,
+                "sw_version": "12.2"
+            }
+        ]
+    },
+    "key": "core.device_registry",
+    "version": 1
+}

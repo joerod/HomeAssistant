@@ -1,0 +1,1043 @@
+{
+    "data": {
+        "entities": [
+            {
+                "config_entry_id": "b18d51a2c75e4ad6b8838963624c6707",
+                "device_id": "01c08aac47f64c4384d8b9c1c6442d40",
+                "disabled_by": null,
+                "entity_id": "media_player.basement",
+                "name": null,
+                "platform": "sonos",
+                "unique_id": "RINCON_949F3E8C1ADE01400"
+            },
+            {
+                "config_entry_id": "b18d51a2c75e4ad6b8838963624c6707",
+                "device_id": "5d0690f4a1874949b4e13a811111b221",
+                "disabled_by": null,
+                "entity_id": "media_player.kitchen",
+                "name": null,
+                "platform": "sonos",
+                "unique_id": "RINCON_7828CA07EC5601400"
+            },
+            {
+                "config_entry_id": "8064d11437844bdba8c4d008bcaff8d5",
+                "device_id": "32c68df3d26649c99e5a925a929ed329",
+                "disabled_by": null,
+                "entity_id": "climate.basement",
+                "name": null,
+                "platform": "nest",
+                "unique_id": "ZZwW85QdlV5HAvSc5UCpDdCvObJvfog7"
+            },
+            {
+                "config_entry_id": "8064d11437844bdba8c4d008bcaff8d5",
+                "device_id": "223eeef150cd4e76a26a47e67892a791",
+                "disabled_by": null,
+                "entity_id": "climate.living_room",
+                "name": null,
+                "platform": "nest",
+                "unique_id": "ZZwW85QdlV7lPKEzDIm5ntCvObJvfog7"
+            },
+            {
+                "config_entry_id": "8064d11437844bdba8c4d008bcaff8d5",
+                "device_id": "179dc452751f4e289841897be874afae",
+                "disabled_by": null,
+                "entity_id": "climate.upstairs",
+                "name": null,
+                "platform": "nest",
+                "unique_id": "ZZwW85QdlV5Q5u04MMS-0tCvObJvfog7"
+            },
+            {
+                "config_entry_id": null,
+                "device_id": null,
+                "disabled_by": null,
+                "entity_id": "media_player.basement_tv",
+                "name": null,
+                "platform": "cast",
+                "unique_id": "21c29bb1-c1fa-4df6-907f-f244163f2a42"
+            },
+            {
+                "config_entry_id": "8c7e28cbf1514327ad3c34d86a51359f",
+                "device_id": "eb9007c850f5428ba2fb4fb0011f6530",
+                "disabled_by": null,
+                "entity_id": "sensor.joerods_iphone_battery_state",
+                "name": null,
+                "platform": "ios",
+                "unique_id": "state_joerods_iphone"
+            },
+            {
+                "config_entry_id": "8c7e28cbf1514327ad3c34d86a51359f",
+                "device_id": "eb9007c850f5428ba2fb4fb0011f6530",
+                "disabled_by": null,
+                "entity_id": "sensor.joerods_iphone_battery_level",
+                "name": null,
+                "platform": "ios",
+                "unique_id": "level_joerods_iphone"
+            },
+            {
+                "config_entry_id": null,
+                "device_id": null,
+                "disabled_by": null,
+                "entity_id": "binary_sensor.remote_ui",
+                "name": null,
+                "platform": "cloud",
+                "unique_id": "cloud-remote-ui-connectivity"
+            },
+            {
+                "config_entry_id": "0107f2712af1471aa058051db11b4b38",
+                "device_id": "0d1447c481af41c794557a2c750ef0e5",
+                "disabled_by": null,
+                "entity_id": "sensor.verizon_fios_g1100_packets_received",
+                "name": null,
+                "platform": "upnp",
+                "unique_id": "uuid:317cc104-c3d8-408f-b0da-2af4f202449e_packets_received"
+            },
+            {
+                "config_entry_id": "0107f2712af1471aa058051db11b4b38",
+                "device_id": "0d1447c481af41c794557a2c750ef0e5",
+                "disabled_by": null,
+                "entity_id": "sensor.verizon_fios_g1100_kbyte_sec_received",
+                "name": null,
+                "platform": "upnp",
+                "unique_id": "uuid:317cc104-c3d8-408f-b0da-2af4f202449e_kbyte/sec_received"
+            },
+            {
+                "config_entry_id": "0107f2712af1471aa058051db11b4b38",
+                "device_id": "0d1447c481af41c794557a2c750ef0e5",
+                "disabled_by": null,
+                "entity_id": "sensor.verizon_fios_g1100_bytes_received",
+                "name": null,
+                "platform": "upnp",
+                "unique_id": "uuid:317cc104-c3d8-408f-b0da-2af4f202449e_bytes_received"
+            },
+            {
+                "config_entry_id": "0107f2712af1471aa058051db11b4b38",
+                "device_id": "0d1447c481af41c794557a2c750ef0e5",
+                "disabled_by": null,
+                "entity_id": "sensor.verizon_fios_g1100_kbyte_sec_sent",
+                "name": null,
+                "platform": "upnp",
+                "unique_id": "uuid:317cc104-c3d8-408f-b0da-2af4f202449e_kbyte/sec_sent"
+            },
+            {
+                "config_entry_id": "0107f2712af1471aa058051db11b4b38",
+                "device_id": "0d1447c481af41c794557a2c750ef0e5",
+                "disabled_by": null,
+                "entity_id": "sensor.verizon_fios_g1100_packets_sec_sent",
+                "name": null,
+                "platform": "upnp",
+                "unique_id": "uuid:317cc104-c3d8-408f-b0da-2af4f202449e_packets/sec_sent"
+            },
+            {
+                "config_entry_id": "0107f2712af1471aa058051db11b4b38",
+                "device_id": "0d1447c481af41c794557a2c750ef0e5",
+                "disabled_by": null,
+                "entity_id": "sensor.verizon_fios_g1100_packets_sent",
+                "name": null,
+                "platform": "upnp",
+                "unique_id": "uuid:317cc104-c3d8-408f-b0da-2af4f202449e_packets_sent"
+            },
+            {
+                "config_entry_id": "0107f2712af1471aa058051db11b4b38",
+                "device_id": "0d1447c481af41c794557a2c750ef0e5",
+                "disabled_by": null,
+                "entity_id": "sensor.verizon_fios_g1100_packets_sec_received",
+                "name": null,
+                "platform": "upnp",
+                "unique_id": "uuid:317cc104-c3d8-408f-b0da-2af4f202449e_packets/sec_received"
+            },
+            {
+                "config_entry_id": "0107f2712af1471aa058051db11b4b38",
+                "device_id": "0d1447c481af41c794557a2c750ef0e5",
+                "disabled_by": null,
+                "entity_id": "sensor.verizon_fios_g1100_bytes_sent",
+                "name": null,
+                "platform": "upnp",
+                "unique_id": "uuid:317cc104-c3d8-408f-b0da-2af4f202449e_bytes_sent"
+            },
+            {
+                "config_entry_id": "8064d11437844bdba8c4d008bcaff8d5",
+                "device_id": "223eeef150cd4e76a26a47e67892a791",
+                "disabled_by": null,
+                "entity_id": "sensor.living_room_thermostat_target",
+                "name": null,
+                "platform": "nest",
+                "unique_id": "ZZwW85QdlV7lPKEzDIm5ntCvObJvfog7-target"
+            },
+            {
+                "config_entry_id": "8064d11437844bdba8c4d008bcaff8d5",
+                "device_id": "179dc452751f4e289841897be874afae",
+                "disabled_by": null,
+                "entity_id": "binary_sensor.upstairs_thermostat_is_locked",
+                "name": null,
+                "platform": "nest",
+                "unique_id": "ZZwW85QdlV5Q5u04MMS-0tCvObJvfog7-is_locked"
+            },
+            {
+                "config_entry_id": "8064d11437844bdba8c4d008bcaff8d5",
+                "device_id": "32c68df3d26649c99e5a925a929ed329",
+                "disabled_by": null,
+                "entity_id": "sensor.basement_thermostat_humidity",
+                "name": null,
+                "platform": "nest",
+                "unique_id": "ZZwW85QdlV5HAvSc5UCpDdCvObJvfog7-humidity"
+            },
+            {
+                "config_entry_id": "8064d11437844bdba8c4d008bcaff8d5",
+                "device_id": "c556577a436649899b66da4a345a3ad9",
+                "disabled_by": null,
+                "entity_id": "binary_sensor.living_room_camera_motion_detected",
+                "name": null,
+                "platform": "nest",
+                "unique_id": "jBdhvhjipHknGnSTUy3cLdPMAIuTM_ahywhWLRj5zInQrzmyb36IOw-motion_detected"
+            },
+            {
+                "config_entry_id": "8064d11437844bdba8c4d008bcaff8d5",
+                "device_id": "32c68df3d26649c99e5a925a929ed329",
+                "disabled_by": null,
+                "entity_id": "sensor.basement_thermostat_target",
+                "name": null,
+                "platform": "nest",
+                "unique_id": "ZZwW85QdlV5HAvSc5UCpDdCvObJvfog7-target"
+            },
+            {
+                "config_entry_id": "8064d11437844bdba8c4d008bcaff8d5",
+                "device_id": "179dc452751f4e289841897be874afae",
+                "disabled_by": null,
+                "entity_id": "binary_sensor.upstairs_thermostat_has_leaf",
+                "name": null,
+                "platform": "nest",
+                "unique_id": "ZZwW85QdlV5Q5u04MMS-0tCvObJvfog7-has_leaf"
+            },
+            {
+                "config_entry_id": "8064d11437844bdba8c4d008bcaff8d5",
+                "device_id": "c556577a436649899b66da4a345a3ad9",
+                "disabled_by": null,
+                "entity_id": "camera.living_room",
+                "name": null,
+                "platform": "nest",
+                "unique_id": "jBdhvhjipHknGnSTUy3cLdPMAIuTM_ahywhWLRj5zInQrzmyb36IOw"
+            },
+            {
+                "config_entry_id": "8064d11437844bdba8c4d008bcaff8d5",
+                "device_id": "223eeef150cd4e76a26a47e67892a791",
+                "disabled_by": null,
+                "entity_id": "sensor.living_room_thermostat_operation_mode",
+                "name": null,
+                "platform": "nest",
+                "unique_id": "ZZwW85QdlV7lPKEzDIm5ntCvObJvfog7-operation_mode"
+            },
+            {
+                "config_entry_id": "8064d11437844bdba8c4d008bcaff8d5",
+                "device_id": "c556577a436649899b66da4a345a3ad9",
+                "disabled_by": null,
+                "entity_id": "binary_sensor.living_room_camera_sound_detected",
+                "name": null,
+                "platform": "nest",
+                "unique_id": "jBdhvhjipHknGnSTUy3cLdPMAIuTM_ahywhWLRj5zInQrzmyb36IOw-sound_detected"
+            },
+            {
+                "config_entry_id": "8064d11437844bdba8c4d008bcaff8d5",
+                "device_id": "7deafda89e074b17a7b24926afb1c16d",
+                "disabled_by": null,
+                "entity_id": "camera.backyard",
+                "name": null,
+                "platform": "nest",
+                "unique_id": "qdXDgkE_3pYpf9BHMobtXXyopIrjQcNxds48Nj-Qx1nQrzmyb36IOw"
+            },
+            {
+                "config_entry_id": "8064d11437844bdba8c4d008bcaff8d5",
+                "device_id": "643099302320402ba6f065c96415002f",
+                "disabled_by": null,
+                "entity_id": "sensor.rodriguez_home_eta",
+                "name": null,
+                "platform": "nest",
+                "unique_id": "2tAGIcFFeT6W54wLB7NchXYQ_2s_2CmKsG2DMkimEjufUJ3wG4k6DA-eta"
+            },
+            {
+                "config_entry_id": "8064d11437844bdba8c4d008bcaff8d5",
+                "device_id": "32c68df3d26649c99e5a925a929ed329",
+                "disabled_by": null,
+                "entity_id": "binary_sensor.basement_thermostat_online",
+                "name": null,
+                "platform": "nest",
+                "unique_id": "ZZwW85QdlV5HAvSc5UCpDdCvObJvfog7-online"
+            },
+            {
+                "config_entry_id": "8064d11437844bdba8c4d008bcaff8d5",
+                "device_id": "ce7eddb2c1ce4e8cac4be0d64d9adb20",
+                "disabled_by": null,
+                "entity_id": "camera.driveway",
+                "name": null,
+                "platform": "nest",
+                "unique_id": "_nBTtvdMo3rg41Tjg30QF-7KoSAqOhw2W9g1p4NeRPLQrzmyb36IOw"
+            },
+            {
+                "config_entry_id": "8064d11437844bdba8c4d008bcaff8d5",
+                "device_id": "179dc452751f4e289841897be874afae",
+                "disabled_by": null,
+                "entity_id": "sensor.upstairs_thermostat_humidity",
+                "name": null,
+                "platform": "nest",
+                "unique_id": "ZZwW85QdlV5Q5u04MMS-0tCvObJvfog7-humidity"
+            },
+            {
+                "config_entry_id": "8064d11437844bdba8c4d008bcaff8d5",
+                "device_id": "c556577a436649899b66da4a345a3ad9",
+                "disabled_by": null,
+                "entity_id": "binary_sensor.living_room_camera_person_detected",
+                "name": null,
+                "platform": "nest",
+                "unique_id": "jBdhvhjipHknGnSTUy3cLdPMAIuTM_ahywhWLRj5zInQrzmyb36IOw-person_detected"
+            },
+            {
+                "config_entry_id": "8064d11437844bdba8c4d008bcaff8d5",
+                "device_id": "d35777da742c4421ba65a7a3d3406b87",
+                "disabled_by": null,
+                "entity_id": "camera.basement",
+                "name": null,
+                "platform": "nest",
+                "unique_id": "DcIfJx-WFs4NU5xZMFDa3v1xC7gPFUNAyE8cvEwgctvQrzmyb36IOw"
+            },
+            {
+                "config_entry_id": "8064d11437844bdba8c4d008bcaff8d5",
+                "device_id": "179dc452751f4e289841897be874afae",
+                "disabled_by": null,
+                "entity_id": "sensor.upstairs_thermostat_temperature",
+                "name": null,
+                "platform": "nest",
+                "unique_id": "ZZwW85QdlV5Q5u04MMS-0tCvObJvfog7-temperature"
+            },
+            {
+                "config_entry_id": "8064d11437844bdba8c4d008bcaff8d5",
+                "device_id": "32c68df3d26649c99e5a925a929ed329",
+                "disabled_by": null,
+                "entity_id": "binary_sensor.basement_thermostat_fan",
+                "name": null,
+                "platform": "nest",
+                "unique_id": "ZZwW85QdlV5HAvSc5UCpDdCvObJvfog7-fan"
+            },
+            {
+                "config_entry_id": "8064d11437844bdba8c4d008bcaff8d5",
+                "device_id": "32c68df3d26649c99e5a925a929ed329",
+                "disabled_by": null,
+                "entity_id": "sensor.basement_thermostat_operation_mode",
+                "name": null,
+                "platform": "nest",
+                "unique_id": "ZZwW85QdlV5HAvSc5UCpDdCvObJvfog7-operation_mode"
+            },
+            {
+                "config_entry_id": "8064d11437844bdba8c4d008bcaff8d5",
+                "device_id": "ce7eddb2c1ce4e8cac4be0d64d9adb20",
+                "disabled_by": null,
+                "entity_id": "binary_sensor.driveway_camera_online",
+                "name": null,
+                "platform": "nest",
+                "unique_id": "_nBTtvdMo3rg41Tjg30QF-7KoSAqOhw2W9g1p4NeRPLQrzmyb36IOw-online"
+            },
+            {
+                "config_entry_id": "8064d11437844bdba8c4d008bcaff8d5",
+                "device_id": "643099302320402ba6f065c96415002f",
+                "disabled_by": null,
+                "entity_id": "sensor.rodriguez_home_security_state",
+                "name": null,
+                "platform": "nest",
+                "unique_id": "2tAGIcFFeT6W54wLB7NchXYQ_2s_2CmKsG2DMkimEjufUJ3wG4k6DA-security_state"
+            },
+            {
+                "config_entry_id": "8064d11437844bdba8c4d008bcaff8d5",
+                "device_id": "32c68df3d26649c99e5a925a929ed329",
+                "disabled_by": null,
+                "entity_id": "binary_sensor.basement_thermostat_is_using_emergency_heat",
+                "name": null,
+                "platform": "nest",
+                "unique_id": "ZZwW85QdlV5HAvSc5UCpDdCvObJvfog7-is_using_emergency_heat"
+            },
+            {
+                "config_entry_id": "8064d11437844bdba8c4d008bcaff8d5",
+                "device_id": "223eeef150cd4e76a26a47e67892a791",
+                "disabled_by": null,
+                "entity_id": "sensor.living_room_thermostat_temperature",
+                "name": null,
+                "platform": "nest",
+                "unique_id": "ZZwW85QdlV7lPKEzDIm5ntCvObJvfog7-temperature"
+            },
+            {
+                "config_entry_id": "8064d11437844bdba8c4d008bcaff8d5",
+                "device_id": "ce7eddb2c1ce4e8cac4be0d64d9adb20",
+                "disabled_by": null,
+                "entity_id": "binary_sensor.driveway_camera_motion_detected",
+                "name": null,
+                "platform": "nest",
+                "unique_id": "_nBTtvdMo3rg41Tjg30QF-7KoSAqOhw2W9g1p4NeRPLQrzmyb36IOw-motion_detected"
+            },
+            {
+                "config_entry_id": "8064d11437844bdba8c4d008bcaff8d5",
+                "device_id": "179dc452751f4e289841897be874afae",
+                "disabled_by": null,
+                "entity_id": "sensor.upstairs_thermostat_hvac_state",
+                "name": null,
+                "platform": "nest",
+                "unique_id": "ZZwW85QdlV5Q5u04MMS-0tCvObJvfog7-hvac_state"
+            },
+            {
+                "config_entry_id": "8064d11437844bdba8c4d008bcaff8d5",
+                "device_id": "32c68df3d26649c99e5a925a929ed329",
+                "disabled_by": null,
+                "entity_id": "binary_sensor.basement_thermostat_is_locked",
+                "name": null,
+                "platform": "nest",
+                "unique_id": "ZZwW85QdlV5HAvSc5UCpDdCvObJvfog7-is_locked"
+            },
+            {
+                "config_entry_id": "8064d11437844bdba8c4d008bcaff8d5",
+                "device_id": "223eeef150cd4e76a26a47e67892a791",
+                "disabled_by": null,
+                "entity_id": "sensor.living_room_thermostat_hvac_state",
+                "name": null,
+                "platform": "nest",
+                "unique_id": "ZZwW85QdlV7lPKEzDIm5ntCvObJvfog7-hvac_state"
+            },
+            {
+                "config_entry_id": "8064d11437844bdba8c4d008bcaff8d5",
+                "device_id": "ce7eddb2c1ce4e8cac4be0d64d9adb20",
+                "disabled_by": null,
+                "entity_id": "binary_sensor.driveway_camera_sound_detected",
+                "name": null,
+                "platform": "nest",
+                "unique_id": "_nBTtvdMo3rg41Tjg30QF-7KoSAqOhw2W9g1p4NeRPLQrzmyb36IOw-sound_detected"
+            },
+            {
+                "config_entry_id": "8064d11437844bdba8c4d008bcaff8d5",
+                "device_id": "179dc452751f4e289841897be874afae",
+                "disabled_by": null,
+                "entity_id": "sensor.upstairs_thermostat_operation_mode",
+                "name": null,
+                "platform": "nest",
+                "unique_id": "ZZwW85QdlV5Q5u04MMS-0tCvObJvfog7-operation_mode"
+            },
+            {
+                "config_entry_id": "8064d11437844bdba8c4d008bcaff8d5",
+                "device_id": "643099302320402ba6f065c96415002f",
+                "disabled_by": null,
+                "entity_id": "binary_sensor.rodriguez_home_away",
+                "name": null,
+                "platform": "nest",
+                "unique_id": "2tAGIcFFeT6W54wLB7NchXYQ_2s_2CmKsG2DMkimEjufUJ3wG4k6DA-away"
+            },
+            {
+                "config_entry_id": "8064d11437844bdba8c4d008bcaff8d5",
+                "device_id": "179dc452751f4e289841897be874afae",
+                "disabled_by": null,
+                "entity_id": "sensor.upstairs_thermostat_target",
+                "name": null,
+                "platform": "nest",
+                "unique_id": "ZZwW85QdlV5Q5u04MMS-0tCvObJvfog7-target"
+            },
+            {
+                "config_entry_id": "8064d11437844bdba8c4d008bcaff8d5",
+                "device_id": "32c68df3d26649c99e5a925a929ed329",
+                "disabled_by": null,
+                "entity_id": "binary_sensor.basement_thermostat_has_leaf",
+                "name": null,
+                "platform": "nest",
+                "unique_id": "ZZwW85QdlV5HAvSc5UCpDdCvObJvfog7-has_leaf"
+            },
+            {
+                "config_entry_id": "8064d11437844bdba8c4d008bcaff8d5",
+                "device_id": "32c68df3d26649c99e5a925a929ed329",
+                "disabled_by": null,
+                "entity_id": "sensor.basement_thermostat_hvac_state",
+                "name": null,
+                "platform": "nest",
+                "unique_id": "ZZwW85QdlV5HAvSc5UCpDdCvObJvfog7-hvac_state"
+            },
+            {
+                "config_entry_id": "8064d11437844bdba8c4d008bcaff8d5",
+                "device_id": "ce7eddb2c1ce4e8cac4be0d64d9adb20",
+                "disabled_by": null,
+                "entity_id": "binary_sensor.driveway_camera_person_detected",
+                "name": null,
+                "platform": "nest",
+                "unique_id": "_nBTtvdMo3rg41Tjg30QF-7KoSAqOhw2W9g1p4NeRPLQrzmyb36IOw-person_detected"
+            },
+            {
+                "config_entry_id": "8064d11437844bdba8c4d008bcaff8d5",
+                "device_id": "223eeef150cd4e76a26a47e67892a791",
+                "disabled_by": null,
+                "entity_id": "sensor.living_room_thermostat_humidity",
+                "name": null,
+                "platform": "nest",
+                "unique_id": "ZZwW85QdlV7lPKEzDIm5ntCvObJvfog7-humidity"
+            },
+            {
+                "config_entry_id": "8064d11437844bdba8c4d008bcaff8d5",
+                "device_id": "7deafda89e074b17a7b24926afb1c16d",
+                "disabled_by": null,
+                "entity_id": "binary_sensor.backyard_camera_online",
+                "name": null,
+                "platform": "nest",
+                "unique_id": "qdXDgkE_3pYpf9BHMobtXXyopIrjQcNxds48Nj-Qx1nQrzmyb36IOw-online"
+            },
+            {
+                "config_entry_id": "8064d11437844bdba8c4d008bcaff8d5",
+                "device_id": "32c68df3d26649c99e5a925a929ed329",
+                "disabled_by": null,
+                "entity_id": "sensor.basement_thermostat_temperature",
+                "name": null,
+                "platform": "nest",
+                "unique_id": "ZZwW85QdlV5HAvSc5UCpDdCvObJvfog7-temperature"
+            },
+            {
+                "config_entry_id": "8064d11437844bdba8c4d008bcaff8d5",
+                "device_id": "223eeef150cd4e76a26a47e67892a791",
+                "disabled_by": null,
+                "entity_id": "binary_sensor.living_room_thermostat_online",
+                "name": null,
+                "platform": "nest",
+                "unique_id": "ZZwW85QdlV7lPKEzDIm5ntCvObJvfog7-online"
+            },
+            {
+                "config_entry_id": "8064d11437844bdba8c4d008bcaff8d5",
+                "device_id": "223eeef150cd4e76a26a47e67892a791",
+                "disabled_by": null,
+                "entity_id": "binary_sensor.living_room_thermostat_fan",
+                "name": null,
+                "platform": "nest",
+                "unique_id": "ZZwW85QdlV7lPKEzDIm5ntCvObJvfog7-fan"
+            },
+            {
+                "config_entry_id": "8064d11437844bdba8c4d008bcaff8d5",
+                "device_id": "7deafda89e074b17a7b24926afb1c16d",
+                "disabled_by": null,
+                "entity_id": "binary_sensor.backyard_camera_sound_detected",
+                "name": null,
+                "platform": "nest",
+                "unique_id": "qdXDgkE_3pYpf9BHMobtXXyopIrjQcNxds48Nj-Qx1nQrzmyb36IOw-sound_detected"
+            },
+            {
+                "config_entry_id": "8064d11437844bdba8c4d008bcaff8d5",
+                "device_id": "223eeef150cd4e76a26a47e67892a791",
+                "disabled_by": null,
+                "entity_id": "binary_sensor.living_room_thermostat_is_using_emergency_heat",
+                "name": null,
+                "platform": "nest",
+                "unique_id": "ZZwW85QdlV7lPKEzDIm5ntCvObJvfog7-is_using_emergency_heat"
+            },
+            {
+                "config_entry_id": "8064d11437844bdba8c4d008bcaff8d5",
+                "device_id": "7deafda89e074b17a7b24926afb1c16d",
+                "disabled_by": null,
+                "entity_id": "binary_sensor.backyard_camera_person_detected",
+                "name": null,
+                "platform": "nest",
+                "unique_id": "qdXDgkE_3pYpf9BHMobtXXyopIrjQcNxds48Nj-Qx1nQrzmyb36IOw-person_detected"
+            },
+            {
+                "config_entry_id": "8064d11437844bdba8c4d008bcaff8d5",
+                "device_id": "223eeef150cd4e76a26a47e67892a791",
+                "disabled_by": null,
+                "entity_id": "binary_sensor.living_room_thermostat_is_locked",
+                "name": null,
+                "platform": "nest",
+                "unique_id": "ZZwW85QdlV7lPKEzDIm5ntCvObJvfog7-is_locked"
+            },
+            {
+                "config_entry_id": "8064d11437844bdba8c4d008bcaff8d5",
+                "device_id": "d35777da742c4421ba65a7a3d3406b87",
+                "disabled_by": null,
+                "entity_id": "binary_sensor.basement_camera_online",
+                "name": null,
+                "platform": "nest",
+                "unique_id": "DcIfJx-WFs4NU5xZMFDa3v1xC7gPFUNAyE8cvEwgctvQrzmyb36IOw-online"
+            },
+            {
+                "config_entry_id": "8064d11437844bdba8c4d008bcaff8d5",
+                "device_id": "223eeef150cd4e76a26a47e67892a791",
+                "disabled_by": null,
+                "entity_id": "binary_sensor.living_room_thermostat_has_leaf",
+                "name": null,
+                "platform": "nest",
+                "unique_id": "ZZwW85QdlV7lPKEzDIm5ntCvObJvfog7-has_leaf"
+            },
+            {
+                "config_entry_id": "8064d11437844bdba8c4d008bcaff8d5",
+                "device_id": "d35777da742c4421ba65a7a3d3406b87",
+                "disabled_by": null,
+                "entity_id": "binary_sensor.basement_camera_motion_detected",
+                "name": null,
+                "platform": "nest",
+                "unique_id": "DcIfJx-WFs4NU5xZMFDa3v1xC7gPFUNAyE8cvEwgctvQrzmyb36IOw-motion_detected"
+            },
+            {
+                "config_entry_id": "8064d11437844bdba8c4d008bcaff8d5",
+                "device_id": "179dc452751f4e289841897be874afae",
+                "disabled_by": null,
+                "entity_id": "binary_sensor.upstairs_thermostat_online",
+                "name": null,
+                "platform": "nest",
+                "unique_id": "ZZwW85QdlV5Q5u04MMS-0tCvObJvfog7-online"
+            },
+            {
+                "config_entry_id": "8064d11437844bdba8c4d008bcaff8d5",
+                "device_id": "d35777da742c4421ba65a7a3d3406b87",
+                "disabled_by": null,
+                "entity_id": "binary_sensor.basement_camera_sound_detected",
+                "name": null,
+                "platform": "nest",
+                "unique_id": "DcIfJx-WFs4NU5xZMFDa3v1xC7gPFUNAyE8cvEwgctvQrzmyb36IOw-sound_detected"
+            },
+            {
+                "config_entry_id": "8064d11437844bdba8c4d008bcaff8d5",
+                "device_id": "179dc452751f4e289841897be874afae",
+                "disabled_by": null,
+                "entity_id": "binary_sensor.upstairs_thermostat_fan",
+                "name": null,
+                "platform": "nest",
+                "unique_id": "ZZwW85QdlV5Q5u04MMS-0tCvObJvfog7-fan"
+            },
+            {
+                "config_entry_id": "8064d11437844bdba8c4d008bcaff8d5",
+                "device_id": "d35777da742c4421ba65a7a3d3406b87",
+                "disabled_by": null,
+                "entity_id": "binary_sensor.basement_camera_person_detected",
+                "name": null,
+                "platform": "nest",
+                "unique_id": "DcIfJx-WFs4NU5xZMFDa3v1xC7gPFUNAyE8cvEwgctvQrzmyb36IOw-person_detected"
+            },
+            {
+                "config_entry_id": "8064d11437844bdba8c4d008bcaff8d5",
+                "device_id": "179dc452751f4e289841897be874afae",
+                "disabled_by": null,
+                "entity_id": "binary_sensor.upstairs_thermostat_is_using_emergency_heat",
+                "name": null,
+                "platform": "nest",
+                "unique_id": "ZZwW85QdlV5Q5u04MMS-0tCvObJvfog7-is_using_emergency_heat"
+            },
+            {
+                "config_entry_id": "8064d11437844bdba8c4d008bcaff8d5",
+                "device_id": "c556577a436649899b66da4a345a3ad9",
+                "disabled_by": null,
+                "entity_id": "binary_sensor.living_room_camera_online",
+                "name": null,
+                "platform": "nest",
+                "unique_id": "jBdhvhjipHknGnSTUy3cLdPMAIuTM_ahywhWLRj5zInQrzmyb36IOw-online"
+            },
+            {
+                "config_entry_id": "8064d11437844bdba8c4d008bcaff8d5",
+                "device_id": "7deafda89e074b17a7b24926afb1c16d",
+                "disabled_by": null,
+                "entity_id": "binary_sensor.backyard_camera_motion_detected",
+                "name": null,
+                "platform": "nest",
+                "unique_id": "qdXDgkE_3pYpf9BHMobtXXyopIrjQcNxds48Nj-Qx1nQrzmyb36IOw-motion_detected"
+            },
+            {
+                "config_entry_id": null,
+                "device_id": null,
+                "disabled_by": null,
+                "entity_id": "binary_sensor.basement_door_opened",
+                "name": null,
+                "platform": "wink",
+                "unique_id": "348428_opened"
+            },
+            {
+                "config_entry_id": null,
+                "device_id": null,
+                "disabled_by": null,
+                "entity_id": "climate.rodriguez_home_basement_thermostat",
+                "name": null,
+                "platform": "wink",
+                "unique_id": "209931"
+            },
+            {
+                "config_entry_id": null,
+                "device_id": null,
+                "disabled_by": null,
+                "entity_id": "climate.master_bedroom",
+                "name": null,
+                "platform": "wink",
+                "unique_id": "233819"
+            },
+            {
+                "config_entry_id": null,
+                "device_id": null,
+                "disabled_by": null,
+                "entity_id": "binary_sensor.kidde_smoke_detector_livingroom_smoke_detected",
+                "name": null,
+                "platform": "wink",
+                "unique_id": "119980_smoke_detected"
+            },
+            {
+                "config_entry_id": null,
+                "device_id": null,
+                "disabled_by": null,
+                "entity_id": "lock.side_door",
+                "name": null,
+                "platform": "wink",
+                "unique_id": "135673"
+            },
+            {
+                "config_entry_id": null,
+                "device_id": null,
+                "disabled_by": null,
+                "entity_id": "switch.kitchen_light",
+                "name": null,
+                "platform": "wink",
+                "unique_id": "404642"
+            },
+            {
+                "config_entry_id": null,
+                "device_id": null,
+                "disabled_by": null,
+                "entity_id": "binary_sensor.kidde_smoke_detector_livingroom_co_detected",
+                "name": null,
+                "platform": "wink",
+                "unique_id": "119980_co_detected"
+            },
+            {
+                "config_entry_id": null,
+                "device_id": null,
+                "disabled_by": null,
+                "entity_id": "climate.rodriguez_home_living_room_thermostat",
+                "name": null,
+                "platform": "wink",
+                "unique_id": "267719"
+            },
+            {
+                "config_entry_id": null,
+                "device_id": null,
+                "disabled_by": null,
+                "entity_id": "lock.front_door",
+                "name": null,
+                "platform": "wink",
+                "unique_id": "142223"
+            },
+            {
+                "config_entry_id": null,
+                "device_id": null,
+                "disabled_by": null,
+                "entity_id": "climate.rodriguez_home_upstairs_thermostat",
+                "name": null,
+                "platform": "wink",
+                "unique_id": "275717"
+            },
+            {
+                "config_entry_id": null,
+                "device_id": null,
+                "disabled_by": null,
+                "entity_id": "switch.front_lights",
+                "name": null,
+                "platform": "wink",
+                "unique_id": "404730"
+            },
+            {
+                "config_entry_id": null,
+                "device_id": null,
+                "disabled_by": null,
+                "entity_id": "switch.basement_switch",
+                "name": null,
+                "platform": "wink",
+                "unique_id": "413446"
+            },
+            {
+                "config_entry_id": null,
+                "device_id": null,
+                "disabled_by": null,
+                "entity_id": "scene.lock_doors",
+                "name": null,
+                "platform": "wink",
+                "unique_id": "5165617"
+            },
+            {
+                "config_entry_id": null,
+                "device_id": null,
+                "disabled_by": null,
+                "entity_id": "light.arabella_s_night_light",
+                "name": null,
+                "platform": "wink",
+                "unique_id": "2486728"
+            },
+            {
+                "config_entry_id": null,
+                "device_id": null,
+                "disabled_by": null,
+                "entity_id": "switch.pool_light",
+                "name": null,
+                "platform": "wink",
+                "unique_id": "413461"
+            },
+            {
+                "config_entry_id": null,
+                "device_id": null,
+                "disabled_by": null,
+                "entity_id": "scene.turn_on_all_inside_lights",
+                "name": null,
+                "platform": "wink",
+                "unique_id": "5165623"
+            },
+            {
+                "config_entry_id": null,
+                "device_id": null,
+                "disabled_by": null,
+                "entity_id": "light.garden_lights",
+                "name": null,
+                "platform": "wink",
+                "unique_id": "2610928"
+            },
+            {
+                "config_entry_id": null,
+                "device_id": null,
+                "disabled_by": null,
+                "entity_id": "switch.holiday_lights",
+                "name": null,
+                "platform": "wink",
+                "unique_id": "427218"
+            },
+            {
+                "config_entry_id": null,
+                "device_id": null,
+                "disabled_by": null,
+                "entity_id": "scene.unlock_front_door",
+                "name": null,
+                "platform": "wink",
+                "unique_id": "5354744"
+            },
+            {
+                "config_entry_id": null,
+                "device_id": null,
+                "disabled_by": null,
+                "entity_id": "light.office_light",
+                "name": null,
+                "platform": "wink",
+                "unique_id": "4040972"
+            },
+            {
+                "config_entry_id": null,
+                "device_id": null,
+                "disabled_by": null,
+                "entity_id": "switch.dining_room_light",
+                "name": null,
+                "platform": "wink",
+                "unique_id": "441406"
+            },
+            {
+                "config_entry_id": null,
+                "device_id": null,
+                "disabled_by": null,
+                "entity_id": "binary_sensor.wink_hub_2",
+                "name": null,
+                "platform": "wink",
+                "unique_id": "603950"
+            },
+            {
+                "config_entry_id": null,
+                "device_id": null,
+                "disabled_by": null,
+                "entity_id": "scene.unlock_side_door",
+                "name": null,
+                "platform": "wink",
+                "unique_id": "5354809"
+            },
+            {
+                "config_entry_id": null,
+                "device_id": null,
+                "disabled_by": null,
+                "entity_id": "binary_sensor.rodriguez_home_living_room_camera_capturing_audio",
+                "name": null,
+                "platform": "wink",
+                "unique_id": "81440_capturing_audio"
+            },
+            {
+                "config_entry_id": null,
+                "device_id": null,
+                "disabled_by": null,
+                "entity_id": "switch.garden_sprinkler",
+                "name": null,
+                "platform": "wink",
+                "unique_id": "442512"
+            },
+            {
+                "config_entry_id": null,
+                "device_id": null,
+                "disabled_by": null,
+                "entity_id": "switch.yard_fence_lights",
+                "name": null,
+                "platform": "wink",
+                "unique_id": "476230"
+            },
+            {
+                "config_entry_id": null,
+                "device_id": null,
+                "disabled_by": null,
+                "entity_id": "binary_sensor.rodriguez_home_living_room_camera_capturing_video",
+                "name": null,
+                "platform": "wink",
+                "unique_id": "81440_capturing_video"
+            },
+            {
+                "config_entry_id": null,
+                "device_id": null,
+                "disabled_by": null,
+                "entity_id": "switch.side_door_light",
+                "name": null,
+                "platform": "wink",
+                "unique_id": "879776"
+            },
+            {
+                "config_entry_id": null,
+                "device_id": null,
+                "disabled_by": null,
+                "entity_id": "binary_sensor.rodriguez_home_living_room_camera_motion",
+                "name": null,
+                "platform": "wink",
+                "unique_id": "81440_motion"
+            },
+            {
+                "config_entry_id": null,
+                "device_id": null,
+                "disabled_by": null,
+                "entity_id": "binary_sensor.rodriguez_home_living_room_camera_loudness",
+                "name": null,
+                "platform": "wink",
+                "unique_id": "81440_loudness"
+            },
+            {
+                "config_entry_id": null,
+                "device_id": null,
+                "disabled_by": null,
+                "entity_id": "binary_sensor.rodriguez_home_backyard_camera_capturing_audio",
+                "name": null,
+                "platform": "wink",
+                "unique_id": "125111_capturing_audio"
+            },
+            {
+                "config_entry_id": null,
+                "device_id": null,
+                "disabled_by": null,
+                "entity_id": "binary_sensor.rodriguez_home_backyard_camera_capturing_video",
+                "name": null,
+                "platform": "wink",
+                "unique_id": "125111_capturing_video"
+            },
+            {
+                "config_entry_id": null,
+                "device_id": null,
+                "disabled_by": null,
+                "entity_id": "binary_sensor.rodriguez_home_backyard_camera_motion",
+                "name": null,
+                "platform": "wink",
+                "unique_id": "125111_motion"
+            },
+            {
+                "config_entry_id": null,
+                "device_id": null,
+                "disabled_by": null,
+                "entity_id": "binary_sensor.rodriguez_home_backyard_camera_loudness",
+                "name": null,
+                "platform": "wink",
+                "unique_id": "125111_loudness"
+            },
+            {
+                "config_entry_id": null,
+                "device_id": null,
+                "disabled_by": null,
+                "entity_id": "binary_sensor.rodriguez_home_driveway_camera_capturing_audio",
+                "name": null,
+                "platform": "wink",
+                "unique_id": "159476_capturing_audio"
+            },
+            {
+                "config_entry_id": null,
+                "device_id": null,
+                "disabled_by": null,
+                "entity_id": "binary_sensor.rodriguez_home_driveway_camera_capturing_video",
+                "name": null,
+                "platform": "wink",
+                "unique_id": "159476_capturing_video"
+            },
+            {
+                "config_entry_id": null,
+                "device_id": null,
+                "disabled_by": null,
+                "entity_id": "binary_sensor.rodriguez_home_driveway_camera_motion",
+                "name": null,
+                "platform": "wink",
+                "unique_id": "159476_motion"
+            },
+            {
+                "config_entry_id": null,
+                "device_id": null,
+                "disabled_by": null,
+                "entity_id": "binary_sensor.rodriguez_home_driveway_camera_loudness",
+                "name": null,
+                "platform": "wink",
+                "unique_id": "159476_loudness"
+            },
+            {
+                "config_entry_id": null,
+                "device_id": null,
+                "disabled_by": null,
+                "entity_id": "binary_sensor.rodriguez_home_basement_camera_capturing_audio",
+                "name": null,
+                "platform": "wink",
+                "unique_id": "164155_capturing_audio"
+            },
+            {
+                "config_entry_id": null,
+                "device_id": null,
+                "disabled_by": null,
+                "entity_id": "binary_sensor.rodriguez_home_basement_camera_capturing_video",
+                "name": null,
+                "platform": "wink",
+                "unique_id": "164155_capturing_video"
+            },
+            {
+                "config_entry_id": null,
+                "device_id": null,
+                "disabled_by": null,
+                "entity_id": "binary_sensor.rodriguez_home_basement_camera_motion",
+                "name": null,
+                "platform": "wink",
+                "unique_id": "164155_motion"
+            },
+            {
+                "config_entry_id": null,
+                "device_id": null,
+                "disabled_by": null,
+                "entity_id": "binary_sensor.rodriguez_home_basement_camera_loudness",
+                "name": null,
+                "platform": "wink",
+                "unique_id": "164155_loudness"
+            },
+            {
+                "config_entry_id": null,
+                "device_id": null,
+                "disabled_by": null,
+                "entity_id": "light.all_outside_lights",
+                "name": null,
+                "platform": "wink",
+                "unique_id": "7146613"
+            },
+            {
+                "config_entry_id": null,
+                "device_id": null,
+                "disabled_by": null,
+                "entity_id": "light.all_inside_lights",
+                "name": null,
+                "platform": "wink",
+                "unique_id": "7224526"
+            },
+            {
+                "config_entry_id": null,
+                "device_id": null,
+                "disabled_by": null,
+                "entity_id": "media_player.firestick",
+                "name": null,
+                "platform": "plex",
+                "unique_id": "a3f0dbc2c479acba-com-plexapp-android"
+            }
+        ]
+    },
+    "key": "core.entity_registry",
+    "version": 1
+}
