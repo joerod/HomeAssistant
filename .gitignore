@@ -1,4 +1,4 @@
-!.*/
+.*/
 *.conf
 *.uuid
 *.spotify-token-cache
