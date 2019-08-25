@@ -9,28 +9,28 @@
     group.weather:
         order: 5
     group.media:
-        order: 6  
+        order: 6
 
     media_player.spotify:
         hidden: true
     media_player.basement:
-        hidden: true  
-    media_player.chromecast:  
-        hidden: true     
+        hidden: true
+    media_player.chromecast:
+        hidden: true
 
     #thermostats
-    sensor.basement_thermostat_humidity:  
+    sensor.basement_thermostat_humidity:
         hidden: true
     sensor.basement_thermostat_hvac_state:
         hidden: true
-    sensor.basement_thermostat_operation_mode:  
+    sensor.basement_thermostat_operation_mode:
         hidden: true
-    sensor.living_room_thermostat_humidity:  
+    sensor.living_room_thermostat_humidity:
         hidden: true
     sensor.living_room_thermostat_hvac_state:
         hidden: true
-    sensor.living_room_thermostat_operation_mode:  
-        hidden: true     
+    sensor.living_room_thermostat_operation_mode:
+        hidden: true
     binary_sensor.basement_thermostat_fan:
         hidden: true
     binary_sensor.basement_thermostat_has_leaf:
@@ -46,35 +46,34 @@
     binary_sensor.living_room_thermostat_is_locked:
         hidden: true
     binary_sensor.living_room_thermostat_is_using_emergency_heat:
-        hidden: true    
+        hidden: true
 
-
-    #cameras    
+    #cameras
     binary_sensor.backyard_camera_sound_detected:
-        hidden: true    
+        hidden: true
     binary_sensor.backyard_camera_motion_detected:
-        hidden: true 
+        hidden: true
     binary_sensor.backyard_camera_person_detected:
         hidden: true
 
     binary_sensor.basement_camera_sound_detected:
-        hidden: true    
+        hidden: true
     binary_sensor.basement_camera_motion_detected:
-        hidden: true 
+        hidden: true
     binary_sensor.basement_camera_person_detected:
         hidden: true
 
     binary_sensor.driveway_camera_sound_detected:
-        hidden: true    
+        hidden: true
     binary_sensor.driveway_camera_motion_detected:
-        hidden: true 
+        hidden: true
     binary_sensor.driveway_camera_person_detected:
         hidden: true
 
     binary_sensor.living_room_camera_sound_detected:
-        hidden: true    
+        hidden: true
     binary_sensor.living_room_camera_motion_detected:
-        hidden: true 
+        hidden: true
     binary_sensor.living_room_camera_person_detected:
         hidden: true
 
@@ -83,10 +82,10 @@
         hidden: true
     sensor.dark_sky_cloud_coverage:
         hidden: true
-    sensor.dark_sky_icon:  
-        hidden: true 
-    sensor.dark_sky_nearest_storm_distance: 
-        hidden: true 
+    sensor.dark_sky_icon:
+        hidden: true
+    sensor.dark_sky_nearest_storm_distance:
+        hidden: true
     sensor.dark_sky_precip_probability:
         hidden: true
     sensor.dark_sky_precip_intensity:
