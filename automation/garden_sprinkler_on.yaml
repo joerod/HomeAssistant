@@ -12,6 +12,6 @@ action:
     entity_id: switch.garden_sprinkler
   - service: notify.rodriguez_home_push_slack
     data_template:
-      message: >
+      message:
         Garden sprinkler has been turned on.
         Chance of Rain - {{ sensor.dark_sky_precip_probability }}

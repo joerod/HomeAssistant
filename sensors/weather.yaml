@@ -10,3 +10,7 @@
       - precip_probability
       - precip_intensity
       - cloud_cover
+  - platform: waqi
+    token: !secret waqi_token
+    locations:
+      - maspeth

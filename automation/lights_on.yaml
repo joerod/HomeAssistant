@@ -4,7 +4,7 @@ trigger:
   event: sunset
 action:
   - service: light.turn_on
-    entity_id: light.garden_lights
+    entity_id: light.garden
   - service: switch.turn_on
     entity_id: switch.front_lights
   - service: switch.turn_on

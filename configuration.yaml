@@ -25,15 +25,6 @@ cloud:
 wake_on_lan:
 system_health:
 
-switch:
-  - platform: mqtt
-    name: "Basement Fan"
-    command_topic: "cmnd/sonoffS31-1/POWER"
-    state_topic: "stat/sonoffS31-1/POWER"
-    payload_on: "ON"
-    payload_off: "OFF"
-    retain: true
-
 http:
   ip_ban_enabled: True
   login_attempts_threshold: 10
@@ -58,18 +49,6 @@ ring:
   username: !secret ring_username
   password: !secret ring_password
 
-media_player:
-  - platform: spotify
-    client_id: !secret spotify_id
-    client_secret: !secret spotify_secret
-  - platform: plex
-  - platform: yamaha
-    host: 192.168.1.159
-  - platform: kodi
-    host: 192.168.1.214
-    username: kodi
-    password: !secret kodi_password
-
 vacuum:
   - platform: roomba
     name: Rosie
@@ -89,3 +68,5 @@ notify:
 group: !include_dir_merge_named groups
 automation: !include_dir_list automation
 sensor: !include_dir_merge_list sensors/
+media_player: !include_dir_merge_list media
+switch: !include_dir_merge_list switches

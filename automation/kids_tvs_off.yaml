@@ -1,0 +1,17 @@
+alias: "Kids TV's Off"
+trigger:
+  platform: time
+  at: 17:00:00
+condition:
+  condition: time
+  weekday:
+      - sun
+      - mon
+      - tue
+      - wed
+      - thu
+action:
+  - service: media_player.turn_off
+    entity_id: media_player.aly_s_tv
+  - service: media_player.turn_off
+    entity_id: media_player.arabella_s_tv
