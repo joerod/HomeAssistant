@@ -15,6 +15,3 @@
       main_floor_smoke_detector:
         value_template: '{% if states.binary_sensor.kidde_smoke_detector_livingroom_co_detected %} {{ states.binary_sensor.kidde_smoke_detector_livingroom_co_detected.attributes.battery_level |int }} {% else %} Unknown {% endif %}'
         unit_of_measurement: '%'
-      joerod_iphone:
-        value_template: '{% if states.device_tracker.joerods_iphone %} {{ states.device_tracker.joerods_iphone.attributes.battery |int }} {% else %} Unknown {% endif %}'
-        unit_of_measurement: '%'

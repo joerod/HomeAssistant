@@ -25,6 +25,9 @@ cloud:
 wake_on_lan:
 system_health:
 
+logger:
+  default: info
+
 http:
   ip_ban_enabled: True
   login_attempts_threshold: 10
