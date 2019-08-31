@@ -11,5 +11,10 @@ condition:
   entity_id: sensor.dark_sky_precip_probability
   below: 35
 action:
-  service: switch.turn_on
-  entity_id: switch.pool_filter
+  - service: switch.turn_on
+    entity_id: switch.pool_filter
+  - service: notify.rodriguez_home_push_slack
+    data_template:
+      message: >
+        Pool filter has been turned on.
+        Chance of Rain - {{ states('sensor.dark_sky_precip_probability') }}
