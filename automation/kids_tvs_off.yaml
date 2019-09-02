@@ -1,7 +1,7 @@
-alias: "Kids TV's Off"
+alias: "Kids TV's Off - Bedtime"
 trigger:
   platform: time
-  at: '17:00:00'
+  at: '20:30:00'
 condition:
   condition: time
   weekday:

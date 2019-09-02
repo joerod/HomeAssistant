@@ -1,0 +1,23 @@
+alias: "Rosie vacuums the first floor"
+trigger:
+  platform: time
+  at: '09:00:00'
+condition:
+  condition: and
+  conditions:
+    - condition: time
+      weekday:
+          - mon
+          - tue
+          - wed
+          - thu
+          - fri
+    - condition: state
+      entity_id: binary_sensor.living_room_camera_motion_detected
+      state: 'off'
+action:
+  - service: vacuum.turn_on
+    entity_id: vacuum.rosie
+  - service: notify.rodriguez_home_push_slack
+    data_template:
+      message:  'Going to vacuum the 1st floor Mr. R'
