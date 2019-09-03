@@ -1,0 +1,6 @@
+  - platform: template
+    sensors:
+      master_bedroom_temperature:
+        friendly_name: 'Master Bedroom Temperature'
+        value_template: '{% if states.climate.master_bedroom %} {{ states.climate.master_bedroom.attributes.current_temperature |int }} {% else %} Unknown {% endif %}'
+        unit_of_measurement: '°F'
