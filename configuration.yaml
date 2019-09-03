@@ -6,6 +6,7 @@ homeassistant:
   unit_system: imperial
   time_zone: America/New_York
   customize: !include customize.yaml
+  packages: !include_dir_named packages
 
 frontend:
   javascript_version: latest
@@ -19,11 +20,10 @@ conversation:
 history:
 logbook:
 sun:
-ios:
 wink:
-cloud:
 wake_on_lan:
 system_health:
+ios:
 
 logger:
   default: info
@@ -73,3 +73,4 @@ automation: !include_dir_list automation
 sensor: !include_dir_merge_list sensors/
 media_player: !include_dir_merge_list media
 switch: !include_dir_merge_list switches
+# alert: !include_dir_list alerts

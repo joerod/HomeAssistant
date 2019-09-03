@@ -5,11 +5,11 @@ trigger:
 condition:
   condition: time
   weekday:
-      - sun
-      - mon
-      - tue
-      - wed
-      - thu
+    - sun
+    - mon
+    - tue
+    - wed
+    - thu
 action:
   - service: media_player.turn_off
     entity_id: media_player.aly_s_tv

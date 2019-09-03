@@ -1,4 +1,4 @@
   - platform: plex
-    include_non_clients: true
     use_episode_art: true
-    use_dynamic_groups: true
+    remove_unavailable_clients: true
+    client_remove_interval: 1200
