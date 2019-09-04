@@ -2,7 +2,7 @@
 alias: 'Garden Sprinkler On'
 trigger:
   platform: time
-  at: '07:00:00'
+  at: '06:30:00'
 condition:
   condition: numeric_state
   entity_id: sensor.dark_sky_precip_probability

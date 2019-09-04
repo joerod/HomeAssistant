@@ -46,8 +46,6 @@ nest:
 camera:
   - platform: ring
 
-binary_sensor:
-  - platform: ring
 ring:
   username: !secret ring_username
   password: !secret ring_password
@@ -71,6 +69,7 @@ notify:
 group: !include_dir_merge_named groups
 automation: !include_dir_list automation
 sensor: !include_dir_merge_list sensors/
+binary_sensor: !include_dir_merge_list binary_sensors/
 media_player: !include_dir_merge_list media
 switch: !include_dir_merge_list switches
 # alert: !include_dir_list alerts

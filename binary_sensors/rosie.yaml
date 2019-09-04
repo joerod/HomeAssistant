@@ -1,0 +1,11 @@
+  - platform: template
+    sensors:
+      rosie_full:
+        friendly_name: "Rosie''s bin is full"
+        value_template: "{{ states.vacuum.rosie.attributes.bin_full }}"
+        icon_template: >-
+          {% if is_state("binary_sensor.rosie_full", "on") %}
+            mdi:robot-vacuum
+          {% else %}
+            mdi:robot-vacuum-variant
+          {% endif %}
