@@ -39,6 +39,11 @@ http:
 tts:
   platform: google_translate
 
+weather:
+  - platform: darksky
+    api_key: !secret dark_sky_password
+    mode: daily
+
 nest:
   client_id: !secret nest_id
   client_secret: !secret nest_password
