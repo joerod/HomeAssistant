@@ -2,7 +2,7 @@
 
 Scripts and automation I've written for my home automation management tool HomeAssistant
 
-## Set up
+## Setup
 
 ### Server
 I'm using home assistant on an Ubuntu VM in Hyper-V on my Windows 10 machine.
