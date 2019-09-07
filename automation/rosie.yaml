@@ -25,4 +25,4 @@ action:
     entity_id: vacuum.rosie
   - service: notify.rodriguez_home_push_slack
     data_template:
-      message:  "I'm {{ states('vacuum.rosie') }} Mr. R.  Going to vacuum the 1st floor Mr. R"
+      message:  "I'm going to vacuum the 1st floor Mr. R"

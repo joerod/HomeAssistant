@@ -1,0 +1,13 @@
+alias: 'Welcome home'
+trigger:
+  platform: state
+  entity_id: person.joerod
+  from: "not_home"
+  to: "home"
+  for:
+    minutes: 2 #"{{ states('input_number.lock_min')|int }}"
+action:
+  - service: notify.rodriguez_home_push_slack
+    data_template:
+      message: >
+        Welcome home Mr. R

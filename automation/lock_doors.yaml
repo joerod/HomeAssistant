@@ -1,11 +1,20 @@
 alias: 'Lock All Doors'
 trigger:
   platform: state
-  entity_id: device_tracker.joerods_iphone
+  entity_id:  person.joerod, person.danielle
   from: "home"
   to: "not_home"
   for:
     minutes: 2 #"{{ states('input_number.lock_min')|int }}"
+condition:
+  condition: or
+  conditions:
+    - condition: state
+      entity_id: 'lock.front_door'
+      state: 'unlocked'
+    - condition: state
+      entity_id: 'lock.side_door'
+      state: 'unlocked'
 action:
   - service: lock.lock
     entity_id: lock.front_door

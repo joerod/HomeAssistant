@@ -1,2 +1,11 @@
   - platform: yamaha
     host: 192.168.1.159
+    source_ignore:
+      - "Napster"
+      - "SiriusXM"
+      - "Napster"
+      - "TIDAL"
+    zone_ignore:
+      - "Zone_2"
+    zone_names:
+      Main_Zone: "Livingroom"
