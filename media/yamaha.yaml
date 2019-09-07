@@ -5,7 +5,5 @@
       - "SiriusXM"
       - "Napster"
       - "TIDAL"
-    zone_ignore:
-      - "Zone_2"
     zone_names:
       Main_Zone: "Livingroom"

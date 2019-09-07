@@ -1,3 +1,20 @@
+ # Turns on sprinkler off after a 10 minute water
+alias: 'Garden Sprinkler Off'
+trigger:
+  platform: time
+  at: 06:35:00
+condition:
+  condition: state
+  entity_id: switch.garden_sprinkler
+  state: 'on'
+action:
+  - service: switch.turn_off
+    entity_id: switch.garden_sprinkler
+  - service: notify.rodriguez_home_push_slack
+    data_template:
+      message: >
+        Garden sprinkler has been turned off.
+
 # Turns on sprinkler if the probability of rain is below 35%
 alias: 'Garden Sprinkler On'
 trigger:

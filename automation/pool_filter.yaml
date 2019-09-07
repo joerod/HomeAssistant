@@ -1,0 +1,40 @@
+alias: 'Pool Filter On'
+trigger:
+  - platform: time
+    at: '07:00:00'
+  - platform: time
+    at: '14:00:00'
+  - platform: time
+    at: '17:00:00'
+condition:
+  condition: numeric_state
+  entity_id: sensor.dark_sky_precip_probability
+  below: 35
+action:
+  - service: switch.turn_on
+    entity_id: switch.holiday_lights
+  - service: notify.rodriguez_home_push_slack
+    data_template:
+      message: >
+        Pool filter has been turned on.
+        Chance of Rain - {{ states('sensor.dark_sky_precip_probability') }}
+
+alias: 'Pool Filter Off'
+trigger:
+  - platform: time
+    at: '7:45:00'
+  - platform: time
+    at: '14:45:00'
+  - platform: time
+    at: '17:45:00'
+condition:
+  condition: state
+  entity_id: switch.holiday_lights
+  state: 'on'
+action:
+  - service: switch.turn_off
+    entity_id: switch.holiday_lights
+  - service: notify.rodriguez_home_push_slack
+    data_template:
+      message: >
+        Pool filter has been turned off.
