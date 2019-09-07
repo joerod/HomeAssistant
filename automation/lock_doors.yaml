@@ -1,0 +1,17 @@
+alias: 'Lock All Doors'
+trigger:
+  platform: state
+  entity_id: device_tracker.joerods_iphone
+  from: "home"
+  to: "not_home"
+  for:
+    minutes: 2 #"{{ states('input_number.lock_min')|int }}"
+action:
+  - service: lock.lock
+    entity_id: lock.front_door
+  - service: lock.lock
+    entity_id: lock.side_door
+  - service: notify.rodriguez_home_push_slack
+    data_template:
+      message: >
+        All doors are locked.  You're safe!

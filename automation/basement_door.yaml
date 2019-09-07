@@ -1,0 +1,19 @@
+alias: 'Turn On Office Light When Back Door is Open after Sunset.'
+trigger:
+  platform: state
+  entity_id:  binary_sensor.basement_door_opened
+  from: 'off'
+  to: 'on'
+condition:
+  condition: state  # from sunset until sunrise
+  entity_id: sun.sun
+  state: 'below_horizon'
+action:
+  - service: light.turn_on
+    data:
+      entity_id: light.office_light
+      brightness_pct: 100
+  - service: notify.rodriguez_home_push_slack
+    data_template:
+      message: >
+        Don't forget to turn the office light off.

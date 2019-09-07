@@ -7,17 +7,22 @@ condition:
   conditions:
     - condition: time
       weekday:
-          - mon
-          - tue
-          - wed
-          - thu
-          - fri
-    - condition: state
-      entity_id: binary_sensor.living_room_camera_motion_detected
-      state: 'off'
+        - mon
+        - tue
+        - wed
+        - thu
+        - fri
+    - condition: or
+      conditions:
+        - condition: state
+          entity_id: binary_sensor.living_room_camera_motion_detected
+          state: 'off'
+        - condition: state
+          entity_id: binary_sensor.living_room_camera_sound_detected
+          state: 'off'
 action:
   - service: vacuum.turn_on
     entity_id: vacuum.rosie
   - service: notify.rodriguez_home_push_slack
     data_template:
-      message:  'Going to vacuum the 1st floor Mr. R'
+      message:  "I'm {{ states('vacuum.rosie') }} Mr. R.  Going to vacuum the 1st floor Mr. R"
