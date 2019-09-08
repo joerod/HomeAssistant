@@ -16,5 +16,4 @@ action:
   - service: notify.rodriguez_home_push_slack
     data_template:
       message: >
-        You came in through the basement and it was dark out so I turned on the lights.
-        Don't forget to turn the office light off.
+        You came in through the basement and it was dark out so I turned on the lights.  Don't forget to turn the office light off.
