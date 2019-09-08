@@ -5,6 +5,7 @@ Cameras:
   - camera.basement
   - camera.backyard
   - camera.driveway
+  - camera.front_door
   - binary_sensor.backyard_camera_motion_detected
   - binary_sensor.backyard_camera_person_detected
   - binary_sensor.backyard_camera_sound_detected
