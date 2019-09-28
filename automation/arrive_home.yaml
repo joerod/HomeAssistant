@@ -11,3 +11,7 @@ action:
     data_template:
       message: >
         Welcome home Mr. R
+  - service: tts.google_translate_say
+    entity_id: "all"
+    data:
+      message: "Welcome home Mr. R"
