@@ -1,7 +1,0 @@
-alias: 'Turn On Arabella''s Light'
-trigger:
-  platform: time
-  at: '19:45:00'
-action:
-  service: light.turn_on
-  entity_id: light.arabella_s_night_light

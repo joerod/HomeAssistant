@@ -2,6 +2,7 @@ alias: 'Sunset Outside Lights On'
 trigger:
   platform: sun
   event: sunset
+  offset: "-00:30:00"
 action:
   - service: light.turn_on
     entity_id: light.garden
@@ -9,3 +10,5 @@ action:
     entity_id: switch.front_lights
   - service: switch.turn_on
     entity_id: switch.side_door_light
+  - service: light.turn_on
+    entity_id: light.arabella_s_night_light
