@@ -1,0 +1,5 @@
+  - platform: gtfs
+    origin: 551076
+    destination: 551079
+    data: queen_bus.zip
+    name: Home to Subway

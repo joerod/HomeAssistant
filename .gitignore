@@ -15,3 +15,5 @@ AccessoryInfo.*.json
 IdentifierCache.*.json
 .ring_cache*
 home-assistant_v2.db-*
+queen_bus.*
+*.svg
