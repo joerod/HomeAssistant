@@ -17,3 +17,11 @@ action:
     data_template:
       message: >
         You came in through the basement and it was dark out so I turned on the lights.  Don't forget to turn the office light off.
+  - service: tts.google_translate_say
+    entity_id: "media_player.basement"
+    data_template:
+    message: >-
+      {{ [
+      "Don't forget to lock the door and turn off the light. " ,
+      "Let me get the light for you. "
+      ] |random }}
