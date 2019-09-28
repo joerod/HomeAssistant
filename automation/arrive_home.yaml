@@ -8,17 +8,17 @@ trigger:
     minutes: 2 #"{{ states('input_number.lock_min')|int }}"
 action:
   - service: notify.rodriguez_home_push_slack
-    data_template:
-      message: >
+    data:
+      message:
         Welcome home Mr. R
   - service: tts.google_translate_say
     entity_id: media_player.kitchen
     data_template:
-    message: >-
-      {{ [
-      "Welcome home Mr. R. " ,
-      "Hi Joe. " ,
-      "Nice to see you back Joe. " ,
-      "What's going on Joe Rod. " ,
-      "Hi Joe, looking handsome as always. "
-      ] |random }}
+      message: >-
+        {{ [
+        "Welcome home Mr. R. " ,
+        "Hi Joe. " ,
+        "Nice to see you back Joe. " ,
+        "What's going on Joe Rod. " ,
+        "Hi Joe, looking handsome as always. "
+        ] |random }}
