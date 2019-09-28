@@ -1,0 +1,23 @@
+alias: 'Welcome home Danielle'
+trigger:
+  platform: state
+  entity_id: person.danielle
+  from: "not_home"
+  to: "home"
+  for:
+    seconds: 10 #"{{ states('input_number.lock_min')|int }}"
+action:
+  - service: notify.rodriguez_home_push_slack
+    data:
+      message:
+        Danielle is home.
+  - service: tts.google_translate_say
+    entity_id: media_player.kitchen
+    data_template:
+      message: >-
+        {{ [
+        "Welcome home Mrs. Rodriguez. " ,
+        "Hi Danielle. " ,
+        "Nice to see you back Danielle. " ,
+        "Hi Danielle, looking georgous as always. "
+        ] |random }}
