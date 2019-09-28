@@ -1,4 +1,3 @@
-alias: 'Welcome home Danielle'
 trigger:
   platform: state
   entity_id: person.danielle
@@ -21,3 +20,4 @@ action:
         "Nice to see you back Danielle. " ,
         "Hi Danielle, looking georgous as always. "
         ] |random }}
+alias: 'Welcome home Danielle'
