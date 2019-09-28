@@ -17,3 +17,4 @@ IdentifierCache.*.json
 home-assistant_v2.db-*
 queen_bus.*
 *.svg
+/tss/*.mp3

@@ -22,7 +22,7 @@ action:
     data_template:
       message: >-
         {{ [
-        "Don't forget to lock the door and turn off the light. " ,
+        "Don't forget to lock the door and turn off the office light. " ,
         "Let me get the light for you. ",
-        "Please remember to lock the door."
+        "Please remember to lock the basement door."
         ] |random }}
