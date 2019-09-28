@@ -20,4 +20,8 @@ action:
         "Nice to see you back Danielle. " ,
         "Hi Danielle, looking georgous as always. "
         ] |random }}
+  - service: tts.google_translate_say
+    entity_id: media_player.basement
+    data:
+      message: "Danielle is home"
 alias: 'Welcome home Danielle'
