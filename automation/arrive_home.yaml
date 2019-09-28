@@ -12,7 +12,7 @@ action:
       message: >
         Welcome home Mr. R
   - service: tts.google_translate_say
-    entity_id: "media_player.kitchen"
+    entity_id: media_player.kitchen
     data_template:
     message: >-
       {{ [

@@ -26,3 +26,7 @@ action:
   - service: notify.rodriguez_home_push_slack
     data_template:
       message:  "I'm going to vacuum the 1st floor Mr. R"
+  - service: tts.google_translate_say
+    entity_id: media_player.kitchen
+    data:
+      message: "I'm going to vacuum the first floor"
