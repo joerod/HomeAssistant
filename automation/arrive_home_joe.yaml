@@ -21,4 +21,8 @@ action:
         "What's going on Joe Rod. " ,
         "Hi Joe, looking handsome as always. "
         ] |random }}
+  - service: tts.google_translate_say
+    entity_id: media_player.basement
+    data:
+      message: "Joe is home"
 alias: 'Welcome home Joe'
