@@ -16,6 +16,6 @@ IdentifierCache.*.json
 .ring_cache*
 home-assistant_v2.db-*
 queen_bus.*
-*.mp3
+tts/*.mp3
 .xbox-token.json
 .ring_cache.pickle
