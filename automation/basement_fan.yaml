@@ -2,8 +2,8 @@ alias: 'Turn off basement fan when no one is around'
 trigger:
   platform: state
   entity_id: person.joerod
-  from: "not_home"
-  to: "home"
+  from: "home"
+  to: "not_home"
   for:
     minutes: 10 #"{{ states('input_number.lock_min')|int }}"
 condition:

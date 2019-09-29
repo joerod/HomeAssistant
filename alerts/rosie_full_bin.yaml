@@ -1,0 +1,8 @@
+rosie_full_bin_alert:
+  name: "Warning: Rosie's bin is full"
+  entity_id: binary_sensor.rosie_full
+  state: 'on'
+  repeat: 60
+  can_acknowledge: true
+  notifiers:
+    - notify.rodriguez_home_push_slack
