@@ -5,9 +5,14 @@ trigger:
   from: 'off'
   to: 'on'
 condition:
-  condition: state  # from sunset until sunrise
-  entity_id: sun.sun
-  state: 'below_horizon'
+  condition: and
+  conditions:
+    - condition: state
+      entity_id: sun.sun
+      state: 'below_horizon'
+    - condition: state
+      entity_id: light.office_light
+      state: 'off'
 action:
   - service: light.turn_on
     data:
