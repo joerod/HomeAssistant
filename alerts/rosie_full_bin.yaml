@@ -1,5 +1,5 @@
 rosie_full_bin_alert:
-  name: "Warning: Rosie's bin is full"
+  name: "Rosie's bin is full"
   entity_id: binary_sensor.rosie_full
   state: 'on'
   repeat: 60
