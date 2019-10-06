@@ -4,9 +4,19 @@ trigger:
   platform: time
   at: '06:30:00'
 condition:
-  condition: numeric_state
-  entity_id: sensor.dark_sky_precip_probability
-  below: 35
+  condition: and
+  conditions:
+    - condition: numeric_state
+      entity_id: sensor.dark_sky_precip_probability
+      below: 35
+    - condition: numeric_state
+      entity_id: sensor.dark_sky_temperature
+      above: 60
+    - condition: numeric_state
+      entity_id: sensor.dark_sky_nearest_storm_distance
+      above: 150
+    - condition: template
+      value_template: '{% if now().month in [4,5,6,7,8,9] %}{{True}}{% else %}{{False}}{% endif %}'
 action:
   - service: switch.turn_on
     entity_id: switch.garden_sprinkler
