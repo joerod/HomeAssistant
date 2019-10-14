@@ -1,0 +1,31 @@
+# this will anounce how far the bus is from my stop every weekday betwee 6:45AM - 7:10AM
+alias: 'Get to the subway by bus'
+trigger:
+  platform: time_pattern
+  # You can also match on interval. This will match every 5 minutes
+  minutes: "/2"
+condition:
+  condition: and
+  conditions:
+    - condition: time
+      before: '07:10:00'
+      after: '06:45:00'
+      weekday:
+        - mon
+        - tue
+        - wed
+        - thu
+        - fri
+    - condition: state
+      entity_id: 'person.joerod'
+      state: 'home'
+action:
+  - service: notify.rodriguez_home_push_slack
+    data:
+      message:
+        The bus is {{ ((as_timestamp(state_attr('sensor.home_to_subway', 'origin_stop_arrival_time'))-(as_timestamp(now()))) / 60)|int }} minutes away
+  - service: tts.google_translate_say
+    entity_id: media_player.kitchen
+    data_template:
+      message: >
+        The bus is {{ ((as_timestamp(state_attr('sensor.home_to_subway', 'origin_stop_arrival_time'))-(as_timestamp(now()))) / 60)|int }} minutes away

@@ -16,9 +16,9 @@ action:
       message: >-
         {{ [
         "Welcome home Mr. R. " ,
-        "Hi Joe. " ,
+        "Hi Joe " ,
         "Nice to see you back Joe. " ,
-        "What's going on Joe Rod. " ,
+        "What's going on Joe Rod? " ,
         "Hi Joe, looking handsome as always. "
         ] |random }}
   - service: tts.google_translate_say
