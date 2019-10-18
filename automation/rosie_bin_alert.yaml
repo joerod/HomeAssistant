@@ -9,8 +9,8 @@ condition:
       entity_id: 'binary_sensor.rosie_full'
       state: 'on'
     - condition: time
-      before: '18:00:00'
-      after: '20:00:00'
+      before: '20:00:00'
+      after: '18:00:00'
     - condition: state
       entity_id: 'person.joerod'
       state: 'home'
