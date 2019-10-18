@@ -4,7 +4,7 @@ trigger:
   from: "not_home"
   to: "home"
   for:
-    seconds: 10 #"{{ states('input_number.lock_min')|int }}"
+    seconds: 20 #"{{ states('input_number.lock_min')|int }}"
 action:
   - service: notify.rodriguez_home_push_slack
     data:

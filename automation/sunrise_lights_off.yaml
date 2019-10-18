@@ -1,6 +1,7 @@
 alias: 'Sunrise Lights Off'
 trigger:
   platform: sun
+  offset: "-00:15:00"
   event: sunrise
 action:
   - service: light.turn_off

@@ -1,0 +1,31 @@
+alias: "Rosie vacuums bin alert"
+trigger:
+  platform: time_pattern
+  hours: "/1"
+condition:
+  condition: and
+  conditions:
+    - condition: state
+      entity_id: 'binary_sensor.rosie_full'
+      state: 'on'
+    - condition: time
+      before: '18:00:00'
+      after: '20:00:00'
+    - condition: state
+      entity_id: 'person.joerod'
+      state: 'home'
+action:
+  - service: notify.rodriguez_home_push_slack
+    data_template:
+      message:  "Rosie's bin is full."
+  - service: tts.google_translate_say
+    entity_id:
+      - media_player.basement
+      - media_player.kitchen
+    data_template:
+      message: >-
+        {{ [
+        "Rosie's bin is full. " ,
+        "Hey, give Rosie a look, her bin is full. " ,
+        "Rosie can't clean if her bin is full, please empty it. "
+        ] |random }}
