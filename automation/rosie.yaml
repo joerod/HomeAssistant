@@ -5,6 +5,8 @@ trigger:
 condition:
   condition: and
   conditions:
+    - condition: template
+      value_template: "{{ not is_state_attr('calendar.deerodster_gmail_com', 'message', 'Dina - House Cleaning') }}"
     - condition: time
       weekday:
         - mon
@@ -20,6 +22,8 @@ condition:
         - condition: state
           entity_id: binary_sensor.living_room_camera_sound_detected
           state: 'off'
+        - condition: template
+          value_template: "{{ not is_state_attr('calendar.deerodster_gmail_com', 'message', 'Cleaning Lady') }}"
 action:
   - service: vacuum.turn_on
     entity_id: vacuum.rosie
