@@ -9,7 +9,6 @@ condition:
   condition: state
   entity_id: sun.sun
   state: 'below_horizon'
-  after_offset: "+00:15:00"
 action:
   service: light.turn_on
   entity_id: switch.yard_fence_lights

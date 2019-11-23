@@ -1,9 +1,9 @@
-alias: 'Turn On Vestibule Light When Front Door is Open after Sunset.'
+alias: 'Turn on vestibule light when front door bell is pressed after sunset.'
 trigger:
   platform: state
-  entity_id:  lock.front_door
-  from: 'locked'
-  to: 'unlocked'
+  entity_id:  binary_sensor.front_door_button_pressed
+  from: 'off'
+  to: 'on'
 condition:
   condition: and
   conditions:
@@ -13,6 +13,9 @@ condition:
     - condition: state
       entity_id:  light.vestibule
       state: 'off'
+    - condition: state
+      entity_id: group.household
+      state: 'home'
 action:
   - service: light.turn_on
     data:
@@ -21,7 +24,7 @@ action:
   - service: notify.rodriguez_home_push_slack
     data:
       message:
-        You came in through the front door and it was dark out so I turned on the lights.  Don't forget to turn the vestibule light off.
+        Someone is at the front door and it was dark out so I turned on the lights in the vestibule.  Don't forget to turn the vestibule light off.
   - service: tts.google_translate_say
     entity_id: media_player.kitchen
     data_template:
