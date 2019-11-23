@@ -1,8 +1,9 @@
 alias: 'Sunrise Lights Off'
 trigger:
-  platform: sun
-  offset: "-00:15:00"
-  event: sunrise
+  platform: numeric_state
+  entity_id: sun.sun
+  value_template: "{{ state_attr('sun.sun', 'elevation') }}"
+  above: 2.5
 action:
   - service: light.turn_off
     entity_id: light.garden
