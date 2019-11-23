@@ -1,0 +1,32 @@
+alias: 'Turn On Vestibule Light When Front Door is Open after Sunset.'
+trigger:
+  platform: state
+  entity_id:  lock.front_door
+  from: 'locked'
+  to: 'unlocked'
+condition:
+  condition: and
+  conditions:
+    - condition: state
+      entity_id: sun.sun
+      state: 'below_horizon'
+    - condition: state
+      entity_id: light.office_light
+      state: 'off'
+action:
+  - service: light.turn_on
+    data:
+      entity_id: light.vestibule
+      brightness_pct: 100
+  - service: notify.rodriguez_home_push_slack
+    data:
+      message:
+        You came in through the front door and it was dark out so I turned on the lights.  Don't forget to turn the vestibule light off.
+  - service: tts.google_translate_say
+    entity_id: media_player.yamaha_receiver
+    data_template:
+      message: >-
+        {{ [
+        "Don't forget to lock the door and turn off the vestibule light. " ,
+        "Please remember to lock the front door. "
+        ] |random }}

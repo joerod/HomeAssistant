@@ -1,7 +1,8 @@
   InsideLights:
     view: true
     entities:
-      - light.arabellas_night_light
+      - light.office_light
+      - light.vestibule
       - switch.kitchen_light
       - switch.dining_room_light
-      - light.office_light
+      - light.arabellas_night_light
