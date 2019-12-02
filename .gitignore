@@ -16,7 +16,7 @@ IdentifierCache.*.json
 .ring_cache*
 home-assistant_v2.db-*
 queen_bus.*
-tts/*.mp3
+www/tts/*.mp3
 .xbox-token.json
 .ring_cache.pickle
 google_calendars.yaml

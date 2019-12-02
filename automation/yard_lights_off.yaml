@@ -1,0 +1,10 @@
+alias: Yard Camera Motion Sensor Lights Off
+trigger:
+  platform: state
+  entity_id: binary_sensor.backyard_camera_motion_detected
+  to: 'off'
+  for:
+    minutes: 2
+action:
+  - service: light.turn_off
+    entity_id: switch.yard_fence_lights

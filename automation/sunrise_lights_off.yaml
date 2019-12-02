@@ -3,7 +3,7 @@ trigger:
   platform: numeric_state
   entity_id: sun.sun
   value_template: "{{ state_attr('sun.sun', 'elevation') }}"
-  above: 2.5
+  above: 1.5
 action:
   - service: light.turn_off
     entity_id: light.garden
@@ -15,3 +15,5 @@ action:
     entity_id: light.arabella_s_night_light
   - service: switch.turn_off
     entity_id: switch.holiday_lights
+  - service: switch.turn_off
+    entity_id: switch.basement_fan

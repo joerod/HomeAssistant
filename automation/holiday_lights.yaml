@@ -1,8 +1,9 @@
 alias: 'Holiday Outside Lights On'
 trigger:
-  platform: sun
-  event: sunset
-  offset: "+00:15:00"
+  platform: numeric_state
+  entity_id: sun.sun
+  value_template: "{{ state_attr('sun.sun', 'elevation') }}"
+  above: 1.5
 action:
   - service: light.turn_on
     entity_id: light.garden
@@ -12,3 +13,5 @@ action:
     entity_id: light.arabella_s_night_light
   - service: switch.turn_on
     entity_id: switch.holiday_lights
+  - service: switch.turn_on
+    entity_id: switch.basement_fan

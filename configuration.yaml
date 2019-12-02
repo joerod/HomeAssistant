@@ -23,7 +23,7 @@ sun:
 wink:
 wake_on_lan:
 system_health:
-ios:
+mobile_app:
 
 logger:
   default: info
@@ -38,6 +38,9 @@ http:
 # text to speech
 tts:
   platform: google_translate
+  service_name: google_say
+  cache: true
+  cache_dir: /config/www/tts
 
 weather:
   - platform: darksky
@@ -50,6 +53,11 @@ nest:
 
 camera:
   - platform: ring
+
+august:
+  login_method: phone
+  username: !secret august_username
+  password: !secret august_password
 
 google:
   client_id: !secret google_client_id
