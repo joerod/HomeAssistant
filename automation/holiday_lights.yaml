@@ -1,4 +1,4 @@
-alias: 'Holiday Outside Lights On'
+alias: 'Holiday Lights On'
 trigger:
   platform: numeric_state
   entity_id: sun.sun
@@ -14,4 +14,6 @@ action:
   - service: switch.turn_on
     entity_id: switch.holiday_lights
   - service: switch.turn_on
-    entity_id: switch.basement_fan
+    entity_id: switch.sonoff1
+  - service: switch.turn_on
+    entity_id: switch.sonoff2

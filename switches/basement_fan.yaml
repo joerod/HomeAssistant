@@ -1,7 +1,0 @@
-  - platform: mqtt
-    name: "Basement Fan"
-    command_topic: "cmnd/sonoffS31-1/POWER"
-    state_topic: "stat/sonoffS31-1/POWER"
-    payload_on: "ON"
-    payload_off: "OFF"
-    retain: true
