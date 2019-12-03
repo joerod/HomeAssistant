@@ -1,10 +1,10 @@
 alias: Yard Camera Motion Sensor Lights On
 trigger:
   platform: state
-  entity_id: binary_sensor.backyard_camera_motion_detected
+  entity_id: binary_sensor.backyard_camera_person_detected
   to: 'on'
   for:
-    seconds: 90
+    seconds: 20
 condition:
   condition: state
   entity_id: sun.sun
