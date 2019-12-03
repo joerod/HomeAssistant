@@ -4,12 +4,11 @@ trigger:
   entity_id: binary_sensor.backyard_camera_motion_detected
   to: 'on'
   for:
-    seconds: 5
+    seconds: 90
 condition:
   condition: state
   entity_id: sun.sun
   state: 'below_horizon'
 action:
-  service: light.turn_on
+  service: switch.turn_on
   entity_id: switch.yard_fence_lights
-
