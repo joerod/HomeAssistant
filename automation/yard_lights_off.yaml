@@ -1,7 +1,7 @@
 alias: Yard Camera Motion Sensor Lights Off
 trigger:
   platform: state
-  entity_id: binary_sensor.backyard_camera_motion_detected
+  entity_id: binary_sensor.backyard_camera_person_detected
   to: 'off'
   for:
     seconds: 20
