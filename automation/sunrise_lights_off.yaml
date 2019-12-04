@@ -3,7 +3,7 @@ trigger:
   platform: numeric_state
   entity_id: sun.sun
   value_template: "{{ state_attr('sun.sun', 'elevation') }}"
-  above: 1.5
+  above: -0.25
 action:
   - service: light.turn_off
     entity_id: light.garden
