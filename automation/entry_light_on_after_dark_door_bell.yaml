@@ -13,9 +13,14 @@ condition:
     - condition: state
       entity_id:  light.vestibule
       state: 'off'
-    - condition: state
-      entity_id: group.household
-      state: 'home'
+    - condition: or
+      conditions:
+        - condition: state
+          entity_id: 'person.joerod'
+          state: 'home'
+        - condition: state
+          entity_id: 'person.danielle'
+          state: 'home'
 action:
   - service: light.turn_on
     data:

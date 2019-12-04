@@ -6,7 +6,6 @@
     adb_server_port: 5037
     apps:
       com.amazon.tv.launcher: "Fire TV"
-    turn_on_command: "input keyevent 3"
     turn_off_command: "input keyevent 223"
     state_detection_rules:
       'com.amazon.tv.launcher':
