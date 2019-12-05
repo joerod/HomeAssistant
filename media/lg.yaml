@@ -1,7 +1,7 @@
   - platform: webostv
     name: Living Room TV
     host: 192.168.1.50
+    timeout: 5
     turn_on_action:
-      service: wake_on_lan.send_magic_packet
-      data:
-        mac: "48:8d:36:f0:bf:25"
+      service: switch.turn_on
+      entity_id: switch.lg
