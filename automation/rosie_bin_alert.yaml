@@ -18,7 +18,7 @@ action:
   - service: notify.rodriguez_home_push_slack
     data_template:
       message:  "Rosie's bin is full."
-  - service: tts.google_translate_say
+  - service: tts.google_say
     entity_id:
       - media_player.basement
       - media_player.kitchen

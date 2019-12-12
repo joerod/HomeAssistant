@@ -25,7 +25,7 @@ action:
     data:
       message:
         The bus is {{ ((as_timestamp(state_attr('sensor.home_to_subway', 'origin_stop_arrival_time'))-(as_timestamp(now()))) / 60)|int }} minutes away
-  - service: tts.google_translate_say
+  - service: tts.google_say
     entity_id:
       - media_player.basement
       - media_player.kitchen

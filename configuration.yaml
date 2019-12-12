@@ -40,7 +40,6 @@ tts:
   platform: google_translate
   service_name: google_say
   cache: true
-  cache_dir: /config/www/tts
 
 weather:
   - platform: darksky
