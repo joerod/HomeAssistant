@@ -97,4 +97,4 @@ sensor: !include_dir_merge_list sensors/
 binary_sensor: !include_dir_merge_list binary_sensors/
 media_player: !include_dir_merge_list media
 switch: !include_dir_merge_list switches
-alert: !include_dir_merge_named alerts/
+alert: !include_dir_merge_named alerts
