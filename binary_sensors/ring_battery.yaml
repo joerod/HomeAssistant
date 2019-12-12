@@ -1,0 +1,5 @@
+  - platform: template
+    sensors:
+      front_doorbell_battery_low:
+        value_template: "{{ state_attr('lock.front_door', 'battery_level') <= 16 }}"
+        friendly_name: 'Front doorbell battery is low'
