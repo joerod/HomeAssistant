@@ -21,3 +21,4 @@ tts/*.mp3
 .ring_cache.pickle
 google_calendars.yaml
 .google.token
+google_calendars.yaml
