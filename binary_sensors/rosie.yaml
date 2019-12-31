@@ -9,3 +9,8 @@
           {% else %}
             mdi:robot-vacuum-variant
           {% endif %}
+  - platform: template
+    sensors:
+      rosie_full_alert:
+        friendly_name: "Rosie''s bin is full alert"
+        value_template: "{{ states.vacuum.rosie.attributes.bin_full }}"
