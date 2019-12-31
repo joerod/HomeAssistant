@@ -73,6 +73,22 @@ vacuum:
     username: !secret roomba_blid
     password: !secret roomba_password
 
+hue:
+  bridges:
+    - host: !secret hue_bridge
+      allow_unreachable: true
+      allow_hue_groups: true
+
+panel_iframe:
+  tasmoadmin:
+    title: TasmoAdmin
+    icon: mdi:toggle-switch
+    url: !secret tasmoadmin
+  unifi:
+    title: 'Unifi Contoller'
+    icon: mdi:lan
+    url: !secret unifi
+    require_admin: true
 ifttt:
   key: !secret ifttt_password
 
@@ -90,12 +106,6 @@ notify:
     platform: slack
     api_key: !secret slack_api
     default_channel: !secret slack_chan
-  - name: rosie_alert_slack_notify
-    platform: group
-    services:
-      - service: slack
-        data:
-          Message: "Rosie''s bin is full"
 
 group: !include_dir_merge_named groups
 automation: !include_dir_list automation
@@ -104,4 +114,3 @@ binary_sensor: !include_dir_merge_list binary_sensors/
 media_player: !include_dir_merge_list media
 switch: !include_dir_merge_list switches
 alert: !include_dir_merge_named alerts
-#notify: !include_dir_list notify
