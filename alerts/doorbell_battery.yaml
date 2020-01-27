@@ -1,6 +1,6 @@
   front_doorbell_battery_alert:
     name: "Doorbell battery alert"
-    entity_id: alert.front_doorbell_battery_low
+    entity_id: binary_sensor.front_doorbell_battery_low
     state: 'on'
     repeat: 60
     can_acknowledge: true

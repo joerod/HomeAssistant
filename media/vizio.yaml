@@ -4,3 +4,6 @@
   - platform: vizio
     host: !secret ara_tv_ip
     access_token: !secret ara_tv_access
+  - platform: vizio
+    host: !secret ava_tv_ip
+    access_token: !secret ava_tv_access

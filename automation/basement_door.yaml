@@ -1,7 +1,7 @@
 alias: 'Turn On Office Light When Back Door is Open after Sunset.'
 trigger:
   platform: state
-  entity_id:  binary_sensor.basement_door_opened
+  entity_id:  binary_sensor.basement_door_contact
   from: 'off'
   to: 'on'
 condition:
@@ -23,7 +23,7 @@ action:
       message:
         You came in through the basement and it was dark out so I turned on the lights.  Don't forget to turn the office light off.
   - service: tts.google_say
-    entity_id: media_player.basement
+    entity_id: media_player.basement_sonos
     data_template:
       message: >-
         {{ [
