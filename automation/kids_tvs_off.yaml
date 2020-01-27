@@ -15,3 +15,5 @@ action:
     entity_id: media_player.aly_s_tv
   - service: media_player.turn_off
     entity_id: media_player.arabella_s_tv
+  - service: media_player.turn_off
+    entity_id: media_player.ava_tv

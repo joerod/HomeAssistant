@@ -20,7 +20,6 @@ conversation:
 history:
 logbook:
 sun:
-wink:
 wake_on_lan:
 system_health:
 mobile_app:
@@ -84,11 +83,6 @@ panel_iframe:
     title: TasmoAdmin
     icon: mdi:toggle-switch
     url: !secret tasmoadmin
-  unifi:
-    title: 'Unifi Contoller'
-    icon: mdi:lan
-    url: !secret unifi
-    require_admin: true
 ifttt:
   key: !secret ifttt_password
 
