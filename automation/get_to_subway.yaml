@@ -21,14 +21,37 @@ condition:
     - condition: template
       value_template: "{{ not is_state_attr('calendar.joe_rodriguez', 'message', 'Day Off') and not is_state_attr('calendar.joe_rodriguez', 'message', 'WFH') }}"
 action:
+  - service: input_number.set_value
+    data_template:
+      entity_id: input_number.basement_sonos
+      value: '{{ states.media_player.basement.volume_level | float }}'
+  - service: input_number.set_value
+    data_template:
+      entity_id: input_number.kitchen_sonos
+      value: '{{ states.media_player.kitchen.volume_level | float }}'
   - service: notify.rodriguez_home_push_slack
     data:
       message:
         The bus is {{ ((as_timestamp(state_attr('sensor.home_to_subway', 'origin_stop_arrival_time'))-(as_timestamp(now()))) / 60)|int }} minutes away
+  - service: media_player.volume_set
+    data:
+      entity_id:
+        - media_player.basement
+        - media_player.kitchen
+      volume_level: 0.7
   - service: tts.google_say
     entity_id:
-      - media_player.basement_sonos
-      - media_player.kitchen_sonos
+      - media_player.basement
+      - media_player.kitchen
     data_template:
       message: >
         The bus is {{ ((as_timestamp(state_attr('sensor.home_to_subway', 'origin_stop_arrival_time'))-(as_timestamp(now()))) / 60)|int }} minutes away
+  - service: media_player.volume_set
+    data_template:
+      entity_id: media_player.basement
+      volume_level: '{{ input_number.basement_sonos }}'
+  - service: media_player.volume_set
+    data_template:
+      entity_id: media_player.kitchen
+      volume_level: '{{ input_number.kitchen_sonos }}'
+

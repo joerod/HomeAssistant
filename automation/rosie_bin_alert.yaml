@@ -20,8 +20,8 @@ action:
       message:  "Rosie's bin is full."
   - service: tts.google_say
     entity_id:
-      - media_player.basement_sonos
-      - media_player.kitchen_sonos
+      - media_player.basement
+      - media_player.kitchen
     data_template:
       message: >-
         {{ [

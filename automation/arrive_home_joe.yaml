@@ -16,7 +16,7 @@ action:
       message:
         Welcome home Mr. R
   - service: tts.google_translate_say
-    entity_id: media_player.kitchen_sonos
+    entity_id: media_player.kitchen
     data_template:
       message: >-
         {{ [
@@ -27,7 +27,7 @@ action:
         "Hi Joe, looking handsome as always. "
         ] |random }}
   - service: tts.google_say
-    entity_id: media_player.basement_sonos
+    entity_id: media_player.basement
     data:
       message: "Joe is home"
 alias: 'Welcome home Joe'

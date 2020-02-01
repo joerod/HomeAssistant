@@ -25,7 +25,7 @@ action:
       message:
         All doors are locked.  You're safe!
   - service: tts.google_say
-    entity_id: media_player.kitchen_sonos
+    entity_id: media_player.kitchen
     data_template:
       message: >-
         {{ [

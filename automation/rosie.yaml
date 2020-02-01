@@ -29,6 +29,6 @@ action:
     data_template:
       message:  "I'm going to vacuum the 1st floor Mr. R"
   - service: tts.google_say
-    entity_id: media_player.kitchen_sonos
+    entity_id: media_player.kitchen
     data:
       message: "I'm going to vacuum the first floor"
