@@ -49,9 +49,6 @@ nest:
   client_id: !secret nest_id
   client_secret: !secret nest_password
 
-camera:
-  - platform: ring
-
 august:
   login_method: phone
   username: !secret august_username
@@ -64,6 +61,22 @@ google:
 ring:
   username: !secret ring_username
   password: !secret ring_password
+
+vizio:
+  - host: !secret ava_tv_ip
+    access_token: !secret ava_tv_access
+  - host: !secret aly_tv_ip
+    access_token: !secret aly_tv_access
+  - host: !secret ara_tv_ip
+    access_token: !secret ara_tv_access
+
+webostv:
+    name: Living Room TV
+    host: 192.168.1.50
+    turn_on_action:
+      service: wake_on_lan.send_magic_packet
+      data:
+        mac: "48:8d:36:f0:bf:25"
 
 vacuum:
   - platform: roomba

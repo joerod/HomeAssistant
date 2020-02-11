@@ -11,11 +11,15 @@ condition:
   after: '17:00:00'
     #"{{ states('input_number.lock_min')|int }}"
 action:
+  - service: input_number.set_value
+    data_template:
+      entity_id: input_number.kitchen_sonos
+      value: '{{ states.media_player.kitchen.volume_level | float }}'
   - service: notify.rodriguez_home_push_slack
     data:
       message:
         Welcome home Mr. R
-  - service: tts.google_translate_say
+  - service: tts.google_say
     entity_id: media_player.kitchen
     data_template:
       message: >-
@@ -30,4 +34,8 @@ action:
     entity_id: media_player.basement
     data:
       message: "Joe is home"
+  - service: media_player.volume_set
+    data_template:
+      entity_id: media_player.kitchen
+      volume_level: '{{ input_number.kitchen_sonos }}'
 alias: 'Welcome home Joe'

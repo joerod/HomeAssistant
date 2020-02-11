@@ -1,5 +1,4 @@
   OutsideLights:
-    view: true
     entities:
       - light.garden
       - switch.front_lights
