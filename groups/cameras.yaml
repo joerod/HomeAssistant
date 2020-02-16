@@ -1,5 +1,4 @@
   Cameras:
-    view: true
     entities:
     - camera.living_room
     - camera.basement

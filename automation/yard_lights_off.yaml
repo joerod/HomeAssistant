@@ -7,4 +7,4 @@ trigger:
     seconds: 20
 action:
   - service: switch.turn_off
-    entity_id: switch.yard_fence_lights
+    entity_id: switch.backyard_fence_lights

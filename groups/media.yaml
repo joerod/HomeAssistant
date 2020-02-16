@@ -1,5 +1,4 @@
   Media:
-    view: true
     entities:
       - media_player.spotify
       - media_player.basement

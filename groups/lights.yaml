@@ -1,5 +1,4 @@
   InsideLights:
-    view: true
     entities:
       - light.office_light
       - light.vestibule

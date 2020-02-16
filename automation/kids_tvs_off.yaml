@@ -1,19 +1,23 @@
 alias: "Kids TV's Off - Bedtime"
 trigger:
   platform: time
-  at: '20:30:00'
+  at: '21:00:00'
 condition:
-  condition: time
-  weekday:
-    - sun
-    - mon
-    - tue
-    - wed
-    - thu
+  condition: and
+  conditions:
+    - condition: time
+      weekday:
+        - sun
+        - mon
+        - tue
+        - wed
+        - thu
+    - condition: template
+      value_template: '{% if now().month in [7,8] %}{{False}}{% else %}{{True}}{% endif %}'
 action:
   - service: media_player.turn_off
-    entity_id: media_player.aly_s_tv
+    entity_id: media_player.vizio_smartcast_aly
   - service: media_player.turn_off
-    entity_id: media_player.arabella_s_tv
+    entity_id: media_player.vizio_smartcast_ara
   - service: media_player.turn_off
-    entity_id: media_player.ava_tv
+    entity_id: media_player.vizio_smartcast_ava

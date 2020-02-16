@@ -1,0 +1,32 @@
+alias: 'Turn On Side Door Light When Side Door is Open after Sunset.'
+trigger:
+  platform: state
+  entity_id:  lock.side_door
+  from: 'locked'
+  to: 'unlocked'
+condition:
+  condition: and
+  conditions:
+    - condition: state
+      entity_id: sun.sun
+      state: 'below_horizon'
+    - condition: state
+      entity_id:  light.side_entrance
+      state: 'off'
+action:
+  - service: light.turn_on
+    data:
+      entity_id: light.side_entrance
+      brightness_pct: 100
+  - service: notify.rodriguez_home_push_slack
+    data:
+      message:
+        You came in through the side door and it was dark out so I turned on the lights.  Don't forget to turn the side door light off.
+  - service: tts.google_say
+    entity_id: media_player.kitchen
+    data_template:
+      message: >-
+        {{ [
+        "Don't forget to lock the door and turn off the side door light. " ,
+        "Please remember to lock the side door. "
+        ] |random }}

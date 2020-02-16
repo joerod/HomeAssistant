@@ -1,5 +1,4 @@
   weather:
-    view: true
     entities:
       - sun.sun
       - sensor.dark_sky_summary
@@ -9,4 +8,3 @@
       - sensor.dark_sky_precip_intensity
       - sensor.dark_sky_precip
       - sensor.dark_sky_nearest_storm_distance
-  

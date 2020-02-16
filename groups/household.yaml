@@ -1,6 +1,5 @@
   household:
     name: Household
-    view: true
     entities:
       - person.aly
       - person.ava

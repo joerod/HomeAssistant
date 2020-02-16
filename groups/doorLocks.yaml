@@ -1,5 +1,4 @@
   DoorLocks:
-    view: true
     entities:
-      - lock.front_door
+      - lock.front_door_lock
       - lock.side_door
