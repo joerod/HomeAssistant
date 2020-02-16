@@ -22,7 +22,7 @@ action:
         "Welcome home Mrs. Rodriguez. " ,
         "Hi Danielle. " ,
         "Nice to see you back Danielle. " ,
-        "Hi Danielle, looking georgous as always. "
+        "Hi Danielle, looking gorgeous as always. "
         ] |random }}
   - service: tts.google_say
     entity_id: media_player.basement
