@@ -4,7 +4,7 @@ trigger:
   from: "not_home"
   to: "home"
   for:
-    seconds: 25
+    seconds: 60
 condition:
   condition: time
   before: '20:00:00'

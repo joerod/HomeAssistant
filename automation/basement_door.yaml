@@ -14,6 +14,14 @@ condition:
       entity_id: light.office_light
       state: 'off'
 action:
+  - service: input_number.set_value
+    data_template:
+      entity_id: input_number.basement_sonos_vol
+      value: "{{ state_attr('media_player.basement', 'volume_level')| float}}"
+  - service: media_player.volume_set
+    data:
+      entity_id: media_player.basement
+      volume_level: 0.7
   - service: light.turn_on
     data:
       entity_id: light.office_light
@@ -21,7 +29,7 @@ action:
   - service: notify.rodriguez_home_push_slack
     data:
       message:
-        You came in through the basement and it was dark out so I turned on the lights.  Don't forget to turn the office light off.
+        You came in through the basement and it was dark out so I turned on the lights.  Don't forget to turn the office light off. {{ states('input_number.basement_sonos_vol') }}
   - service: tts.google_say
     entity_id: media_player.basement
     data_template:
@@ -31,3 +39,8 @@ action:
         "Let me get the light for you. ",
         "Please remember to lock the basement door."
         ] |random }}
+  - delay: '00:00:10'
+  - service: media_player.volume_set
+    data_template:
+      entity_id: media_player.basement
+      volume_level: "{{ states('input_number.basement_sonos_vol') }}"
