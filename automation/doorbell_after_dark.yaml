@@ -30,11 +30,3 @@ action:
     data:
       message:
         Someone is at the front door and it was dark out so I turned on the lights in the vestibule.  Don't forget to turn the vestibule light off.
-  - service: tts.google_say
-    entity_id: media_player.kitchen
-    data_template:
-      message: >-
-        {{ [
-        "Don't forget to lock the door and turn off the vestibule light. " ,
-        "Please remember to lock the front door and turn off the vestibule light. "
-        ] |random }}

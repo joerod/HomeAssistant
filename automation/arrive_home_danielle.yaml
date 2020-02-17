@@ -14,7 +14,7 @@ action:
     data:
       message:
         Danielle is home.
-  - delay: 0:35
+  - delay: 00:00:25
   - service: tts.google_say
     entity_id: media_player.kitchen
     data_template:

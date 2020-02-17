@@ -14,11 +14,11 @@ airsonos.xml
 AccessoryInfo.*.json
 IdentifierCache.*.json
 .ring_cache*
-home-assistant_v2.db-*
-gtfs/queen_bus.*
+home-assistant_v2.db
+gtfs/queens_bus.sqlite
 tts/*.mp3
 .xbox-token.json
 .ring_cache.pickle
 google_calendars.yaml
-.google.token
-google_calendars.yaml
+.google.tokengit hi
+mp3/*
