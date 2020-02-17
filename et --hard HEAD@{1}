@@ -1,0 +1,408 @@
+[33mcommit 0fd053d24da95c1e4ddf9a0a0a402afdaa5e3d1e[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m)[m
+Author: Joe Rodriguez <joerod@gmail.com>
+Date:   Sun Feb 16 23:48:58 2020 -0500
+
+    updates
+
+[33mcommit c9c33d49b7788eb4397a02d73661b8929b209651[m
+Author: Joe Rodriguez <joerod@gmail.com>
+Date:   Sun Feb 16 23:48:13 2020 -0500
+
+    updates
+
+[33mcommit 235e2ce6d987dfcfe4a85bc3e9909e38cce4904f[m
+Author: Joe Rodriguez <joerod@gmail.com>
+Date:   Sun Feb 16 23:45:15 2020 -0500
+
+    updates
+
+[33mcommit d9e8e82d94b68a348af2e1116b3246446be09d18[m
+Author: Joe Rodriguez <joerod@gmail.com>
+Date:   Sun Feb 16 23:42:55 2020 -0500
+
+    updates
+
+[33mcommit 27d293db7d6c0e89d0324fd4b5cf66f38e5e11b0[m
+Author: Joe Rodriguez <joerod@gmail.com>
+Date:   Sun Feb 16 23:18:59 2020 -0500
+
+    automation updates
+
+[33mcommit 9b52315142135fbbcfeab7efcb703be0e3e9d930[m
+Author: Joe Rodriguez <joerod@gmail.com>
+Date:   Sun Feb 16 21:43:14 2020 -0500
+
+    updates
+
+[33mcommit 2485d22f963d9af388735c8690b773b22551a4b5[m[33m ([m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Author: Joe Rodriguez <joerod@gmail.com>
+Date:   Sun Feb 16 11:42:56 2020 -0500
+
+    spelling
+
+[33mcommit ea450053d8ee0a5bd91290678f688a0ca081b522[m
+Author: Joe Rodriguez <joerod@gmail.com>
+Date:   Sun Feb 16 11:34:35 2020 -0500
+
+    updates
+
+[33mcommit 4b0c4c0058f402b212493076f20e234c3166064c[m
+Merge: 582f943 ea28923
+Author: Joe Rodriguez <joerod@gmail.com>
+Date:   Sun Feb 16 10:11:20 2020 -0500
+
+    Merge pull request #5 from joerod/jr
+    
+    Various fixes
+
+[33mcommit ea289235c5761e008d6e32f34ef2cf74a8f6af11[m[33m ([m[1;31morigin/jr[m[33m)[m
+Author: Joe Rodriguez <joerod@gmail.com>
+Date:   Mon Feb 10 21:54:34 2020 -0500
+
+    update gitignore
+
+[33mcommit 108d3adb916911357dd3624ac86ab7f185a4d031[m
+Author: Joe Rodriguez <joerod@gmail.com>
+Date:   Mon Feb 10 21:52:46 2020 -0500
+
+    gitt
+
+[33mcommit 6098ae7cd04221df8f3f33c389830c162709be39[m
+Author: Joe Rodriguez <joerod@gmail.com>
+Date:   Mon Feb 10 21:48:31 2020 -0500
+
+    various updates to fix things that were broken
+
+[33mcommit 2e04335f38dc310e55c89f9ad7f3a2b609c5927c[m
+Author: Joe Rodriguez <joerod@gmail.com>
+Date:   Fri Jan 31 21:51:29 2020 -0500
+
+    updated automation
+
+[33mcommit 68afac454ee6e08bbcde4f96c4c55e9719ce8920[m
+Author: Joe Rodriguez <joerod@gmail.com>
+Date:   Tue Jan 28 21:45:19 2020 -0500
+
+    kids room automation
+
+[33mcommit 582f9430a184d7fed7ddf684e35a3a26492e2d39[m
+Merge: adcc3d1 85dfe1a
+Author: Joe Rodriguez <joerod@gmail.com>
+Date:   Sun Jan 26 20:30:12 2020 -0500
+
+    Merge pull request #4 from joerod/jr
+    
+    cut-over to smartthings from wink
+
+[33mcommit 85dfe1a75436f33c859b7cec53ba9ad772ac3213[m
+Author: Joe Rodriguez <joerod@gmail.com>
+Date:   Sun Jan 26 20:29:07 2020 -0500
+
+    cut-over to smartthings from wink
+
+[33mcommit adcc3d195e7bdc36688f3acb9e4a32351473a0e4[m
+Merge: c0c91cd fe389c2
+Author: Joe Rodriguez <joerod@gmail.com>
+Date:   Tue Dec 31 01:27:03 2019 -0500
+
+    Merge pull request #3 from joerod/jr
+    
+    added panels and new room lamp
+
+[33mcommit fe389c2d9d2f8bfd51f04266f5ea8c092b1f54cd[m
+Author: Joe Rodriguez <joerod@gmail.com>
+Date:   Tue Dec 31 01:26:12 2019 -0500
+
+    added panels and new room lamp
+
+[33mcommit c0c91cd7529cc31d8cfd92f9769862b9f17f2bcd[m
+Merge: d3baceb f84f63b
+Author: Joe Rodriguez <joerod@gmail.com>
+Date:   Mon Dec 30 23:35:33 2019 -0500
+
+    Merge pull request #2 from joerod/jr
+    
+    Jr
+
+[33mcommit f84f63bfaccb2959c718fae57d7129d92757079a[m
+Author: Joe Rodriguez <joerod@gmail.com>
+Date:   Tue Dec 24 08:50:01 2019 -0500
+
+    changes to fix alerting
+
+[33mcommit 70abc036034eb6ee3d88b5fc04c4d147540138a4[m
+Author: Joe Rodriguez <joerod@gmail.com>
+Date:   Wed Dec 11 22:35:09 2019 -0500
+
+    added alert for the front door bell battery
+
+[33mcommit d3baceb7a52985f1be266c385ab9f4405e61e11f[m
+Author: Joe Rodriguez <joerod@gmail.com>
+Date:   Wed Dec 11 21:14:01 2019 -0500
+
+    updated alerts
+
+[33mcommit d1661597fa3707f161da3957c21aa5d4788663d8[m
+Author: Joe Rodriguez <joerod@gmail.com>
+Date:   Wed Dec 11 20:20:21 2019 -0500
+
+    updates to fix tts
+
+[33mcommit 79a269cb28895de43082149e83ead2b82003f7dc[m
+Author: Joe Rodriguez <joerod@gmail.com>
+Date:   Sun Dec 8 10:38:51 2019 -0500
+
+    updated holidate lights
+
+[33mcommit af81d1ff8379084ddf9f3ad4970db20875eb6355[m
+Author: Joe Rodriguez <joerod@gmail.com>
+Date:   Thu Dec 5 07:00:17 2019 -0500
+
+    tweeked sunrise lights off elevation
+
+[33mcommit df7d27c66c51dbaea20f42d3b0af7cef0c027a64[m
+Author: Joe Rodriguez <joerod@gmail.com>
+Date:   Wed Dec 4 23:07:16 2019 -0500
+
+    fixed lg tv media player - WOL
+
+[33mcommit 4ab9f147d911b9852a6a2fff5e015bf1ed8dc46b[m
+Author: Joe Rodriguez <joerod@gmail.com>
+Date:   Wed Dec 4 07:06:40 2019 -0500
+
+    updated lights on/off sun elevation
+
+[33mcommit 4c211d6d0661e6efb5b9c3150701a17d886c2e9e[m
+Author: Joe Rodriguez <joerod@gmail.com>
+Date:   Tue Dec 3 23:05:59 2019 -0500
+
+    added influxdb
+
+[33mcommit 62ca1b6a9f7d2f7c894c7117602670e6b55df2de[m
+Author: Joe Rodriguez <joerod@gmail.com>
+Date:   Tue Dec 3 19:28:56 2019 -0500
+
+    updated firetv on command and vestibule light automation
+
+[33mcommit 9ca474bb5f8ab4ffd1a928e909a9f71f8a7b1b77[m
+Author: Joe Rodriguez <joerod@gmail.com>
+Date:   Mon Dec 2 23:24:02 2019 -0500
+
+    update yarr sensor off for person detected
+
+[33mcommit 3c1b5d0e669dd81f39bf55ce16c9e8b2c5e433cb[m
+Author: Joe Rodriguez <joerod@gmail.com>
+Date:   Mon Dec 2 23:22:37 2019 -0500
+
+    using persom detected in yard lights
+
+[33mcommit a8b73ae6818ce43b846cf795f94430eebaeeb84f[m
+Author: Joe Rodriguez <joerod@gmail.com>
+Date:   Mon Dec 2 23:06:41 2019 -0500
+
+    updated yard light automation
+
+[33mcommit 14a59b74f01a1f45b76500964dd4399159a2e96f[m
+Author: Joe Rodriguez <joerod@gmail.com>
+Date:   Mon Dec 2 21:28:03 2019 -0500
+
+    added mqtt device
+
+[33mcommit 3c6a610fefb13f721e26bda9cb73940d704f36ae[m
+Author: Joe Rodriguez <joerod@gmail.com>
+Date:   Sun Dec 1 20:11:44 2019 -0500
+
+    updates
+
+[33mcommit 87e07a08ce9d56107c7b391124bacc4ff4c76bc8[m
+Author: Joe Rodriguez <joerod@gmail.com>
+Date:   Sat Nov 23 17:03:09 2019 -0500
+
+    udpated when lights go off on sunrise
+
+[33mcommit 610d0654791a079f9f8df49fa6044d27ffa001ff[m
+Author: Joe Rodriguez <joerod@gmail.com>
+Date:   Sat Nov 23 16:59:17 2019 -0500
+
+    undated time when lights go on
+
+[33mcommit bb1c2ae89463173390d638293143717c9a9a3834[m
+Author: Joe Rodriguez <joerod@gmail.com>
+Date:   Sat Nov 23 14:34:51 2019 -0500
+
+    vestibule light automations
+
+[33mcommit d357a08ebdd4a683d7c8cc94a8485d78e2344810[m
+Author: Joe Rodriguez <joerod@gmail.com>
+Date:   Fri Nov 22 22:55:38 2019 -0500
+
+    added automaion for yard lights and new vestibule lights
+
+[33mcommit 6f619155863da0fd64a27e288b411f6fa9909711[m
+Author: Joe Rodriguez <joerod@gmail.com>
+Date:   Wed Nov 20 20:27:13 2019 -0500
+
+    updated rosie
+
+[33mcommit 79735f9517433a970930b38ef14e4c50a8b0bb18[m
+Author: Joe Rodriguez <joerod@gmail.com>
+Date:   Wed Nov 20 20:24:49 2019 -0500
+
+    various updates
+
+[33mcommit 5623682837cf3dfa8e604fbf98b227d6d997bf85[m
+Author: Joe Rodriguez <joerod@gmail.com>
+Date:   Thu Oct 17 23:49:54 2019 -0400
+
+    updated times tts will play
+
+[33mcommit 2b5309591b4d6599d137cbd9c80afe528ba6bab2[m
+Author: Joe Rodriguez <joerod@gmail.com>
+Date:   Thu Oct 17 23:29:25 2019 -0400
+
+    added alert when vaccum is full, updated other automations
+
+[33mcommit ddb2355484c7aedc75744a25700ae96afad146e2[m
+Merge: fa7fd06 ccd06ab
+Author: Joe Rodriguez <joerod@gmail.com>
+Date:   Mon Oct 14 19:35:21 2019 -0400
+
+    updated travel automation tts
+
+[33mcommit fa7fd06b497a4cafdc4e1c11a10e5230bdfbdace[m
+Author: Joe Rodriguez <joerod@gmail.com>
+Date:   Mon Oct 14 19:31:50 2019 -0400
+
+    added google calendar and alerts for the bus on work days
+
+[33mcommit ccd06ab061f20c34dbc40b4d84370ef1cc8eb923[m
+Author: Joe Rodriguez <joerod@gmail.com>
+Date:   Mon Oct 14 19:31:50 2019 -0400
+
+    added google calendar and alerts for the bus on work days
+
+[33mcommit ada881436109fed3538bba3e80d19d4d1c5cad94[m
+Author: Joe Rodriguez <joerod@gmail.com>
+Date:   Sun Oct 6 18:29:56 2019 -0400
+
+    updated holiday light automation
+
+[33mcommit e521f3cef608a27a7d5a6700247c6345772ae272[m
+Author: Joe Rodriguez <joerod@gmail.com>
+Date:   Sat Oct 5 23:26:08 2019 -0400
+
+    added more logic to garden sprinkler
+
+[33mcommit ab0bc26872f3829415f259e0278a9d0c073bd635[m
+Author: Joe Rodriguez <joerod@gmail.com>
+Date:   Sat Oct 5 22:19:52 2019 -0400
+
+    added holiday light automation
+
+[33mcommit 085e4bbe61db4a0c26db4772e889b6fdc04ab193[m
+Author: Joe Rodriguez <joerod@gmail.com>
+Date:   Sun Sep 29 18:52:28 2019 -0400
+
+    added offset for outdoor lights and fixed alert merge
+
+[33mcommit f725e1e4e4d71010a3534af77a301c456e881a78[m
+Author: Joe Rodriguez <joerod@gmail.com>
+Date:   Sun Sep 29 12:00:32 2019 -0400
+
+    added alerts
+
+[33mcommit 05160e45a83309707892d8e8e90e04f89be0a8de[m
+Author: Joe Rodriguez <joerod@gmail.com>
+Date:   Sun Sep 29 11:58:29 2019 -0400
+
+    added alerts
+
+[33mcommit 3e92b76f16c3e6ff56fd0adfc3ac680607d5d95a[m
+Author: Joe Rodriguez <joerod@gmail.com>
+Date:   Sat Sep 28 20:35:06 2019 -0400
+
+    more logic for basement light automation
+
+[33mcommit d9b850a36addcd56592ab1e92ee6ba6e2ca3b9a5[m
+Author: Joe Rodriguez <joerod@gmail.com>
+Date:   Sat Sep 28 20:08:33 2019 -0400
+
+    updated gitignore file
+
+[33mcommit e08c2e3dd9628ac50afbbdac7d2ee5a07e1dbb9b[m
+Author: Joe Rodriguez <joerod@gmail.com>
+Date:   Sat Sep 28 20:06:28 2019 -0400
+
+    removed unneeded files
+
+[33mcommit 29fc962ee4b58268ccd26af785236dffee7c1b11[m
+Author: Joe Rodriguez <joerod@gmail.com>
+Date:   Sat Sep 28 20:03:15 2019 -0400
+
+    fixes
+
+[33mcommit d28b3432c2dab3db5e7aeb52f083b7f3f21deb6a[m
+Author: Joe Rodriguez <joerod@gmail.com>
+Date:   Sat Sep 28 19:59:51 2019 -0400
+
+    fixes
+
+[33mcommit 610792c12d48a0695d280c494bdc954d00bd408b[m
+Author: Joe Rodriguez <joerod@gmail.com>
+Date:   Sat Sep 28 19:55:53 2019 -0400
+
+    arriving home updates
+
+[33mcommit b1e67d1f554e5c1113760b17d6e68c416b4b9b85[m
+Author: Joe Rodriguez <joerod@gmail.com>
+Date:   Sat Sep 28 17:50:11 2019 -0400
+
+    spelling fixes
+
+[33mcommit bb85d916257773b9ee3a5932d65b1afd04f49838[m
+Author: Joe Rodriguez <joerod@gmail.com>
+Date:   Sat Sep 28 17:48:08 2019 -0400
+
+    fixes
+
+[33mcommit 5897e4f1ec9bef5b6625c634fdde4e7976a4d889[m
+Author: Joe Rodriguez <joerod@gmail.com>
+Date:   Sat Sep 28 17:32:11 2019 -0400
+
+    added automation for the basement fan
+
+[33mcommit c02c350024b42f0f3c5ae3650c0ef25a30e7b688[m
+Author: Joe Rodriguez <joerod@gmail.com>
+Date:   Sat Sep 28 17:08:55 2019 -0400
+
+    added back subway images
+
+[33mcommit 11b8d671acaf6d83a1be2fd6205de0926133271d[m
+Author: Joe Rodriguez <joerod@gmail.com>
+Date:   Sat Sep 28 17:06:09 2019 -0400
+
+    more clean up
+
+[33mcommit 7840e4551c020beba166c552f71dc88c967a74ea[m
+Author: Joe Rodriguez <joerod@gmail.com>
+Date:   Sat Sep 28 17:03:24 2019 -0400
+
+    clean up
+
+[33mcommit 51d932e58a7655143bab00c365ef8f2d3b650d62[m
+Author: Joe Rodriguez <joerod@gmail.com>
+Date:   Sat Sep 28 16:34:22 2019 -0400
+
+    updated  detection time for being home
+
+[33mcommit 0e11e379f99ba9472996b5991e0fad64cee26fb6[m
+Author: Joe Rodriguez <joerod@gmail.com>
+Date:   Sat Sep 28 15:36:17 2019 -0400
+
+    added transit sensors for bus and subway
+
+[33mcommit 022fb041ec830b9808704c98bcaf7b77a96fab65[m
+Author: Joe Rodriguez <joerod@gmail.com>
+Date:   Sat Sep 28 11:30:30 2019 -0400
+
+    fixed up more automation messages

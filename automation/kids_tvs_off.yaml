@@ -13,7 +13,7 @@ condition:
         - wed
         - thu
     - condition: template
-      value_template: '{% if now().month in [7,8] %}{{False}}{% else %}{{True}}{% endif %}'
+      value_template: '{% if now().month in [7,8] %}{{false}}{% else %}{{true}}{% endif %}'
 action:
   - service: media_player.turn_off
     entity_id: media_player.vizio_smartcast_aly

@@ -11,7 +11,7 @@ condition:
       entity_id: sun.sun
       state: 'below_horizon'
     - condition: state
-      entity_id:  light.vestibule
+      entity_id: light.vestibule
       state: 'off'
 action:
   - service: light.turn_on

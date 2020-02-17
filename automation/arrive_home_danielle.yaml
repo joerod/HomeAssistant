@@ -14,13 +14,15 @@ action:
     data:
       message:
         Danielle is home.
+  - delay: 0:35
   - service: tts.google_say
     entity_id: media_player.kitchen
     data_template:
       message: >-
         {{ [
         "Welcome home Mrs. Rodriguez. " ,
-        "Hi Danielle. " ,
+        "Hello Danielle. " ,
+        "Hi Dani. " ,
         "Nice to see you back Danielle. " ,
         "Hi Danielle, looking gorgeous as always. "
         ] |random }}

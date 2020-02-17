@@ -1,7 +1,7 @@
 alias: "Kids Lights Off - Bedtime"
 trigger:
   platform: time
-  at: '21:30:00'
+  at: '22:30:00'
 action:
   - service: light.turn_off
     entity_id: light.avas_room_lamp

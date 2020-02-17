@@ -1,9 +1,9 @@
 alias: 'Turn On Side Door Light When Side Door is Open after Sunset.'
 trigger:
   platform: state
-  entity_id:  lock.side_door
-  from: 'locked'
-  to: 'unlocked'
+  entity_id: binary_sensor.side_door_open
+  from: 'off'
+  to: 'on'
 condition:
   condition: and
   conditions:

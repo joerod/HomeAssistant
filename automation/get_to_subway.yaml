@@ -19,7 +19,12 @@ condition:
       entity_id: 'person.joerod'
       state: 'home'
     - condition: template
-      value_template: "{{ not is_state_attr('calendar.joe_rodriguez', 'message', 'Day Off') and not is_state_attr('calendar.joe_rodriguez', 'message', 'WFH') }}"
+      value_template: >
+        {% if states('calendar.joe_rodriguez') == 'on' and state_attr('calendar.joe_rodriguez', 'message') == "Day off" -%}
+          true
+        {% else %}
+          false
+        {%- endif %}
 action:
   - service: input_number.set_value
     data_template:

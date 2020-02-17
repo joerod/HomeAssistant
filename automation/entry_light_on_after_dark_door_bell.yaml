@@ -36,5 +36,5 @@ action:
       message: >-
         {{ [
         "Don't forget to lock the door and turn off the vestibule light. " ,
-        "Please remember to lock the front door. "
+        "Please remember to lock the front door and turn off the vestibule light. "
         ] |random }}

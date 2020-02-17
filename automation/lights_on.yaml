@@ -9,37 +9,37 @@ action:
     data_template:
       group_name: "Garden"
       scene_name: >
-          {% if is_state("calendar.holidays_in_united_states","on") -%}
-            {% if state_attr('calendar.holidays_in_united_states','message') == "Valentine's Day" -%}
-              Valentine's
-            {% elif state_attr('calendar.holidays_in_united_states','message') == "Presidents' Day (regional holiday)" %}
-              USA
-            {% elif state_attr('calendar.holidays_in_united_states','message') == "St. Patrick's Day" %}
-              Jets
-            {% elif state_attr('calendar.holidays_in_united_states','message') == "Easter Sunday" %}
-              Easter
-            {% elif state_attr('calendar.holidays_in_united_states','message') == "Mother's Day" %}
-              Mother's Day
-            {% elif state_attr('calendar.holidays_in_united_states','message') == "Memorial Day" %}
-              USA
-            {% elif state_attr('calendar.holidays_in_united_states','message') == "Independence Day" %}
-              USA
-            {% elif state_attr('calendar.holidays_in_united_states','message') == "Halloween" %}
-              Halloween
-            {% elif state_attr('calendar.holidays_in_united_states','message') == "Election Day" %}
-              USA
-            {% elif state_attr('calendar.holidays_in_united_states','message') == "Veterans Day" %}
-              USA
-            {% elif state_attr('calendar.holidays_in_united_states','message') == "Thanksgiving Day" %}
-              Fall
-            {% elif state_attr('calendar.holidays_in_united_states','message') == "Christmas Day" %}
-              Christmas
-            {% else %}
-              Rodriguez Garden
-            {%- endif %}
+        {% if is_state("calendar.holidays_in_united_states","on") -%}
+          {% if state_attr('calendar.holidays_in_united_states','message') == "Valentine's Day" -%}
+            Valentine's
+          {% elif state_attr('calendar.holidays_in_united_states','message') == "Presidents' Day (regional holiday)" %}
+            USA
+          {% elif state_attr('calendar.holidays_in_united_states','message') == "St. Patrick's Day" %}
+            Jets
+          {% elif state_attr('calendar.holidays_in_united_states','message') == "Easter Sunday" %}
+            Easter
+          {% elif state_attr('calendar.holidays_in_united_states','message') == "Mother's Day" %}
+            Mother's Day
+          {% elif state_attr('calendar.holidays_in_united_states','message') == "Memorial Day" %}
+            USA
+          {% elif state_attr('calendar.holidays_in_united_states','message') == "Independence Day" %}
+            USA
+          {% elif state_attr('calendar.holidays_in_united_states','message') == "Halloween" %}
+            Halloween
+          {% elif state_attr('calendar.holidays_in_united_states','message') == "Election Day" %}
+            USA
+          {% elif state_attr('calendar.holidays_in_united_states','message') == "Veterans Day" %}
+            USA
+          {% elif state_attr('calendar.holidays_in_united_states','message') == "Thanksgiving Day" %}
+            Fall
+          {% elif state_attr('calendar.holidays_in_united_states','message') == "Christmas Day" %}
+            Christmas
           {% else %}
             Rodriguez Garden
           {%- endif %}
+        {% else %}
+          Rodriguez Garden
+        {%- endif %}
   - service: switch.turn_on
     entity_id: switch.front_door_lights
   - service: switch.turn_on

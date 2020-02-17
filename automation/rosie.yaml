@@ -6,7 +6,12 @@ condition:
   condition: and
   conditions:
     - condition: template
-      value_template: "{{ not is_state_attr('calendar.deerodster_gmail_com', 'message', 'Cleaning Lady') }}"
+      value_template: >
+        {% if states('calendar.deerodster_gmail_com') == 'on' and state_attr('calendar.deerodster_gmail_com', 'message') == "Cleaning Lady" -%}
+          true
+        {% else %}
+          false
+        {%- endif %}
     - condition: time
       weekday:
         - mon
@@ -30,5 +35,9 @@ action:
       message:  "I'm going to vacuum the 1st floor Mr. R"
   - service: tts.google_say
     entity_id: media_player.kitchen
-    data:
-      message: "I'm going to vacuum the first floor"
+    data_template:
+      message: >-
+        {{ [
+        "I'm going to vacuum the first floor" ,
+        "Time to clean up all this cat hair. "
+        ] |random }}

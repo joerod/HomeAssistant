@@ -1,7 +1,5 @@
 homeassistant:
   name: Rodriguez Home
-  latitude: !secret home_lat
-  longitude: !secret home_lon
   elevation: 12
   unit_system: imperial
   time_zone: America/New_York
@@ -62,6 +60,10 @@ ring:
   username: !secret ring_username
   password: !secret ring_password
 
+spotify:
+  client_id: !secret spotify_id
+  client_secret: !secret spotify_secret
+
 vizio:
   - host: !secret ava_tv_ip
     access_token: !secret ava_tv_access
@@ -72,11 +74,11 @@ vizio:
 
 webostv:
     name: Living Room TV
-    host: 192.168.1.50
+    host: !secret livingroom_tv_ip
     turn_on_action:
       service: wake_on_lan.send_magic_packet
       data:
-        mac: "48:8d:36:f0:bf:25"
+        mac: !secret livingroom_tv_mac
 
 vacuum:
   - platform: roomba
@@ -99,6 +101,17 @@ panel_iframe:
 ifttt:
   key: !secret ifttt_password
 
+zone:
+  - name: Home
+    latitude: !secret home_lat
+    longitude: !secret home_lon
+    radius: 11.26834190224958
+    icon: mdi:home
+  - name: Joe's Job
+    latitude: !secret joe_work_lat
+    longitude: !secret joe_work_lon
+    radius: 47.89536523700534
+    icon: mdi:worker
 influxdb:
   host: a0d7b954-influxdb
   port: 8086
