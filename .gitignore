@@ -20,5 +20,5 @@ tts/*.mp3
 .xbox-token.json
 .ring_cache.pickle
 google_calendars.yaml
-.google.tokengit hi
+.google.token
 mp3/*
