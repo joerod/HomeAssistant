@@ -20,7 +20,7 @@ condition:
       state: 'home'
     - condition: template
       value_template: >
-        {% if states('calendar.joe_rodriguez') == 'on' and state_attr('calendar.joe_rodriguez', 'message') == "Day off" -%}
+        {% if states('calendar.joe_rodriguez') == 'on' and state_attr('calendar.joe_rodriguez', 'message') == "Day off" or state_attr('calendar.joe_rodriguez', 'message') == "WFH" -%}
           true
         {% else %}
           false
