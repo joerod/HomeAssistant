@@ -7,8 +7,6 @@ homeassistant:
   time_zone: America/New_York
   customize: !include customize.yaml
   packages: !include_dir_named packages
-  latitude: !secret home_lat
-  longitude: !secret home_lon
 
 frontend:
   javascript_version: latest
