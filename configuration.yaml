@@ -5,7 +5,7 @@ homeassistant:
   elevation: 12
   unit_system: imperial
   time_zone: America/New_York
-  customize: !include customize.yaml
+  #customize: !include customize.yaml
   packages: !include_dir_named packages
 
 frontend:

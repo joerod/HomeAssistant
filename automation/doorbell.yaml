@@ -18,32 +18,28 @@ action:
     entity_id: vacuum.rosie
 - service: media_player.volume_set
   data:
-    entity_id:
-      - media_player.basement
-      - media_player.kitchen
-    volume_level: 0.7
+    entity_id: group.media_doorbell
+    volume_level: 0.80
 - service: media_player.play_media
   data:
     entity_id:
       - media_player.basement
       - media_player.kitchen
-    media_content_id: /local/mp3/Door_Bell_4.mp3
+      - media_player.rodriguez_s_echo_show
+    media_content_id: "https://dl.dropboxusercontent.com/s/j8z68amrkn61zm1/Door%20Bell%204.mp3?dl=0"
     media_content_type: 'music'
+- delay: 00:00:03
 - service: tts.google_say
-  data:
-    entity_id:
-      - media_player.basement
-      - media_player.kitchen
-    data_template:
-      message: >-
-        {{ [
-        "Someone's at the front door. " ,
-        "A visitor is at the front door. ",
-        "A guest has arrived"
-        ] |random }}
+  entity_id: group.media_doorbell
+  data_template:
+    message: >-
+      {{ [
+      "Someone's at the front door. " ,
+      "A visitor is at the front door. ",
+      "A guest has arrived at the front door. "
+      ] |random }}
+- delay: 00:00:02
 - service: media_player.volume_set
   data:
-    entity_id:
-      - media_player.basement
-      - media_player.kitchen
+    entity_id: group.media_doorbell
     volume_level: 0.4

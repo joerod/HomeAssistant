@@ -1,7 +1,7 @@
 alias: 'Turn On Vestibule Light When Front Door is Open after Sunset.'
 trigger:
   platform: state
-  entity_id:  lock.front_door_lock
+  entity_id: lock.front_door_lock
   from: 'locked'
   to: 'unlocked'
 condition:
