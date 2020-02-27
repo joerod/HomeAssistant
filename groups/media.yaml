@@ -1,9 +1,8 @@
-  - media_sonos:
-      entities:
-        - media_player.basement
-        - media_player.kitchen
-  - media_doorbell:
-      entities:
-        - media_player.basement
-        - media_player.kitchen
-        - media_player.rodriguez_s_echo_show
+media_sonos:
+  entities:
+    - media_player.basement
+    - media_player.kitchen
+media_doorbell:
+  entities:
+    - media_player.basement
+    - media_player.kitchen

@@ -9,6 +9,9 @@ action:
   data:
     entity_id: media_player.living_room_tv
     volume_level: 0.1
+- service: notify.living_room_tv
+  data:
+    message: "Someone's at the front Door"
 - service: media_player.volume_set
   data:
     entity_id: media_player.kitchen_fire_tv
@@ -18,19 +21,22 @@ action:
     entity_id: vacuum.rosie
 - service: media_player.volume_set
   data:
-    entity_id: group.media_doorbell
+    entity_id:
+      - media_player.kitchen
+      - media_player.basement
     volume_level: 0.80
 - service: media_player.play_media
   data:
     entity_id:
-      - media_player.basement
       - media_player.kitchen
-      - media_player.rodriguez_s_echo_show
-    media_content_id: "https://dl.dropboxusercontent.com/s/j8z68amrkn61zm1/Door%20Bell%204.mp3?dl=0"
+      - media_player.basement
+    media_content_id: "https://dl.dropboxusercontent.com/s/whe4ee6mpzv2a5g/Jetsons.mp3?dl=0"
     media_content_type: 'music'
-- delay: 00:00:03
+- delay: 00:00:02
 - service: tts.google_say
-  entity_id: group.media_doorbell
+  entity_id:
+    - media_player.kitchen
+    - media_player.basement
   data_template:
     message: >-
       {{ [
@@ -41,5 +47,7 @@ action:
 - delay: 00:00:02
 - service: media_player.volume_set
   data:
-    entity_id: group.media_doorbell
+    entity_id:
+      - media_player.kitchen
+      - media_player.basement
     volume_level: 0.4
