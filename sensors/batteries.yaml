@@ -1,7 +1,7 @@
   - platform: template
     sensors:
       side_door_lock:
-        value_template: '{% if states("lock.side_door") %} {{ states("lock.side_door", "battery_level") |int }} {% else %} Unknown {% endif %}'
+        value_template: '{% if states("lock.side_door") %} {{ state_attr("lock.side_door", "battery_level") |int }} {% else %} Unknown {% endif %}'
         unit_of_measurement: '%'
 
       rosie:

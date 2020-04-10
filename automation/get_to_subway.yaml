@@ -1,4 +1,4 @@
-# this will anounce how far the bus is from my stop every weekday between 6:45AM - 7:05AM
+# this will anounce how far the bus is from my stop every weekday between 6:47AM - 7:10AM
 alias: 'Get to the subway by bus'
 trigger:
   platform: time_pattern
@@ -21,9 +21,9 @@ condition:
     - condition: template
       value_template: >
         {% if states('calendar.joe_rodriguez') == 'on' and state_attr('calendar.joe_rodriguez', 'message') == "Day off" or state_attr('calendar.joe_rodriguez', 'message') == "WFH" -%}
-          true
+          {{false}}
         {% else %}
-          false
+          {{true}}
         {%- endif %}
 action:
   - service: input_number.set_value
@@ -60,4 +60,3 @@ action:
     data_template:
       entity_id: media_player.kitchen
       volume_level: "{{ states('input_number.kitchen_sonos') }}"
-

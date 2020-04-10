@@ -1,4 +1,0 @@
-  fans:
-    name: Room Fans
-    entities:
-       light.master_bedroom_fan

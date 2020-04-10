@@ -31,8 +31,8 @@ action:
       - media_player.kitchen
       - media_player.basement
     media_content_id: "https://dl.dropboxusercontent.com/s/whe4ee6mpzv2a5g/Jetsons.mp3?dl=0"
-    media_content_type: 'music'
-- delay: 00:00:02
+    media_content_type: music
+- delay: 00:00:06
 - service: tts.google_say
   entity_id:
     - media_player.kitchen
