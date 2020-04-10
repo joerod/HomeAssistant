@@ -1,4 +1,0 @@
-  DoorLocks:
-    entities:
-      - lock.front_door_lock
-      - lock.side_door

@@ -2,6 +2,11 @@
     entities:
       - light.office_light
       - light.vestibule
+      - light.side_entrance
       - switch.kitchen_light
       - switch.dining_room_light
       - light.arabellas_night_light
+      - light.arabellas_room
+      - light.alys_room
+      - light.avas_room
+      - light.master_bedroom_lights
