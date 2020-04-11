@@ -1,0 +1,48 @@
+movie_on:
+  sequence:
+    - service: media_player.turn_on
+      data:
+        entity_id: media_player.living_room_tv
+    - service: light.turn_off
+      data:
+        entity_id: light.vestibule
+    - service:  light.turn_off
+      data:
+        entity_id: light.side_entrance
+    - service: switch.turn_off
+      data:
+        entity_id: switch.kitchen_light
+    - service: switch.turn_off
+      data:
+        entity_id: switch.dining_room_light
+    - service: media_player.select_source
+      data:
+        entity_id: media_player.living_room_tv
+        source: Plex
+    - service: webostv.select_sound_output
+      data:
+        entity_id: media_player.living_room_tv
+        sound_output: external_speaker
+    - service: media_player.select_source
+      data:
+        entity_id: media_player.yamaha_receiver
+        source: AUDIO1
+    - service: media_player.select_sound_mode
+      data:
+        entity_id: media_player.yamaha_receiver
+        sound_mode: '7ch Stereo'
+    - service: media_player.volume_set
+      data:
+        entity_id: media_player.yamaha_receiver
+        volume_level: 0.75
+
+movie_off:
+  sequence:
+    - service: media_player.select_source
+      data:
+        entity_id: media_player.living_room_tv
+        source: HDMI1
+    - service: webostv.select_sound_output
+      data:
+        entity_id: media_player.living_room_tv
+        sound_output: tv_speaker
