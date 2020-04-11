@@ -1,0 +1,41 @@
+christmas_morning_on:
+  sequence:
+    - service: media_player.turn_on
+      data:
+        entity_id: media_player.living_room_tv
+    - service: media_player.volume_set
+      data:
+        entity_id: media_player.living_room_tv
+        volume_level: 0.0
+    - service: media_player.select_source
+      data:
+        entity_id: media_player.living_room_tv
+        source: YouTube
+    - service: media_player.select_source
+      data:
+        entity_id: media_player.spotify_joe_rodriguez
+        source: 'Living Room'
+    - service: media_player.select_source
+      data:
+        entity_id: media_player.yamaha_receiver
+        source: Spotify
+    - service: media_player.select_sound_mode
+      data:
+        entity_id: media_player.yamaha_receiver
+        sound_mode: '7ch Stereo'
+    - service: media_player.volume_set
+      data:
+        entity_id: media_player.yamaha_receiver
+        volume_level: 0.60
+    - service: media_player.play_media
+      data:
+        entity_id: media_player.spotify_joe_rodriguez
+        media_content_type: playlist
+      data_template:
+        media_content_id: "spotify:playlist:4JZtxZHF61Ae45PQ1JtnBX"
+    - service: media_extractor.play_media
+      data:
+        entity_id: media_player.living_room_tv
+        media_content_id: "https://www.youtube.com/watch?v=siZ-oI95rlM"
+        media_content_type: video/youtube
+

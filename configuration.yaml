@@ -23,7 +23,7 @@ sun:
 wake_on_lan:
 system_health:
 mobile_app:
-
+media_extractor:
 logger:
   default: info
 
