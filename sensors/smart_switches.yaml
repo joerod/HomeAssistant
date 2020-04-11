@@ -1,0 +1,43 @@
+#sonoffS31-2 sensor sonoff_pow_watts:
+  - platform: mqtt
+    name: Current Power Usage (sonoffS31-2)
+    state_topic: "tele/sonoffS31-2/SENSOR"
+    value_template: "{{value_json['ENERGY'].Power }}"
+    qos: 1
+    unit_of_measurement : "W"
+#sonoffS31-2 sensor sonoff_pow_volts:
+  - platform: mqtt
+    name: Industrial Fan Current Voltage (sonoffS31-2)
+    state_topic: "tele/sonoffS31-2/SENSOR"
+    value_template: "{{ value_json['ENERGY'].Voltage }}"
+    qos: 1
+    unit_of_measurement : "V"
+#sonoffS31-2 sensor sonoff_pow_current:
+  - platform: mqtt
+    name: Industrial Fan Current Amps (sonoffS31-2)
+    state_topic: "tele/sonoffS31-2/SENSOR"
+    value_template: "{{ value_json['ENERGY'].Current }}"
+    qos: 1
+    unit_of_measurement : "A"
+
+#sonoffS31-1 sensor sonoff_pow_watts:
+  - platform: mqtt
+    name: Current Power Usage (sonoffS31-1)
+    state_topic: "tele/sonoffS31-1/SENSOR"
+    value_template: "{{value_json['ENERGY'].Power }}"
+    qos: 1
+    unit_of_measurement : "W"
+#sonoffS31-1 sensor sonoff_pow_volts:
+  - platform: mqtt
+    name: Industrial Fan Current Voltage (sonoffS31-1)
+    state_topic: "tele/sonoffS31-1/SENSOR"
+    value_template: "{{ value_json['ENERGY'].Voltage }}"
+    qos: 1
+    unit_of_measurement : "V"
+#sonoffS31-1 sensor sonoff_pow_current:
+  - platform: mqtt
+    name: Industrial Fan Current Amps (sonoffS31-1)
+    state_topic: "tele/sonoffS31-1/SENSOR"
+    value_template: "{{ value_json['ENERGY'].Current }}"
+    qos: 1
+    unit_of_measurement : "A"

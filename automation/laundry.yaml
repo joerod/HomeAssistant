@@ -1,0 +1,23 @@
+alias: 'Check when washing machine is done'
+trigger:
+  platform: state
+  entity_id: sensor.current_power_usage_sonoffs31_2
+  to: "0"
+  for:
+    seconds: 30
+action:
+  - service: notify.rodriguez_home_push_slack
+    data:
+      message:
+        The washing machine is done!
+  - service: tts.google_say
+    entity_id:
+      - media_player.basement
+      - media_player.kitchen
+    data_template:
+      message: >-
+        {{ [
+        "The washing machine is done!" ,
+        "Looks like the load of clothes that are in the washing machine are done.",
+        "Clear the washing machine before the clothes start to stink."
+        ] |random }}
