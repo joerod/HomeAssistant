@@ -129,6 +129,11 @@ notify:
     api_key: !secret slack_api
     default_channel: !secret slack_chan
 
+camera:
+  - platform: generic
+    still_image_url: 'https://s.w-x.co/staticmaps/wu/wu/wxtype1200_cur/usbgm/animate.png'
+    name: 'NY Radar'
+
 group: !include_dir_merge_named groups
 automation: !include_dir_list automation
 sensor: !include_dir_merge_list sensors/

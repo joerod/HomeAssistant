@@ -1,15 +1,17 @@
 alias: 'Check when washing machine is done'
 trigger:
-  platform: state
+  platform: numeric_state
   entity_id: sensor.current_power_usage_sonoffs31_2
-  to: "0"
-  for:
-    seconds: 30
+  below: 1
 action:
   - service: notify.rodriguez_home_push_slack
     data:
       message:
-        The washing machine is done!
+        🧺 The washing machine is done!
+  - service: notify.mobile_app_joerod_s_iphone
+    data:
+      message:
+        🧺 The washing machine is done!
   - service: tts.google_say
     entity_id:
       - media_player.basement
