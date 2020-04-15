@@ -1,0 +1,4 @@
+  - name: Rodriguez_home_push_slack
+    platform: slack
+    api_key: !secret slack_api
+    default_channel: !secret slack_chan

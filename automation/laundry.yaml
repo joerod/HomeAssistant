@@ -4,11 +4,7 @@ trigger:
   entity_id: sensor.current_power_usage_sonoffs31_2
   below: 1
 action:
-  - service: notify.rodriguez_home_push_slack
-    data:
-      message:
-        🧺 The washing machine is done!
-  - service: notify.mobile_app_joerod_s_iphone
+  - service: notify.all_notify
     data:
       message:
         🧺 The washing machine is done!

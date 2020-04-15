@@ -1,0 +1,6 @@
+  - name: all_notify
+    platform: group
+    services:
+      - service: rodriguez_home_push_slack
+      - service: mobile_app_joerod_s_iphone
+      - service: mobile_app_danielles_iphone

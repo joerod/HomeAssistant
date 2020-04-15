@@ -1,6 +1,6 @@
   - name: rosie_alert_slack_notify
     platform: group
     services:
-      - service: notify.rodriguez_home_push_slack
+      - service: rodriguez_home_push_slack
         data:
           Message: "Rosie''s bin is full"
