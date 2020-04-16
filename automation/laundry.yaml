@@ -3,6 +3,8 @@ trigger:
   platform: numeric_state
   entity_id: sensor.current_power_usage_sonoffs31_2
   below: 1
+  for:
+    minutes: 1
 action:
   - service: notify.all_notify
     data:

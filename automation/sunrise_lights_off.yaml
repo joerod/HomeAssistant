@@ -15,5 +15,3 @@ action:
     entity_id: switch.holiday_lights
   - service: switch.turn_off
     entity_id: switch.sonoff1
-  - service: switch.turn_off
-    entity_id: switch.sonoff2
