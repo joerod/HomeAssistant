@@ -1,0 +1,24 @@
+alias: 'Check when dryer is done'
+trigger:
+  platform: numeric_state
+  entity_id: sensor.current_power_usage_sonoffs31_3
+  below: 1
+  for:
+    minutes: 1
+action:
+  - service: notify.all_notify
+    data:
+      message:
+        🔥 The dryer is done!
+  - service: tts.google_say
+    entity_id:
+      - media_player.basement
+      - media_player.kitchen
+    data_template:
+      message: >-
+        {{ [
+        "The dryer is done!" ,
+        "Looks like the load of clothes that are in the dryer are done.",
+        "Check the dryer, the dry cycle is complete.",
+        "The dryer has stopped, you know how that goes, it may not be fully dry.  Check it out!"
+        ] |random }}
