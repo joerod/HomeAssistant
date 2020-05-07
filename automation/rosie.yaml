@@ -1,7 +1,7 @@
 alias: "Rosie vacuums the first floor"
 trigger:
   platform: time
-  at: '09:00:00'
+  at: '10:30:00'
 condition:
   condition: and
   conditions:
@@ -30,14 +30,21 @@ condition:
 action:
   - service: vacuum.turn_on
     entity_id: vacuum.rosie
-  - service: notify.rodriguez_home_push_slack
+  - service: notify.all_notify
     data_template:
-      message:  "I'm going to vacuum the 1st floor Mr. R"
+      message:  >-
+        {{ [
+        "🧹 I'm going to vacuum the first floor" ,
+        "🧹 Time to clean up all this cat hair.",
+        "🧹 Time to earn my living."
+        ] |random }}
+
   - service: tts.google_say
     entity_id: media_player.kitchen
     data_template:
       message: >-
         {{ [
         "I'm going to vacuum the first floor" ,
-        "Time to clean up all this cat hair. "
+        "Time to clean up all this cat hair.",
+        "Time to earn my living."
         ] |random }}
