@@ -14,3 +14,5 @@ action:
     data_template:
       message: >
         Garden sprinkler has been turned off.
+  - service: switch.turn_off
+    entity_id: switch.garden_sprinkler

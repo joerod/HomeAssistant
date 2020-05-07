@@ -5,6 +5,10 @@ trigger:
   below: 1
   for:
     minutes: 1
+condition:
+  - condition: numeric_state
+    entity_id: 'sensor.uptime'
+    above: 8
 action:
   - service: notify.all_notify
     data:
