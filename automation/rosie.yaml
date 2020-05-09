@@ -27,8 +27,11 @@ condition:
         - condition: state
           entity_id: binary_sensor.living_room_camera_sound_detected
           state: 'off'
+        - condition: state
+          entity_id: binary_sensor.rosie_bin_full
+          state: 'False'
 action:
-  - service: vacuum.turn_on
+  - service: vacuum.start
     entity_id: vacuum.rosie
   - service: notify.all_notify
     data_template:
