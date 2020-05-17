@@ -2,7 +2,7 @@
     name: Kitchen Fire TV
     device_class: firetv
     host: 192.168.1.167
-    adb_server_ip: 192.168.1.221
+    adb_server_ip: 127.0.0.1
     adb_server_port: 5037
     apps:
       com.amazon.tv.launcher: "Fire TV"

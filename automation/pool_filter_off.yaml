@@ -8,11 +8,11 @@ trigger:
     at: '17:45:00'
 condition:
   condition: state
-  entity_id: switch.holiday_lights
+  entity_id: switch.outdoor_switch
   state: 'on'
 action:
   - service: switch.turn_off
-    entity_id: switch.holiday_lights
+    entity_id: switch.outdoor_switch
   - service: notify.rodriguez_home_push_slack
     data_template:
       message: >
