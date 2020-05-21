@@ -15,7 +15,7 @@ action:
     data_template:
       entity_id: input_number.kitchen_sonos
       value: '{{ states.media_player.kitchen.volume_level | float }}'
-  - service: notify.rodriguez_home_push_slack
+  - service: notify.mobile_app_joerod_s_iphone
     data:
       message:
         Welcome home Mr. R

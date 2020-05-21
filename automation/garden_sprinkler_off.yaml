@@ -10,9 +10,9 @@ condition:
 action:
   - service: switch.turn_off
     entity_id: switch.garden_sprinkler
-  - service: notify.rodriguez_home_push_slack
+  - service: notify.mobile_app_joerod_s_iphone
     data_template:
       message: >
-        Garden sprinkler has been turned off.
+        💦 Garden sprinkler has been turned off.
   - service: switch.turn_off
     entity_id: switch.garden_sprinkler

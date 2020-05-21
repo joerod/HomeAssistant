@@ -13,8 +13,8 @@ condition:
 action:
   - service: switch.turn_on
     entity_id: switch.outdoor_switch
-  - service: notify.rodriguez_home_push_slack
+  - service: notify.mobile_app_joerod_s_iphone
     data_template:
       message: >
-        Pool filter has been turned on.
-        Chance of Rain - {{ states('sensor.dark_sky_precip_probability') }}
+        🏊 Pool filter has been turned on.
+        Chance of Rain - {{ states('sensor.dark_sky_precip_probability') }}%

@@ -2,7 +2,7 @@ alias: 'Check when dryer is done'
 trigger:
   platform: numeric_state
   entity_id: sensor.current_power_usage_sonoffs31_3
-  below: 1
+  below: 10
   for:
     minutes: 1
 condition:

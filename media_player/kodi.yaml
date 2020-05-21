@@ -1,4 +1,0 @@
-  - platform: kodi
-    host: 192.168.1.214
-    username: kodi
-    password: !secret kodi_password

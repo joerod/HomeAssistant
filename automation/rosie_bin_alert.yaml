@@ -15,9 +15,9 @@ condition:
       entity_id: 'person.joerod'
       state: 'home'
 action:
-  - service: notify.rodriguez_home_push_slack
+  - service: notify.all_notify
     data_template:
-      message:  "Rosie's bin is full."
+      message:  "🧹 Rosie's bin is full."
   - service: tts.google_say
     entity_id:
       - media_player.basement

@@ -20,10 +20,10 @@ action:
     entity_id: lock.front_door_lock
   - service: lock.lock
     entity_id: lock.side_door
-  - service: notify.rodriguez_home_push_slack
+  - service: notify.all_notify
     data:
       message:
-        All doors are locked.  You're safe!
+        🔒 All doors are locked.  You're safe!
   - service: tts.google_say
     entity_id: media_player.kitchen
     data_template:

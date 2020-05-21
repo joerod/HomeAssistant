@@ -26,7 +26,7 @@ action:
     data:
       entity_id: light.vestibule
       brightness_pct: 100
-  - service: notify.rodriguez_home_push_slack
+  - service: notify.mobile_app_joerod_s_iphone
     data:
       message:
         Someone is at the front door and it was dark out so I turned on the lights in the vestibule.  Don't forget to turn the vestibule light off.

@@ -34,7 +34,7 @@ action:
     data_template:
       entity_id: input_number.kitchen_sonos
       value: "{{ state_attr('media_player.kitchen', 'volume_level') | float}}"
-  - service: notify.rodriguez_home_push_slack
+  - service: notify.mobile_app_joerod_s_iphone
     data:
       message:
         The bus is {{ ((as_timestamp(state_attr('sensor.home_to_subway', 'origin_stop_arrival_time'))-(as_timestamp(now()))) / 60)|int }} minutes away

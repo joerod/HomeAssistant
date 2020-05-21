@@ -13,7 +13,7 @@ condition:
 action:
   - service: switch.turn_off
     entity_id: switch.basement_fan
-  - service: notify.rodriguez_home_push_slack
+  - service: notify.mobile_app_joerod_s_iphone
     data:
       message:
         The basement fan has been turned off.

@@ -9,3 +9,5 @@ action:
     entity_id: light.arabellas_hue_lightstrip_plus
   - service: light.turn_off
     entity_id: light.alyannas_hue_lightstrip_plus
+  - service: light.turn_off
+    entity_id: light.joe_lamp
