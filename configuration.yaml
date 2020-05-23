@@ -7,6 +7,7 @@ homeassistant:
   time_zone: America/New_York
   #customize: !include customize.yaml
   packages: !include_dir_named packages
+  external_url: !secret external_url
 
 frontend:
   javascript_version: latest
@@ -20,6 +21,7 @@ discovery:
 conversation:
 history:
 logbook:
+map:
 sun:
 wake_on_lan:
 system_health:
@@ -31,9 +33,6 @@ logger:
 http:
   ip_ban_enabled: True
   login_attempts_threshold: 10
-  base_url: !secret http_base_url
-  #ssl_certificate: /ssl/fullchain.pem
-  #ssl_key: /ssl/privkey.pem
 
 tts:
   platform: google_translate

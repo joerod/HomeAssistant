@@ -6,4 +6,4 @@
     repeat: 60
     can_acknowledge: true
     notifiers:
-      - rosie_alert_slack_notify
+      - notify.all_notify

@@ -1,6 +1,0 @@
-  - name: rosie_alert_slack_notify
-    platform: group
-    services:
-      - service: notify.mobile_app_joerod_s_iphone
-        data:
-          Message: "Rosie''s bin is full"
