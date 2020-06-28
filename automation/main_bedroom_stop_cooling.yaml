@@ -1,0 +1,16 @@
+alias: 'Main Bedroom Stop Cooling'
+trigger:
+  platform: template
+  value_template: "{{states.climate.main_bedroom.attributes.current_temperature == states.climate.main_bedroom.attributes.temperature}}"
+condition:
+  condition: and
+  conditions:
+    - condition: state
+      entity_id: 'person.joerod'
+      state: 'away'
+    - condition: state
+      entity_id: 'person.danielle'
+      state: 'away'
+action:
+  - service: climate.turn_off
+    entity_id: climate.main_bedroom
