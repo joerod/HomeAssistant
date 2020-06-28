@@ -1,0 +1,5 @@
+  - name: Joe's Job
+    latitude: !secret joe_work_lat
+    longitude: !secret joe_work_lon
+    radius: 47.89536523700534
+    icon: mdi:worker

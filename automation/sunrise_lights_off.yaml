@@ -15,3 +15,5 @@ action:
     entity_id: switch.holiday_lights
   - service: switch.turn_off
     entity_id: switch.sonoff1
+  - service: light.turn_off
+    entity_id: light.alyannas_hue_lightstrip_plus

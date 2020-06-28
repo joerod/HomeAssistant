@@ -21,7 +21,6 @@ discovery:
 conversation:
 history:
 logbook:
-map:
 sun:
 wake_on_lan:
 system_health:
@@ -92,25 +91,19 @@ hue:
       allow_unreachable: true
       allow_hue_groups: true
 
+velux:
+  host: !secret velux_ip
+  password: !secret velux_password
+
 panel_iframe:
   tasmoadmin:
     title: TasmoAdmin
     icon: mdi:toggle-switch
     url: !secret tasmoadmin
+
 ifttt:
   key: !secret ifttt_password
 
-zone:
-  - name: Home
-    latitude: !secret home_lat
-    longitude: !secret home_lon
-    radius: 11.26834190224958
-    icon: mdi:home
-  - name: Joe's Job
-    latitude: !secret joe_work_lat
-    longitude: !secret joe_work_lon
-    radius: 47.89536523700534
-    icon: mdi:worker
 influxdb:
   host: a0d7b954-influxdb
   port: 8086
@@ -134,3 +127,4 @@ switch: !include_dir_merge_list switches
 alert: !include_dir_merge_named alerts
 script: !include_dir_merge_named scripts/
 notify: !include_dir_merge_list notify/
+zone: !include_dir_merge_list zones/

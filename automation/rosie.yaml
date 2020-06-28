@@ -22,10 +22,7 @@ condition:
     - condition: or
       conditions:
         - condition: state
-          entity_id: binary_sensor.living_room_camera_motion_detected
-          state: 'off'
-        - condition: state
-          entity_id: binary_sensor.living_room_camera_sound_detected
+          entity_id: binary_sensor.living_room_motion
           state: 'off'
         - condition: state
           entity_id: binary_sensor.rosie_bin_full
