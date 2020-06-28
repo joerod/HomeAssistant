@@ -1,0 +1,20 @@
+alias: 'Main Bedroom Cooling 2'
+
+trigger:
+  platform: template
+  value_template: "{{states.climate.main_bedroom.attributes.current_temperature > 75}}"
+
+action:
+  - service: cover.close_cover
+    entity_id: cover.main_bedroom_skylight
+  - service: fan.turn_off
+    entity_id: fan.main_bedroom_fan
+  - service: climate.turn_on
+    entity_id: climate.main_bedroom
+    data:
+      hvac_mode: cool
+  - service: notify.mobile_app_joerod_s_iphone
+    data_template:
+      message: >
+        😎 Main Bedroom Cooling Phase 2.
+        Main Bedroom Temperature - {{states('climate.main_bedroom.attributes.current_temperature')}}%

@@ -1,0 +1,23 @@
+alias: 'Main Bedroom Cooling 1'
+
+trigger:
+  platform: template
+  value_template: "{{states.climate.main_bedroom.attributes.current_temperature > 70}}"
+
+condition:
+  - condition: state
+    entity_id: climate.main_bedroom
+    state: 'off'
+
+action:
+  - service: cover.open_cover
+    entity_id: cover.main_bedroom_skylight
+  - service: fan.turn_on
+    entity_id: fan.main_bedroom_fan
+    data:
+      speed: 'medium'
+  - service: notify.mobile_app_joerod_s_iphone
+    data_template:
+      message: >
+        😎 Main Bedroom Cooling Phase 1.
+        Main Bedroom Temperature - {{states('climate.main_bedroom.attributes.current_temperature')}}%
