@@ -14,3 +14,8 @@ condition:
 action:
   - service: climate.turn_off
     entity_id: climate.main_bedroom
+  - service: notify.mobile_app_joerod_s_iphone
+    data_template:
+      message: >
+        🛑 Main Bedroom Cooling Stopped.
+        Main Bedroom Temperature - {{states.climate.main_bedroom.attributes.current_temperature}}°
