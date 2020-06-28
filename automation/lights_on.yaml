@@ -46,3 +46,5 @@ action:
     entity_id: switch.side_door_light
   - service: switch.turn_on
     entity_id: switch.sonoff1
+  - service: light.turn_on
+    entity_id: light.alyannas_hue_lightstrip_plus

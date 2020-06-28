@@ -9,7 +9,7 @@ action:
     entity_id: cover.main_bedroom_skylight
   - service: fan.turn_off
     entity_id: fan.main_bedroom_fan
-  - service: climate.turn_on
+  - service: climate.set_hvac_mode
     entity_id: climate.main_bedroom
     data:
       hvac_mode: cool
@@ -17,4 +17,4 @@ action:
     data_template:
       message: >
         😎 Main Bedroom Cooling Phase 2.
-        Main Bedroom Temperature - {{states('climate.main_bedroom.attributes.current_temperature')}}%
+        Main Bedroom Temperature - {{states.climate.main_bedroom.attributes.current_temperature}}°

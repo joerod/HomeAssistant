@@ -20,4 +20,4 @@ action:
     data_template:
       message: >
         😎 Main Bedroom Cooling Phase 1.
-        Main Bedroom Temperature - {{states('climate.main_bedroom.attributes.current_temperature')}}%
+        Main Bedroom Temperature - {{states.climate.main_bedroom.attributes.current_temperature}}°
