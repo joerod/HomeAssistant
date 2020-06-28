@@ -5,9 +5,14 @@ trigger:
   value_template: "{{states.climate.main_bedroom.attributes.current_temperature > 70}}"
 
 condition:
-  - condition: state
-    entity_id: climate.main_bedroom
-    state: 'off'
+  condition: and
+  conditions:
+    - condition: state
+      entity_id: climate.main_bedroom
+      state: 'off'
+    - condition: state
+      entity_id: climate.upstairs
+      state: 'off'
 
 action:
   - service: cover.open_cover
