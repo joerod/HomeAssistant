@@ -1,0 +1,9 @@
+# on boot, compile list of items to have as options for ui
+alias: '[HA] Timer - Load entity ids on boot'
+trigger:
+  platform: homeassistant
+  event: start
+condition: []
+action:
+  - service: python_script.populate_timer_entity_id
+initial_state: 'on'

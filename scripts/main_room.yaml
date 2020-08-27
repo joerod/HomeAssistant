@@ -1,0 +1,38 @@
+main_room_sleep:
+  sequence:
+    - service: cover.close_cover
+      data:
+        entity_id: cover.main_bedroom_blind
+    - service: light.turn_off
+      data:
+        entity_id: light.master_bedroom_lights
+    - service: climate.turn_on
+      data:
+        entity_id: climate.main_bedroom   
+    - service: climate.set_fan_mode
+      data:
+        entity_id: climate.main_bedroom   
+        fan_mode: Silence 
+    - service: light.turn_on
+      data:
+        entity_id: light.joes_lamp
+        rgb_color:
+          - 63
+          - 57
+          - 255
+        brightness: 77  
+    - service: lock.lock
+      data:   
+        entity_id: lock.side_door
+    - service: lock.lock
+      data:
+        entity_id: lock.front_door  
+        
+main_room_wake:
+  sequence:
+    - service: cover.open_cover
+      data:
+        entity_id: cover.main_bedroom_blind
+    - service: climate.turn_off
+      data:
+        entity_id: climate.main_bedroom

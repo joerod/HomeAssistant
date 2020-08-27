@@ -1,0 +1,7 @@
+script.timer_x_init:
+  friendly_name: Run Timer
+  icon: mdi:timer
+
+script.timer_x_cancel:
+  friendly_name: Cancel Timer
+  icon: mdi:cancel

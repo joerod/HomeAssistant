@@ -1,0 +1,20 @@
+  - platform: template
+    sensors:
+      period_of_day:
+        friendly_name: 'period of the day'
+        value_template: >-
+          {% if (as_timestamp(states.sun.sun.attributes.next_dusk)) - (as_timestamp(states.sun.sun.attributes.next_setting)) < 0 %}
+            dusk
+          {% elif (as_timestamp(states.sun.sun.attributes.next_rising)) - (as_timestamp(states.sun.sun.attributes.next_dawn)) < 0 %}
+            dawn
+          {% elif (states.sun.sun.attributes.elevation) < 0 %}
+            night
+          {% else %}
+            day
+          {% endif %}
+        icon_template: >-
+          {% if is_state('sun.sun', 'above_horizon') %}
+            mdi:weather-sunny
+          {% else %}
+            mdi:weather-night
+          {% endif %}

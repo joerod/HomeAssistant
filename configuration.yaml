@@ -6,8 +6,9 @@ homeassistant:
   unit_system: imperial
   time_zone: America/New_York
   #customize: !include customize.yaml
-  packages: !include_dir_named packages
+  #packages: !include_dir_named packages
   external_url: !secret external_url
+  customize: !include customize.yaml
 
 frontend:
   javascript_version: latest
@@ -80,17 +81,6 @@ webostv:
       data:
         mac: !secret livingroom_tv_mac
 
-roomba:
-    host: !secret roomba_host
-    blid: !secret roomba_blid
-    password: !secret roomba_password
-
-hue:
-  bridges:
-    - host: !secret hue_bridge
-      allow_unreachable: true
-      allow_hue_groups: true
-
 velux:
   host: !secret velux_ip
   password: !secret velux_password
@@ -117,6 +107,7 @@ camera:
   - platform: generic
     still_image_url: 'https://s.w-x.co/staticmaps/wu/wu/wxtype1200_cur/usbgm/animate.png'
     name: 'NY Radar'
+
 
 group: !include_dir_merge_named groups
 automation: !include_dir_list automation

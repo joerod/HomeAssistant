@@ -1,0 +1,5 @@
+fence_lights:
+  name: Fence Lights
+  entities:
+    - switch.fence_lights
+    - switch.fence_lights_2

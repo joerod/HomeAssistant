@@ -1,0 +1,28 @@
+# timer finished - perform recorded action from ui
+alias: '[HA] Timer X'
+trigger:
+  - platform: event
+    event_type: timer.finished
+    event_data:
+      entity_id: timer.timer_0
+  - platform: event
+    event_type: timer.finished
+    event_data:
+      entity_id: timer.timer_1
+  - platform: event
+    event_type: timer.finished
+    event_data:
+      entity_id: timer.timer_2
+  - platform: event
+    event_type: timer.finished
+    event_data:
+      entity_id: timer.timer_3
+  - platform: event
+    event_type: timer.finished
+    event_data:
+      entity_id: timer.timer_4
+condition: []
+action:
+  - service: script.timer_x_execute
+    data_template:
+      timer: '{{trigger.event.data.entity_id}}'
