@@ -2,7 +2,7 @@
     resource: http://statsapi.mlb.com/api/v1/schedule?sportId=1&teamId=121
     name: mets_game_status
     scan_interval: 
-      hours: 24
+      minutes: 30
     value_template: '{{ value_json.dates[0].games[0].status.detailedState }}'
     json_attributes:
       - dates
