@@ -14,16 +14,13 @@ condition:
         - fri
     - condition: template
       value_template: >
-        {% if states('calendar.deerodster_gmail_com') == 'on' and state_attr('calendar.deerodster_gmail_com', 'message') == "Cleaning Lady" -%}
+        {% if states('calendar.deerodster_gmail_com') == 'on' and (state_attr('calendar.deerodster_gmail_com', 'message') | regex_match('clean|dina', ignorecase=true)) == 'True' -%}
          {{ false }}
         {% else %}
          {{ true }}
         {%- endif %}
     - condition: or
       conditions:
-        - condition: state
-          entity_id: binary_sensor.living_room_motion
-          state: 'off'
         - condition: state
           entity_id: binary_sensor.rosie_bin_full
           state: 'False'

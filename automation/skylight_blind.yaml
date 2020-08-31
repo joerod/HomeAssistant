@@ -1,4 +1,4 @@
-alias: "Close Skylight Blind During the Day"
+alias: "Open Skylight Blind During the Day"
 trigger:
   - platform: time
     at: '08:00:00'
