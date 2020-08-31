@@ -3,7 +3,6 @@ alias: 'Main Bedroom Cooling 1'
 trigger:
   platform: template
   value_template: "{{states.climate.main_bedroom.attributes.current_temperature > 70}}"
-
 condition:
   condition: and
   conditions:
@@ -13,7 +12,6 @@ condition:
     - condition: state
       entity_id: climate.upstairs
       state: 'off'
-
 action:
   - service: cover.open_cover
     entity_id: cover.main_bedroom_skylight
