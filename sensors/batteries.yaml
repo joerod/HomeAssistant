@@ -3,3 +3,7 @@
       rosie_battery_level:
         value_template: '{% if states("vacuum.rosie") %} {{ state_attr("vacuum.rosie", "battery_level") |int }} {% else %} Unknown {% endif %}'
         unit_of_measurement: '%'
+
+      kitchen_blind_battery_level:
+        value_template: '{% if states("cover.kitchen_blind") %} {{ state_attr("cover.kitchen_blind", "battery_level") |int }} {% else %} Unknown {% endif %}'
+        unit_of_measurement: '%'

@@ -85,6 +85,10 @@ velux:
   host: !secret velux_ip
   password: !secret velux_password
 
+#my_velux:
+#  host: !secret velux_ip
+#  password: !secret velux_password
+
 panel_iframe:
   tasmoadmin:
     title: TasmoAdmin

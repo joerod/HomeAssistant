@@ -19,11 +19,9 @@ condition:
         {% else %}
          {{ true }}
         {%- endif %}
-    - condition: or
-      conditions:
-        - condition: state
-          entity_id: binary_sensor.rosie_bin_full
-          state: 'False'
+    - condition: state
+      entity_id: binary_sensor.rosie_bin_full
+      state: 'off'
 action:
   - service: vacuum.start
     entity_id: vacuum.rosie

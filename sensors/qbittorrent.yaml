@@ -1,0 +1,4 @@
+  - platform: qbittorrent
+    url: 'http://192.168.1.192:6969'
+    username: 'admin'
+    password: !secret qbittorrent_pw

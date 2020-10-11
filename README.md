@@ -13,4 +13,6 @@ I'm using home assistant on an Ubuntu VM in Hyper-V on my Windows 10 machine.
 1. SmartThings Hub
 2. Philips Hue Smart Hub
 3. Roomba 960
-4. Sonos speakers
+4. 2x Sonos speakers
+5. 2x Daikin Mini Split Wireless WiFi Interface Adapter
+6. KLF 200 for Velux

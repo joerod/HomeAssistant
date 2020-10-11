@@ -3,6 +3,9 @@ main_room_sleep:
     - service: cover.close_cover
       data:
         entity_id: cover.main_bedroom_blind
+    - service: cover.close_cover
+      data:
+        entity_id: cover.main_bedroom_skylight   
     - service: light.turn_off
       data:
         entity_id: light.master_bedroom_lights
