@@ -16,3 +16,4 @@ I'm using home assistant on an Ubuntu VM in Hyper-V on my Windows 10 machine.
 4. 2x Sonos speakers
 5. 2x Daikin Mini Split Wireless WiFi Interface Adapter
 6. KLF 200 for Velux
+7. 1x Ikea FYRTUR blinds
