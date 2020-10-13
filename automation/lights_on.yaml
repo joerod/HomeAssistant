@@ -44,14 +44,20 @@ action:
         {% else %}
           Rodriguez Garden
         {%- endif %}
+  - service: hue.hue_activate_scene
+    data_template:
+      group_name: "Alys Room"
+      scene_name: >  
+        {% if now().month == 10 and now().day > 7 -%}
+        Halloween
+        {% else %}
+        Alys Room
+        {%- endif %}
   - service: switch.turn_on
-    entity_id: switch.front_door_lights
-  - service: switch.turn_on
-    entity_id: switch.side_door_light
-  - service: switch.turn_on
-    entity_id: switch.sonoff1
-  - service: light.turn_on
-    entity_id: light.alyannas_hue_lightstrip_plus
+    entity_id: 
+      - switch.front_door_lights
+      - switch.side_door_light
+      - switch.sonoff1
   - service: cover.close_cover
     entity_id: cover.main_bedroom_blind
   

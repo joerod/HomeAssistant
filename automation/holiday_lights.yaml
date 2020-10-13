@@ -36,6 +36,8 @@ action:
             Fall
           {% elif state_attr('calendar.holidays_in_united_states','message') == "Christmas Day" %}
             Christmas
+          {% elif now().month == 10 and now().day > 7 %}
+            Halloween   
           {% else %}
             Rodriguez Garden
           {%- endif %}
@@ -45,14 +47,13 @@ action:
           Rodriguez Garden
         {%- endif %}
   - service: switch.turn_on
-    entity_id: switch.side_door_light
+    entity_id: 
+      - switch.side_door_light
+      - switch.outdoor_switch
+      - switch.sonoff1
   - service: light.turn_on
-    entity_id: light.arabella_s_night_light
-  - service: switch.turn_on
-    entity_id: switch.outdoor_switch
-  - service: switch.turn_on
-    entity_id: switch.sonoff1
-  - service: light.turn_on
-    entity_id: light.alyannas_hue_lightstrip_plus
+    entity_id: 
+      - light.arabella_s_night_light
+      - light.alyannas_hue_lightstrip_plus
   - service: cover.close_cover
     entity_id: cover.main_bedroom_blind  
