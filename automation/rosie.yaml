@@ -1,7 +1,7 @@
 alias: "Rosie vacuums the first floor"
 trigger:
   platform: time
-  at: '10:30:00'
+  at: '9:30:00'
 condition:
   condition: and
   conditions:

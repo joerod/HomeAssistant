@@ -26,11 +26,18 @@ action:
       - media_player.basement
     volume_level: 0.80
 - service: media_player.play_media
-  data:
+  data_template:
     entity_id:
       - media_player.kitchen
       - media_player.basement
-    media_content_id: "https://dl.dropboxusercontent.com/s/whe4ee6mpzv2a5g/Jetsons.mp3?dl=0"
+    media_content_id: >
+      {% if now().month == 10 and now().day > 7 -%}
+        https://dl.dropboxusercontent.com/s/wyggy6lt680h8o2/Hedwigs%20Theme%20Bell.mp3?dl=0
+      {% elif now().month == 12 %}
+        https://dl.dropboxusercontent.com/s/bz7y7lj0o6bqaip/Christmas%20Bell.mp3?dl=0
+      {% else %}
+        https://dl.dropboxusercontent.com/s/whe4ee6mpzv2a5g/Jetsons.mp3?dl=0
+      {%- endif %}
     media_content_type: music
 - delay: 00:00:06
 - service: tts.google_say
