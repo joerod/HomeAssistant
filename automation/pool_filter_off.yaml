@@ -1,7 +1,7 @@
 alias: 'Pool Filter Off'
 trigger:
   - platform: time
-    at: '7:45:00'
+    at: '07:45:00'
   - platform: time
     at: '14:45:00'
   - platform: time

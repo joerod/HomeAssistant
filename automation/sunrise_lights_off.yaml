@@ -17,3 +17,4 @@ action:
         - switch.side_door_light
         - switch.outdoor_switch
         - switch.sonoff1
+        - switch.sonoff4

@@ -1,0 +1,32 @@
+alias: "Kids Lights On - School"
+trigger:
+  - platform: time
+    at: '07:50:00'
+condition:
+  condition: and
+  conditions:
+    - condition: time
+      weekday:
+        - mon
+        - tue
+        - wed
+        - thu
+        - fri
+    - condition: template
+      value_template: '{% if now().month in [7,8] %}{{false}}{% else %}{{true}}{% endif %}'
+    - condition: template
+      value_template: >
+        {% if 'Schools Closed' in state_attr('calendar.joe_rodriguez', 'message') -%}
+        {{false}}
+        {% else %}
+        {{true}}
+        {%- endif %}
+action:
+  - service: hue.hue_activate_scene
+    data:
+      group_name: "Alys Room"
+      scene_name: "Reading"
+  - service: hue.hue_activate_scene
+    data:
+      group_name: "Arabellas Room"
+      scene_name: "Reading"    

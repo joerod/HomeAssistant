@@ -1,0 +1,20 @@
+alias: 'Holiday front door motion lights On'
+trigger:
+  platform: state
+  entity_id: binary_sensor.front_door_motion
+  to: 'on'
+condition:
+  condition: and
+  conditions:
+    - condition: state
+      entity_id: automation.holiday_lights_on
+      state: 'on'
+    - condition: numeric_state
+      entity_id: sun.sun
+      value_template: "{{ state_attr('sun.sun', 'elevation') }}"
+      below: -2.5
+action:      
+  - service: switch.turn_on
+    data:   
+      entity_id: 
+        - switch.front_door_lights

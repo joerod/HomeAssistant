@@ -1,0 +1,12 @@
+  - platform: mqtt
+    devices:
+      device1: 'room-assistant/device_tracker/bluetooth-classic-cc-d2-81-4b-71-b0-tracker/state'
+    payload_home: 'true'
+    payload_not_home: 'false'
+    source_type: bluetooth_le
+  - platform: mqtt
+    devices:
+      device2: 'room-assistant/device_tracker/bluetooth-classic-54-62-e2-86-19-8d-tracker/state'
+    payload_home: 'true'
+    payload_not_home: 'false'
+    source_type: bluetooth_le    

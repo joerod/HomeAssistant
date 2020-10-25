@@ -112,6 +112,8 @@ camera:
     still_image_url: 'https://s.w-x.co/staticmaps/wu/wu/wxtype1200_cur/usbgm/animate.png'
     name: 'NY Radar'
 
+#mqtt:
+#  broker: 192.168.1.221
 
 group: !include_dir_merge_named groups
 automation: !include_dir_list automation
@@ -123,3 +125,4 @@ alert: !include_dir_merge_named alerts
 script: !include_dir_merge_named scripts/
 notify: !include_dir_merge_list notify/
 zone: !include_dir_merge_list zones/
+device_tracker: !include_dir_merge_list device_tracker/

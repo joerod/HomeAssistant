@@ -1,0 +1,19 @@
+alias: Turn off Front Lights 3 minutes after last movement
+trigger:
+  platform: state
+  entity_id: binary_sensor.front_door_motion
+  to: 'off'
+  for:
+    minutes: 3
+condition:
+  condition: and
+  conditions:
+    - condition: state
+      entity_id: automation.holiday_lights_on
+      state: 'on'
+    - condition: state
+      entity_id: switch.front_door_lights
+      state: 'on'
+action:
+  service: switch.turn_off
+  entity_id: switch.front_door_lights     

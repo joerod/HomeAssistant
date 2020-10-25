@@ -39,19 +39,33 @@ action:
         https://dl.dropboxusercontent.com/s/whe4ee6mpzv2a5g/Jetsons.mp3?dl=0
       {%- endif %}
     media_content_type: music
-- delay: 00:00:06
+- delay: 00:00:07
 - service: tts.google_say
   entity_id:
     - media_player.kitchen
     - media_player.basement
   data_template:
-    message: >-
-      {{ [
-      "Someone's at the front door. " ,
-      "A visitor is at the front door. ",
-      "A guest has arrived at the front door. "
-      ] |random }}
-- delay: 00:00:02
+    message: >
+      {% if now().month == 10 and now().day > 7 -%}
+        {{[
+          "Someone's at the front door, it could be a ghost. " ,
+          "Boo! A visitor is at the front door. ",
+          "A frightful guest has arrived at the front door. I ain't afraid of no ghosts. "
+          ] |random }}
+      {% elif now().month == 12 %}
+        {{[
+          "Someone's at the front door, it could be Santa. " ,
+          "Ho ho ho, a visitor is at the front door. ",
+          "A merry guest has arrived at the front door. "
+          ] |random }}
+      {% else %}
+        {{[
+        "Someone's at the front door. " ,
+        "A visitor is at the front door. ",
+        "A guest has arrived at the front door. "
+        ] |random }}
+      {%- endif %}
+- delay: 00:00:03
 - service: media_player.volume_set
   data:
     entity_id:

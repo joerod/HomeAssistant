@@ -61,4 +61,3 @@ action:
         - switch.sonoff1
   - service: cover.close_cover
     entity_id: cover.main_bedroom_blind
-  
