@@ -33,6 +33,8 @@ action:
     media_content_id: >
       {% if now().month == 10 and now().day > 7 -%}
         https://dl.dropboxusercontent.com/s/wyggy6lt680h8o2/Hedwigs%20Theme%20Bell.mp3?dl=0
+      {% elif now().month == 11 and now().day > 20 -%}
+        https://dl.dropboxusercontent.com/s/w1g8h24vh25o8gd/Turkey%20gobble.mp3?dl=0
       {% elif now().month == 12 %}
         https://dl.dropboxusercontent.com/s/bz7y7lj0o6bqaip/Christmas%20Bell.mp3?dl=0
       {% else %}
@@ -51,6 +53,12 @@ action:
           "Someone's at the front door, it could be a ghost. " ,
           "Boo! A visitor is at the front door. ",
           "A frightful guest has arrived at the front door. I ain't afraid of no ghosts. "
+          ] |random }}
+      {% elif now().month == 11 and now().day > 20 -%}    
+        {{[
+          "Someone's at the front door, it could be a turkey. " ,
+          "Gobbel Gobbel! A visitor is at the front door. ",
+          "A thankful guest has arrived at the front door."
           ] |random }}
       {% elif now().month == 12 %}
         {{[

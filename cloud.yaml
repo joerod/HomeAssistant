@@ -1,0 +1,20 @@
+alexa:
+  filter:
+    include_domains:
+      - switch
+      - group
+      - automation
+      - cover
+      - fan
+      - light
+      - scene
+      - script
+      - media_player
+    exclude_entities:
+      - switch.fence_lights
+      - switch.fence_lights_2  
+  entity_config:    
+    group.fence_lights:
+      name: Fence Lights
+      description: Both fence lights
+      display_categories: LIGHT

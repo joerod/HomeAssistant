@@ -29,7 +29,7 @@ action:
           {% elif state_attr('calendar.holidays_in_united_states','message') == "Election Day" %}
             USA
           {% elif state_attr('calendar.holidays_in_united_states','message') == "Labor Day" %}
-            USA  
+            USA
           {% elif state_attr('calendar.holidays_in_united_states','message') == "Veterans Day" %}
             USA
           {% elif state_attr('calendar.holidays_in_united_states','message') == "Thanksgiving Day" %}

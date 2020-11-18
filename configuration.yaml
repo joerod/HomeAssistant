@@ -15,6 +15,7 @@ frontend:
   themes: !include_dir_merge_named themes
 
 alexa:
+cloud: !include cloud.yaml  
 config:
 updater:
 person:
@@ -113,7 +114,7 @@ camera:
     name: 'NY Radar'
 
 #mqtt:
-#  broker: 192.168.1.221
+#  discovery: true
 
 group: !include_dir_merge_named groups
 automation: !include_dir_list automation
