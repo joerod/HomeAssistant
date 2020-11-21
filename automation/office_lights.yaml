@@ -1,0 +1,20 @@
+alias: 'Turn on office light when Joe is near after sunset.'
+trigger:
+  platform: state
+  entity_id:  sensor.joerod_mainroom_presence
+  to: 'present'
+
+condition:
+  condition: and
+  conditions:
+    - condition: state
+      entity_id: sun.sun
+      state: below_horizon
+    - condition: state
+      entity_id: light.office_light
+      state: 'off'
+action:
+  - service: light.turn_on
+    data:
+      entity_id: light.office_light
+      brightness_pct: 100

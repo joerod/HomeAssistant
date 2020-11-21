@@ -1,7 +1,7 @@
   - platform: mqtt
     devices:
-      joerod_apple_watch_ra: 'room-assistant/sensor/bluetooth-classic-54-62-e2-86-19-8d/state'
-      joerod_iphone_ra: 'room-assistant/sensor/bluetooth-classic-fc-66-cf-4d-c0-5c/state'
+      joerod_apple_watch_ra_main_bedroom: 'room-assistant/sensor/bluetooth-classic-54-62-e2-86-19-8d/state'
+      joerod_iphone_ra_main_bedroom: 'room-assistant/sensor/bluetooth-classic-fc-66-cf-4d-c0-5c/state'
     payload_home: 'mainbedroom'
     payload_not_home: 'not_home'
     source_type: bluetooth
