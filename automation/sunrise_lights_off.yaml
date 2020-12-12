@@ -18,3 +18,4 @@ action:
         - switch.outdoor_switch
         - switch.sonoff1
         - switch.sonoff4
+        - switch.sonoff5

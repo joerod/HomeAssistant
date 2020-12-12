@@ -1,17 +1,6 @@
-#bedroom presence joerod distance:
-  - platform: mqtt
-    name: "Joe distance from main bedroom"
-    state_topic: "room-assistant/sensor/bluetooth-classic-54-62-e2-86-19-8d/attributes"
-    value_template: '{{ value_json.distance }}'
-    icon: mdi:battery-bluetooth-variant
-
-  - platform: template
-    sensors:
-      joerod_mainroom_presence:
-        friendly_name: "Joe distance from main bedroom status"
-        value_template: >-
-          {% if (states.sensor.joe_distance_from_main_bedroom|float) < 0.1 %}
-            present
-          {% else %}
-            not_present
-          {% endif %}  
+- platform: mqtt_room
+  device_id: FC66CF4DC05C
+  name: "JoeRod Basement Beacon"
+  state_topic: "room_presence"
+  timeout: 10
+  away_timeout: 600

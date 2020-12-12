@@ -1,0 +1,17 @@
+alias: 'Greet JoeRod'
+trigger:
+  platform: state
+  entity_id: device_tracker.joerod_iphone_ra_main_bedroom
+  to: 'home'
+  from: 'not_home'
+
+action:
+  - service: tts.google_say
+    entity_id: media_player.basement
+    data_template:
+      message: >-
+        {{ [
+        "Welcome back to the basement Joe!" ,
+        "Hi handsome!",
+        "Guess who's bizack."
+        ] |random }}

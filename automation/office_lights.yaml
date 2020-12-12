@@ -3,6 +3,7 @@ trigger:
   platform: state
   entity_id:  sensor.joerod_mainroom_presence
   to: 'present'
+  from: 'not_present'
 
 condition:
   condition: and

@@ -21,6 +21,13 @@
     retain: true
   - platform: mqtt
     name: "Sonoff4"
+    command_topic: "cmnd/sonoffS31-4/POWER"
+    state_topic: "stat/sonoffS31-4/POWER"
+    payload_on: "ON"
+    payload_off: "OFF"
+    retain: true
+  - platform: mqtt
+    name: "Sonoff5"
     command_topic: "cmnd/sonoffS26-1/POWER"
     state_topic: "stat/sonoffS26-1/POWER"
     payload_on: "ON"

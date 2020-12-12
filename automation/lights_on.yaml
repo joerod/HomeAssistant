@@ -59,5 +59,3 @@ action:
         - switch.front_door_lights
         - switch.side_door_light
         - switch.sonoff1
-  - service: cover.close_cover
-    entity_id: cover.main_bedroom_blind

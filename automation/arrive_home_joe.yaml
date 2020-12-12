@@ -14,7 +14,7 @@ action:
   - service: input_number.set_value
     data_template:
       entity_id: input_number.kitchen_sonos
-      value: '{{ states.media_player.kitchen.volume_level | float }}'
+      value: '{{ state_attr("media_player.kitchen", "volume_level") | float }}'
   - service: notify.mobile_app_joerod_s_iphone
     data:
       message:

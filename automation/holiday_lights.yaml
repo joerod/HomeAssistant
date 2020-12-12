@@ -43,6 +43,8 @@ action:
           {%- endif %}
         {% elif now().month == 10 and now().day > 7 %}
           Halloween  
+        {% elif now().month == 12 %}
+          Christmas    
         {% else %}
           Rodriguez Garden
         {%- endif %}
@@ -52,6 +54,8 @@ action:
       scene_name: >  
         {% if now().month == 10 and now().day > 7 -%}
         Halloween
+        {% elif now().month == 12 and now().day > 7 %}                                                                                           
+        Christmas
         {% else %}
         Alys Room
         {%- endif %}
@@ -62,6 +66,7 @@ action:
         - switch.outdoor_switch
         - switch.sonoff1
         - switch.sonoff4
+        - switch.sonoff5
   - service: light.turn_on
     data:
       entity_id: 
