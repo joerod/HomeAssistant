@@ -1,9 +1,13 @@
 alias: 'Greet JoeRod'
 trigger:
   platform: state
-  entity_id: device_tracker.joerod_iphone_ra_main_bedroom
-  to: 'home'
-  from: 'not_home'
+  entity_id: sensor.joerod_basement_beacon_distance
+  from: "10"
+  to: "0"
+condition:
+  condition: time
+  after: '09:00:00'
+  before: '22:00:00'
 
 action:
   - service: tts.google_say
@@ -15,3 +19,6 @@ action:
         "Hi handsome!",
         "Guess who's bizack."
         ] |random }}
+
+
+        

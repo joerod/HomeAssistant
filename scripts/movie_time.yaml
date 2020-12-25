@@ -19,6 +19,7 @@ movie_on:
     - service: switch.turn_off
       data:
         entity_id: switch.dining_room_light
+    - wait_template: "{{ is_state('media_player.living_room_tv', 'on') }}"    
     - service: media_player.select_source
       data:
         entity_id: media_player.living_room_tv

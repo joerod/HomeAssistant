@@ -1,6 +1,4 @@
-- platform: mqtt_room
-  device_id: FC66CF4DC05C
-  name: "JoeRod Basement Beacon"
-  state_topic: "room_presence"
-  timeout: 10
-  away_timeout: 600
+- platform: mqtt
+  name: "JoeRod Basement Beacon Distance"
+  state_topic: "room-assistant/sensor/bluetooth-classic-fc-66-cf-4d-c0-5c/attributes"
+  value_template: "{{ value_json.distance }}"

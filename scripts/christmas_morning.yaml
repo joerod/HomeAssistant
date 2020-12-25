@@ -3,18 +3,22 @@ christmas_morning_on:
     - service: media_player.turn_on
       data:
         entity_id: media_player.living_room_tv
-    - service: media_player.volume_set
+    - wait_template: "{{ is_state('media_player.living_room_tv', 'on') }}" 
+      timeout: '00:00:15'
+    - service: webostv.command
       data:
         entity_id: media_player.living_room_tv
-        volume_level: 0.0
-    - service: media_player.select_source
+        command: system.launcher/launch
+        payload:
+          id: youtube.leanback.v4
+          contentId: siZ-oI95rlM
+      entity_id: media_player.living_room_tv    
+    - delay: 00:00:08
+    - service: webostv.button
       data:
         entity_id: media_player.living_room_tv
-        source: YouTube
-    - service: media_player.select_source
-      data:
-        entity_id: media_player.spotify_joe_rodriguez
-        source: 'Living Room'
+        button: ENTER
+      entity_id: media_player.living_room_tv   
     - service: media_player.select_source
       data:
         entity_id: media_player.yamaha_receiver
@@ -27,14 +31,27 @@ christmas_morning_on:
       data:
         entity_id: media_player.yamaha_receiver
         volume_level: 0.60
+    - wait_template: "{{ is_state_attr('media_player.yamaha_receiver', 'source', 'Spotify')}}"
+      timeout: '00:00:15'
+    - service: media_player.select_source
+      data:
+        entity_id: media_player.spotify_joe_rodriguez
+        source: 'Living Room'        
     - service: media_player.play_media
       data:
         entity_id: media_player.spotify_joe_rodriguez
         media_content_type: playlist
       data_template:
-        media_content_id: "spotify:playlist:4JZtxZHF61Ae45PQ1JtnBX"
-    - service: media_extractor.play_media
+        media_content_id: "spotify:playlist:4JZtxZHF61Ae45PQ1JtnBX" 
+    - service: media_player.shuffle_set 
       data:
-        entity_id: media_player.living_room_tv
-        media_content_id: "https://www.youtube.com/watch?v=siZ-oI95rlM"
-        media_content_type: video/youtube
+        entity_id: media_player.spotify_joe_rodriguez
+        shuffle: true   
+    - service: switch.turn_on
+      data:
+        entity_id: switch.sonoff5
+    - service: cover.set_cover_position
+      data:
+        entity_id: cover.kitchen_blind
+        position: 55     
+        

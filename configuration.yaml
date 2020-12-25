@@ -15,7 +15,7 @@ frontend:
   themes: !include_dir_merge_named themes
 
 alexa:
-cloud: !include cloud.yaml  
+cloud: !include cloud.yaml
 config:
 updater:
 person:
@@ -38,7 +38,7 @@ http:
 tts:
   - platform: google_translate
     service_name: google_say
-    cache: true   
+    cache: true
 
 weather:
   - platform: darksky
@@ -75,12 +75,12 @@ vizio:
     access_token: !secret ara_tv_access
 
 webostv:
-    name: Living Room TV
-    host: !secret livingroom_tv_ip
-    turn_on_action:
-      service: wake_on_lan.send_magic_packet
-      data:
-        mac: !secret livingroom_tv_mac
+  name: Living Room TV
+  host: !secret livingroom_tv_ip
+  turn_on_action:
+    service: wake_on_lan.send_magic_packet
+    data:
+      mac: !secret livingroom_tv_mac
 
 velux:
   host: !secret velux_ip
@@ -110,8 +110,8 @@ influxdb:
 
 camera:
   - platform: generic
-    still_image_url: 'https://s.w-x.co/staticmaps/wu/wu/wxtype1200_cur/usbgm/animate.png'
-    name: 'NY Radar'
+    still_image_url: "https://s.w-x.co/staticmaps/wu/wu/wxtype1200_cur/usbgm/animate.png"
+    name: "NY Radar"
 
 #mqtt:
 #  discovery: true

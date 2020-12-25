@@ -1,4 +1,4 @@
-alias: 'Holiday Lights On'
+alias: "Holiday Lights On"
 trigger:
   platform: numeric_state
   entity_id: sun.sun
@@ -51,7 +51,7 @@ action:
   - service: hue.hue_activate_scene
     data_template:
       group_name: "Alys Room"
-      scene_name: >  
+      scene_name: >
         {% if now().month == 10 and now().day > 7 -%}
         Halloween
         {% elif now().month == 12 and now().day > 7 %}                                                                                           
@@ -61,7 +61,7 @@ action:
         {%- endif %}
   - service: switch.turn_on
     data:
-      entity_id: 
+      entity_id:
         - switch.side_door_light
         - switch.outdoor_switch
         - switch.sonoff1
@@ -69,7 +69,5 @@ action:
         - switch.sonoff5
   - service: light.turn_on
     data:
-      entity_id: 
+      entity_id:
         - light.arabella_s_night_light
-  - service: cover.close_cover
-    entity_id: cover.main_bedroom_blind  
