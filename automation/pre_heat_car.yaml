@@ -1,0 +1,39 @@
+alias: "Pre-heats car in the morning"
+trigger:
+  platform: time
+  at: '08:00:00'
+condition:
+  condition: and
+  conditions:
+    - condition: time
+      weekday:
+        - mon
+        - tue
+        - wed
+        - thu
+        - fri
+    - condition: template
+      value_template: "{{is_state_attr('binary_sensor.tessy_parking_brake_sensor','shift_state','P')}}"
+    - condition: numeric_state
+      entity_id: sensor.tessy_temperature_sensor_inside
+      below: 45
+    - condition: numeric_state
+      entity_id: sensor.tessy_battery_sensor
+      above: 55
+    - condition: template
+      value_template: "{{is_state_attr('binary_sensor.nyc311_school_exception_today', 'status', 'Open')}}"
+action:
+- service: climate.turn_on
+  entity_id: climate.tessy_hvac_climate_system
+- service: climate.set_temperature
+  data:
+    temperature: 70
+    hvac_mode: heat
+  entity_id: climate.tessy_hvac_climate_system
+- service: notify.mobile_app_joerod_s_iphone
+  data_template:
+    message: >
+      🔥 Warming up Tessy.
+      Tessy's inside temerpature is - {{ state_attr('climate.tessy_hvac_climate_system', 'current_temperature') }}°         
+
+      
