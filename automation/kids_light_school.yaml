@@ -1,26 +1,15 @@
 alias: "Kids Lights On - School"
 trigger:
   - platform: time
-    at: '08:05:00'
+    at: '08:30:00'
 condition:
   condition: and
   conditions:
-    - condition: time
-      weekday:
-        - mon
-        - tue
-        - wed
-        - thu
-        - fri
     - condition: template
-      value_template: "{% if now().month in [7,8] %}{{false}}{% else %}{{true}}{% endif %}"
-    - condition: template
-      value_template: >
-        {% if 'Schools Closed' in state_attr('calendar.joe_rodriguez', 'message') and is_state('calendar.joe_rodriguez','on') -%}
-        {{false}}
-        {% else %}
-        {{true}}
-        {%- endif %}
+      value_template: "{{is_state_attr('binary_sensor.nyc311_school_exception_today', 'status', 'Open')}}"
+    - condition: state
+      entity_id: 'person.aly_rodriguez'
+      state: 'home'    
 action:
   - service: hue.hue_activate_scene
     data:
