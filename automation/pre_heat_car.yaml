@@ -16,7 +16,7 @@ condition:
       value_template: "{{is_state_attr('binary_sensor.tessy_parking_brake_sensor','shift_state','P')}}"
     - condition: numeric_state
       entity_id: sensor.tessy_temperature_sensor_inside
-      below: 45
+      below: 55
     - condition: numeric_state
       entity_id: sensor.tessy_battery_sensor
       above: 55
