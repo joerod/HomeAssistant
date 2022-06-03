@@ -10,9 +10,6 @@ condition:
     - condition: numeric_state
       entity_id: sensor.dark_sky_precip_probability
       below: 35
-    - condition: numeric_state
-      entity_id: sensor.pool_filter_on_today
-      below: 5
     - condition: template
       value_template: "{{states('sensor.pool_filter_on_today')|float * 60 > 300}}"  
 action:
