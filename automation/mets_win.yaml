@@ -20,17 +20,20 @@ condition:
       {% endif %}
     {% endif %} 
 action:
+  - service: tts.google_say
+    entity_id:
+      - media_player.basement
+    data_template:
+      message: >   
+        {{[
+          "Mets Win! Mets Win! ",
+          "Put it in the books!. ",
+          "And the ball game is over!. "
+          ] |random }} 
   - service: media_player.play_media
     data_template:
       entity_id:
         - media_player.basement
       media_content_id: 
           https://dl.dropboxusercontent.com/s/mqddi7z925om88w/NY_Groove.mp3?dl=0
-      media_content_type: music   
-  - delay: 00:00:09
-  - service: tts.google_say
-    entity_id:
-      - media_player.basement
-    data_template:
-      message: >    
-        "Mets Win! Mets Win!" 
+      media_content_type: music
