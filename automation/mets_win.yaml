@@ -1,6 +1,6 @@
 trigger:
   platform: state
-  entity_id: mets_game_status
+  entity_id: sensor.mets_game_status
   from: "In Progress"
   to: "Final"
 condition: 
