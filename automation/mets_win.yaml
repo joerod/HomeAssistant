@@ -1,0 +1,36 @@
+trigger:
+  platform: state
+  entity_id: mets_game_status
+  from: "In Progress"
+  to: "Final"
+condition: 
+  condition: template
+  value_template: >
+    {% if state_attr('sensor.mets_away_score', 'friendly_name') == 'New York Mets' %}
+      {% if states('sensor.mets_away_score') > states('sensor.mets_home_score') %}
+        {{"True"}}
+      {% else %}
+        {{"False"}}
+      {% endif %}
+    {% else %}
+      {% if states('sensor.mets_away_score') < states('sensor.mets_home_score') %}
+        {{"True"}}
+      {% else %}
+        {{"False"}}
+      {% endif %}
+    {% endif %} 
+action:
+  - service: media_player.play_media
+    data_template:
+      entity_id:
+        - media_player.basement
+      media_content_id: 
+          https://dl.dropboxusercontent.com/s/mqddi7z925om88w/NY_Groove.mp3?dl=0
+      media_content_type: music   
+  - delay: 00:00:09
+  - service: tts.google_say
+    entity_id:
+      - media_player.basement
+    data_template:
+      message: >    
+        "Mets Win! Mets Win!" 
