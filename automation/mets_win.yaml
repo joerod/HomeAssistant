@@ -1,7 +1,9 @@
 trigger:
   platform: state
   entity_id: sensor.mets_game_status
-  from: "In Progress"
+  from: 
+    - "In Progress"
+    - "Game Over"
   to: "Final"
 condition: 
   condition: template
