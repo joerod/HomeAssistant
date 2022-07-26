@@ -23,15 +23,16 @@ condition:
     {% endif %} 
 action:
   - service: tts.google_say
-    entity_id:
-      - media_player.basement
+    entity_id: media_player.basement
     data_template:
-      message: >   
-        {{[
+      message: >-
+        {{ [
           "Mets Win! Mets Win! ",
           "Put it in the books!. ",
           "And the ball game is over!. "
-          ] |random }} 
+        ] |random }}
+  - delay:
+      seconds: 2      
   - service: media_player.play_media
     data_template:
       entity_id:
