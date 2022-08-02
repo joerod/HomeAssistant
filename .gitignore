@@ -24,3 +24,4 @@ google_calendars.yaml
 /.google.token
 alexa_media*
 www/mp3/*
+nest/*

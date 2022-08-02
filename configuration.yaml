@@ -8,16 +8,15 @@ homeassistant:
   #customize: !include customize.yaml
   #packages: !include_dir_named packages
   external_url: !secret external_url
-  customize: !include customize.yaml
+  internal_url: !secret internal_url
 
 frontend:
-  javascript_version: latest
   themes: !include_dir_merge_named themes
 
 alexa:
 cloud: !include cloud.yaml
 config:
-updater:
+mqtt:
 person:
 discovery:
 conversation:
@@ -28,12 +27,19 @@ wake_on_lan:
 system_health:
 mobile_app:
 media_extractor:
+media_source:
 logger:
   default: info
+stream:
 
 http:
   ip_ban_enabled: True
   login_attempts_threshold: 10
+  use_x_forwarded_for: true
+  trusted_proxies:
+    - 172.30.33.9
+    - 172.30.33.8
+    - 192.168.1.31
 
 tts:
   - platform: google_translate
@@ -48,47 +54,14 @@ weather:
 nest:
   client_id: !secret nest_id
   client_secret: !secret nest_password
-
-august:
-  login_method: phone
-  username: !secret august_username
-  password: !secret august_password
-
-google:
-  client_id: !secret google_client_id
-  client_secret: !secret google_client_secret
-
-ring:
-  username: !secret ring_username
-  password: !secret ring_password
+  # "Project ID" in the Device Access Console
+  project_id: !secret nest_project
+  # Provide the full path exactly as shown under "Subscription name" in Google Cloud Console
+  subscriber_id: !secret nest_subscriber
 
 spotify:
   client_id: !secret spotify_id
   client_secret: !secret spotify_secret
-
-vizio:
-  - host: !secret ava_tv_ip
-    access_token: !secret ava_tv_access
-  - host: !secret aly_tv_ip
-    access_token: !secret aly_tv_access
-  - host: !secret ara_tv_ip
-    access_token: !secret ara_tv_access
-
-webostv:
-  name: Living Room TV
-  host: !secret livingroom_tv_ip
-  turn_on_action:
-    service: wake_on_lan.send_magic_packet
-    data:
-      mac: !secret livingroom_tv_mac
-
-velux:
-  host: !secret velux_ip
-  password: !secret velux_password
-
-#my_velux:
-#  host: !secret velux_ip
-#  password: !secret velux_password
 
 panel_iframe:
   tasmoadmin:
@@ -113,8 +86,14 @@ camera:
     still_image_url: "https://s.w-x.co/staticmaps/wu/wu/wxtype1200_cur/usbgm/animate.png"
     name: "NY Radar"
 
-#mqtt:
-#  discovery: true
+timer:
+  front_door_lights:
+    duration: "00:03:00"
+
+input_boolean:
+  panic:
+    name: Panic
+    icon: mdi:alert-octagram-outline
 
 group: !include_dir_merge_named groups
 automation: !include_dir_list automation

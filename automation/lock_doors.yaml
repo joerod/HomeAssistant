@@ -1,7 +1,7 @@
-alias: 'Lock All Doors'
+alias: "Lock All Doors"
 trigger:
   platform: state
-  entity_id:  person.joerod, person.danielle
+  entity_id: person.joerod, person.danielle
   from: "home"
   to: "not_home"
   for:
@@ -10,20 +10,19 @@ condition:
   condition: or
   conditions:
     - condition: state
-      entity_id: 'lock.front_door_lock'
-      state: 'unlocked'
+      entity_id: lock.front_door_lock
+      state: "unlocked"
     - condition: state
-      entity_id: 'lock.side_door'
-      state: 'unlocked'
+      entity_id: lock.side_door_lock
+      state: "unlocked"
 action:
   - service: lock.lock
     entity_id: lock.front_door_lock
   - service: lock.lock
-    entity_id: lock.side_door
+    entity_id: lock.side_door_lock
   - service: notify.all_notify
     data:
-      message:
-        🔒 All doors are locked.  You're safe!
+      message: 🔒 All doors are locked.  You're safe!
   - service: tts.google_say
     entity_id: media_player.kitchen
     data_template:

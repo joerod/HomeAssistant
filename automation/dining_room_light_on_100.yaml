@@ -1,0 +1,13 @@
+alias: 'Dining room lights go on 100%'
+trigger:
+  platform: state
+  entity_id: light.dinning_room
+  to: "on"
+condition:
+  condition: template
+  value_template:  "{{ state_attr('light.dinning_room', 'brightness') != 255 }}"
+action:    
+  - service: light.turn_on
+    data:
+      entity_id: llight.dinning_room'
+      brightness_pct: 100

@@ -6,7 +6,7 @@ Scripts and automation I've written for my home automation management tool HomeA
 
 ### Server
 
-I'm using HomeAssistant core VM running on a Synology
+I'm using home assistant on an Ubuntu VM in Hyper-V on my Windows 10 machine.
 
 ### Hardware
 

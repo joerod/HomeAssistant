@@ -11,7 +11,7 @@ condition:
       entity_id: sensor.dark_sky_precip_probability
       below: 35
     - condition: template
-      value_template: "{{states('sensor.pool_filter_on_today')|float * 60 > 300}}"  
+      value_template: "{{states('sensor.pool_filter_on_today')|float * 60 < 300}}"  
 action:
   - service: notify.mobile_app_joerod_s_iphone
     data_template:

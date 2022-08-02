@@ -1,5 +1,14 @@
 christmas_morning_on:
   sequence:
+    - service: light.turn_on
+      data:
+        entity_id: 
+          - light.twinkly_37bdd1    
+    - service: switch.turn_on
+      data:
+        entity_id: 
+          - switch.christmas_window_lights
+          - switch.drier 
     - service: media_player.turn_on
       data:
         entity_id: media_player.living_room_tv
@@ -12,13 +21,22 @@ christmas_morning_on:
         payload:
           id: youtube.leanback.v4
           contentId: siZ-oI95rlM
+    - service: media_player.volume_set
+      data:
+        entity_id: media_player.living_room_tv
+        volume_level: 0.0    
       entity_id: media_player.living_room_tv    
     - delay: 00:00:08
     - service: webostv.button
       data:
         entity_id: media_player.living_room_tv
         button: ENTER
-      entity_id: media_player.living_room_tv   
+      entity_id: media_player.living_room_tv 
+    - service: media_player.turn_on
+      data:
+        entity_id: media_player.yamaha_receiver 
+    - wait_template: "{{ is_state('media_player.yamaha_receiver', 'on') }}" 
+      timeout: '00:00:15'  
     - service: media_player.select_source
       data:
         entity_id: media_player.yamaha_receiver
@@ -27,6 +45,20 @@ christmas_morning_on:
       data:
         entity_id: media_player.yamaha_receiver
         sound_mode: '7ch Stereo'
+    - service: media_player.volume_set
+      data:
+        entity_id:
+          - media_player.kitchen
+        volume_level: 1   
+    - service: tts.google_say
+      entity_id: media_player.kitchen
+      data_template:
+        message: "Hoe Hoe Hoe, Merry Christmas Rodriguez family!"
+    - service: media_player.volume_set
+      data:
+        entity_id:
+          - media_player.kitchen
+        volume_level: 0.40       
     - service: media_player.volume_set
       data:
         entity_id: media_player.yamaha_receiver
@@ -47,11 +79,7 @@ christmas_morning_on:
       data:
         entity_id: media_player.spotify_joe_rodriguez
         shuffle: true   
-    - service: switch.turn_on
-      data:
-        entity_id: switch.sonoff5
     - service: cover.set_cover_position
       data:
         entity_id: cover.kitchen_blind
         position: 55     
-        

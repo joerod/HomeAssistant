@@ -1,0 +1,6 @@
+  Doors:
+    name: Entrance Doors
+    entities:
+      - lock.front_door_lock
+      - lock.side_door
+      - binary_sensor.basement_door_opened

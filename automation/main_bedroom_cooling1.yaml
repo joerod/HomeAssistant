@@ -14,7 +14,7 @@ condition:
       state: 'off'
 action:
   - service: cover.open_cover
-    entity_id: cover.main_bedroom_skylight
+    entity_id: cover.skylight_1
   - service: fan.turn_on
     entity_id: fan.main_bedroom_fan
     data:

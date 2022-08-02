@@ -1,4 +1,4 @@
-- platform: mqtt
-  name: "JoeRod Basement Beacon Distance"
-  state_topic: "room-assistant/sensor/bluetooth-classic-fc-66-cf-4d-c0-5c/attributes"
-  value_template: "{{ value_json.distance }}"
+  - platform: mqtt
+    name: "JoeRod Basement Beacon Distance"
+    state_topic: "room-assistant/sensor/bluetooth-classic-fc-66-cf-4d-c0-5c/attributes"
+    value_template: "{{ value_json.distance }}"

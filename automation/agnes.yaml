@@ -1,0 +1,51 @@
+alias: "Agnes vacuums the basement"
+trigger:
+  platform: time
+  at: '05:00:00'
+condition:
+  condition: and
+  conditions:
+    - condition: time
+      weekday:
+        - mon
+        - tue
+        - wed
+        - thu
+        - fri
+    - condition: template
+      value_template: >
+        {% if states('calendar.deerodster_gmail_com') == 'on' and (state_attr('calendar.deerodster_gmail_com', 'message') | regex_match('clean|Jacqui', ignorecase=true)) == 'True' -%}
+         {{ false }}
+        {% else %}
+         {{ true }}
+        {%- endif %}
+    - condition: state
+      entity_id: binary_sensor.rosie_bin_full
+      state: 'off'
+action:
+  - service: vacuum.start
+    entity_id: vacuum.agnes
+  - service: light.turn_on
+    data:   
+      entity_id: 
+        - light.side_entrace_basement
+        - light.office_light      
+      brightness_pct: 100  
+  - service: notify.all_notify
+    data_template:
+      message:  >-
+        {{ [
+        "🧹 I'm going to vacuum the basement" ,
+        "🧹 Time to clean up all this cat hair.",
+        "🧹 Time to earn my living."
+        ] |random }}
+
+  - service: tts.google_say
+    entity_id: media_player.basement
+    data_template:
+      message: >-
+        {{ [
+        "I'm going to vacuum the basement" ,
+        "Time to clean up all this cat hair.",
+        "Time to earn my living."
+        ] |random }}

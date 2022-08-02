@@ -1,4 +1,4 @@
   - platform: qbittorrent
-    url: 'http://192.168.1.192:6969'
+    url: 'http://rod-nas.rodriguez.home:8080'
     username: 'admin'
     password: !secret qbittorrent_pw

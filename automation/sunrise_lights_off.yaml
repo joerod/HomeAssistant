@@ -10,12 +10,14 @@ action:
       entity_id: 
         - light.garden
         - light.alyannas_hue_lightstrip_plus
+        - light.twinkly_37bdd1
   - service: switch.turn_off
     data:  
       entity_id: 
         - switch.front_door_lights
         - switch.side_door_light
         - switch.outdoor_switch
-        - switch.sonoff1
-        - switch.sonoff4
-        - switch.sonoff5
+        - switch.arabella_s_night_light
+        - group.holiday_outside_lights
+        - switch.christmas_window_lights
+        - switch.drier

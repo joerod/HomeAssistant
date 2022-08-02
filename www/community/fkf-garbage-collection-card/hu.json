@@ -1,0 +1,17 @@
+{
+    "weekday": {
+        "Monday": "hétfő",
+        "Tuesday": "kedd",
+        "Wednesday": "szerda",
+        "Thursday": "csütörtök",
+        "Friday": "péntek",
+        "Saturday": "szombat",
+        "Sunday": "vasárnap"
+    },
+    "garbage": {
+        "communal": "kommunális",
+        "green": "zöld",
+        "selective": "szelektív",
+        "days": "nap"
+    }
+}

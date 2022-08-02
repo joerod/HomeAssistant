@@ -7,4 +7,4 @@
     can_acknowledge: true
     skip_first: true
     notifiers:
-      - notify.rodriguez_home_push_slack
+      - all_notify

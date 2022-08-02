@@ -1,35 +1,37 @@
   - platform: mqtt
-    name: "Sonoff1"
+    name: "Arabella's Night Light"
     command_topic: "cmnd/sonoffS31-1/POWER"
     state_topic: "stat/sonoffS31-1/POWER"
     payload_on: "ON"
     payload_off: "OFF"
     retain: true
   - platform: mqtt
-    name: "Sonoff2"
+    name: "Washing Machine"
     command_topic: "cmnd/sonoffS31-2/POWER"
     state_topic: "stat/sonoffS31-2/POWER"
     payload_on: "ON"
     payload_off: "OFF"
     retain: true
   - platform: mqtt
-    name: "Sonoff3"
+    name: "Drier"
     command_topic: "cmnd/sonoffS31-3/POWER"
     state_topic: "stat/sonoffS31-3/POWER"
     payload_on: "ON"
     payload_off: "OFF"
     retain: true
   - platform: mqtt
-    name: "Sonoff4"
+    name: "Christmas Tree"
     command_topic: "cmnd/sonoffS31-4/POWER"
     state_topic: "stat/sonoffS31-4/POWER"
     payload_on: "ON"
     payload_off: "OFF"
     retain: true
   - platform: mqtt
-    name: "Sonoff5"
+    name: "Christmas Window Lights"
     command_topic: "cmnd/sonoffS26-1/POWER"
     state_topic: "stat/sonoffS26-1/POWER"
     payload_on: "ON"
     payload_off: "OFF"
     retain: true
+
+   

@@ -2,10 +2,10 @@ main_room_sleep:
   sequence:
     - service: cover.close_cover
       data:
-        entity_id: cover.main_bedroom_blind
+        entity_id: cover.blind_1
     - service: cover.close_cover
       data:
-        entity_id: cover.main_bedroom_skylight   
+        entity_id: cover.skylight_1
     - service: light.turn_off
       data:
         entity_id: light.master_bedroom_lights
@@ -24,18 +24,18 @@ main_room_sleep:
           - 57
           - 255
         brightness: 77  
+    - service: media_player.turn_on
+      target:
+        entity_id: media_player.sony_bravia_tv
     - service: lock.lock
       data:   
         entity_id: lock.side_door
-    - service: lock.lock
-      data:
-        entity_id: lock.front_door  
         
 main_room_wake:
   sequence:
     - service: cover.open_cover
       data:
-        entity_id: cover.main_bedroom_blind
+        entity_id: cover.blind_1
     - service: climate.turn_off
       data:
         entity_id: climate.main_bedroom

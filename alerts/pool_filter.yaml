@@ -1,0 +1,9 @@
+  filter_on_too_long:
+    name: "Pool filter is on for too long"
+    entity_id: binary_sensor.pool_filter_on_too_long
+    done_message: "Thanks for turning off the filer it was on for too long!"
+    state: 'on'
+    repeat: 60
+    can_acknowledge: true
+    notifiers:
+      - all_notify

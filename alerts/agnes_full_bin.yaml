@@ -1,0 +1,9 @@
+  agnes_full_bin_alert:
+    name: "Agnes' bin is full"
+    entity_id: binary_sensor.agnes_bin_full
+    done_message: "Thanks for taking care of Agnes' bin"
+    state: 'on'
+    repeat: 60
+    can_acknowledge: true
+    notifiers:
+      - all_notify

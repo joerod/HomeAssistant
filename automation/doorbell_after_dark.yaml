@@ -1,9 +1,10 @@
 alias: 'Turn on vestibule light when front door bell is pressed after sunset.'
 trigger:
-  platform: state
-  entity_id:  binary_sensor.front_door_ding
-  from: 'off'
-  to: 'on'
+  platform: event
+  event_type: nest_event
+  event_data:
+      device_id: a2546111bb8249995011ae373926226f
+      type: doorbell_chime
 condition:
   condition: and
   conditions:
@@ -16,10 +17,10 @@ condition:
     - condition: or
       conditions:
         - condition: state
-          entity_id: 'person.joerod'
+          entity_id: 'person.joe_rodriguez'
           state: 'home'
         - condition: state
-          entity_id: 'person.danielle'
+          entity_id: 'person.danielle_rodriguez'
           state: 'home'
 action:
   - service: light.turn_on

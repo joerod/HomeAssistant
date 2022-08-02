@@ -1,9 +1,0 @@
-  rosie_full_bin_alert:
-    name: "Rosie's bin is full"
-    entity_id: binary_sensor.rosie_full
-    done_message: "Thanks for taking care of Rosie's bin"
-    state: 'on'
-    repeat: 60
-    can_acknowledge: true
-    notifiers:
-      - notify.all_notify
