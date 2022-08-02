@@ -44,17 +44,6 @@ action:
         {% else %}
           Rodriguez Garden
         {%- endif %}
-  - service: hue.hue_activate_scene
-    data_template:
-      group_name: "Alys Room"
-      scene_name: >
-        {% if now().month == 10 and now().day > 2 %}
-        Halloween
-        {% elif now().month == 11 and now().day >= 28 or now().month == 12 %}                                                                                           
-        Christmas
-        {% else %}
-        Alys Room
-        {%- endif %}
   - service: switch.turn_on
     data:
       entity_id:

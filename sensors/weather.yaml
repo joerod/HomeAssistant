@@ -14,3 +14,8 @@
     token: !secret waqi_token
     locations:
       - maspeth
+  - platform: statistics
+    entity_id: sensor.dark_sky_temperature
+    state_characteristic: value_max
+    max_age:
+      hours: 15

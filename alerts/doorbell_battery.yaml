@@ -1,9 +1,0 @@
-  front_doorbell_battery_alert:
-    name: "Doorbell battery alert"
-    entity_id: binary_sensor.front_doorbell_battery_low
-    state: 'on'
-    repeat: 60
-    can_acknowledge: true
-    done_message: "Thanks for taking care of the door battery"
-    notifiers:
-      - notify.rodriguez_home_push_slack

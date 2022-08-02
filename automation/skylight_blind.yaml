@@ -1,7 +1,7 @@
 alias: "Open Skylight Blind During the Day"
 trigger:
   - platform: time
-    at: '07:30:00'
+    at: '07:10:00'
 condition:
   condition: and
   conditions:
@@ -12,11 +12,11 @@ condition:
         - wed
         - thu
         - fri
-    - condition: state
-      entity_id: person.danielle
-      state: 'home'  
+  #  - condition: state
+  #    entity_id: person.danielle_rodriguez
+  #    state: 'home'  
     - condition: template
       value_template: "{{ state_attr('calendar.deerodster_gmail_com','message') | regex_match('vacation', ignorecase=true) != True }}"
 action:
   - service: cover.open_cover
-    entity_id: cover.main_bedroom_blind
+    entity_id: cover.blind_1

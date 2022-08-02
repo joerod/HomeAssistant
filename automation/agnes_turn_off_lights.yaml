@@ -1,0 +1,10 @@
+trigger:
+  platform: state
+  entity_id: vacuum.agnes
+  to: "Docked"
+action:
+  - service: light.turn_off
+    data:   
+      entity_id: 
+        - light.side_entrace_basement
+        - light.office_lights

@@ -34,4 +34,6 @@ action:
   data_template:
     message: >
       🔥 Warming up Tessy.
-      Tessy's inside temerpature is - {{ state_attr('climate.tessy_hvac_climate_system', 'current_temperature') }}°
+      Tessy's inside temerpature is - {{ state_attr('climate.tessy_hvac_climate_system', 'current_temperature') }}°         
+
+      

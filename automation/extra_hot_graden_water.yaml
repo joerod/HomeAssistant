@@ -1,0 +1,35 @@
+alias: 'Hot day extra water'
+trigger:
+  platform: state
+  entity_id: sensor.period_of_day
+  to: 'dusk'
+condition:
+  condition: and
+  conditions:      
+    - condition: numeric_state
+      entity_id: sensor.dark_sky_precip_probability
+      below: 35
+    - condition: numeric_state
+      entity_id: sensor.dark_sky_temperature
+      above: 50
+    - condition: template
+      value_template: "{% if now().month in [4,5,6,7,8,9] %}{{true}}{% else %}{{false}}{% endif %}"
+    - condition: template
+      value_template: "{{ states('sensor.max_temperature')|float >= 87.00 }}"
+action:
+  - service: switch.turn_on
+    entity_id: switch.garden_sprinkler
+  - service: notify.mobile_app_joerod_s_iphone
+    data_template:
+      message: >
+        💦 Garden sprinkler has been turned on
+        Chance of Rain - {{ states('sensor.dark_sky_precip_probability') }}%
+        High for today - {{ states('sensor.max_temperature') }}°
+  - delay:
+      minutes: 5
+  - service: switch.turn_off
+    entity_id: switch.garden_sprinkler
+  - service: notify.mobile_app_joerod_s_iphone
+    data_template:
+      message: >
+        💦 Garden sprinkler has been turned off.

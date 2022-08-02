@@ -1,26 +1,26 @@
 trigger:
   platform: state
-  entity_id: person.joerod
+  entity_id: person.joe_rodriguez
   from: "not_home"
   to: "home"
   for:
     seconds: 60
 condition:
   condition: time
-  before: '20:00:00'
-  after: '17:00:00'
+  before: "20:00:00"
+  after:
+    "08:00:00"
     #"{{ states('input_number.lock_min')|int }}"
 action:
   - service: input_number.set_value
     data_template:
       entity_id: input_number.kitchen_sonos
-      value: '{{ state_attr("media_player.kitchen", "volume_level") | float }}'
+      value: "{{ r | float }}"
   - service: notify.mobile_app_joerod_s_iphone
     data:
-      message:
-        Welcome home Mr. R
+      message: Welcome home Mr. R
   - service: lock.unlock
-    entity_id: lock.side_door
+    entity_id: lock.side_door_lock
   - delay: 00:00:10
   - service: tts.google_say
     entity_id: media_player.kitchen
@@ -40,5 +40,5 @@ action:
   - service: media_player.volume_set
     data_template:
       entity_id: media_player.kitchen
-      volume_level: '{{ input_number.kitchen_sonos }}'
-alias: 'Welcome home Joe'
+      volume_level: "{{ input_number.kitchen_sonos }}"
+alias: "Welcome home Joe"

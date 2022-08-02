@@ -4,4 +4,4 @@ trigger:
     at: '19:30:00'
 action:
   - service: cover.close_cover
-    entity_id: cover.main_bedroom_blind    
+    entity_id: cover.blind_1

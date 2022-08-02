@@ -1,4 +1,0 @@
-  - platform: plex
-    use_episode_art: true
-    remove_unavailable_clients: true
-    client_remove_interval: 1200

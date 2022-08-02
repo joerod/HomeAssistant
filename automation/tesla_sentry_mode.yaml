@@ -1,0 +1,12 @@
+alias: 'Turn on Sentry mode when charging'
+trigger:
+  platform: template
+  value_template: "{{is_state_attr('binary_sensor.tesla_model_y_charger_sensor', 'charging_state', 'Stopped') or is_state_attr('binary_sensor.tesla_model_y_charger_sensor', 'charging_state', 'Charging')}}"
+  for: "00:15:00"
+action:
+  - service: switch.turn_on
+    entity_id: switch.tesla_model_y_sentry_mode_switch
+  - service: notify.mobile_app_joerod_s_iphone
+    data_template:
+      message: >
+        📷 Tessy sentry mode initiated 

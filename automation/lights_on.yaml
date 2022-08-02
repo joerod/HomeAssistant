@@ -4,6 +4,10 @@ trigger:
   entity_id: sun.sun
   value_template: "{{ state_attr('sun.sun', 'elevation') }}"
   below: -2.5
+condition:
+  - condition: state
+    entity_id: automation.holiday_lights_on
+    state: 'off'  
 action:
   - service: hue.hue_activate_scene
     data_template:
@@ -12,8 +16,10 @@ action:
         {% if is_state("calendar.holidays_in_united_states","on") -%}
           {% if state_attr('calendar.holidays_in_united_states','message') == "Valentine's Day" -%}
             Valentine's
-          {% elif state_attr('calendar.holidays_in_united_states','message') == "Presidents' Day (regional holiday)" %}
+          {% elif state_attr('calendar.holidays_in_united_states','message') == "Presidents' Day (regional holiday)" %}  
             USA
+          {% elif state_attr('calendar.holidays_in_united_states','message') == "Lunar New Year" %}
+            Red
           {% elif state_attr('calendar.holidays_in_united_states','message') == "St. Patrick's Day" %}
             Jets
           {% elif state_attr('calendar.holidays_in_united_states','message') == "Easter Sunday" %}
@@ -39,23 +45,18 @@ action:
           {% else %}
             Rodriguez Garden
           {%- endif %}
-        {% elif now().month == 10 and now().day > 7 %}
+        {% elif now().month == 9 and now().day == 11 %}
+          USA  
+        {% elif now().month == 10 and now().day > 2 %}
           Halloween  
+        {% elif now().month == 7 and now().day < 5 and now().day > 1%}
+          USA  
         {% else %}
           Rodriguez Garden
-        {%- endif %}
-  - service: hue.hue_activate_scene
-    data_template:
-      group_name: "Alys Room"
-      scene_name: >  
-        {% if now().month == 10 and now().day > 7 -%}
-        Halloween
-        {% else %}
-        Alys Room
         {%- endif %}
   - service: switch.turn_on
     data:   
       entity_id: 
         - switch.front_door_lights
         - switch.side_door_light
-        - switch.sonoff1
+        - switch.arabella_s_night_light

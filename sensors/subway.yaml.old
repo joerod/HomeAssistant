@@ -1,0 +1,8 @@
+  - platform: mta_subway
+    line:
+      - A
+      - E
+      - F
+      - M
+      - N
+      - R

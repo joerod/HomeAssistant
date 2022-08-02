@@ -1,0 +1,17 @@
+alias: Close skylight when AC is turned on
+trigger:
+  platform: state
+  entity_id: climate.main_bedroom
+  to: 'on'
+condition:
+  - condition: state
+    entity_id: cover.skylight_1
+    state: 'open'  
+action:
+  - service: cover.close_cover
+    entity_id: cover.skylight_1
+  - service: notify.mobile_app_joerod_s_iphone
+    data_template:
+      message: >
+        The skylight was open and the AC was truned on.  I've closed the skylight.
+          

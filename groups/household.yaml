@@ -1,7 +1,8 @@
   household:
     name: Household
     entities:
-      - person.aly
-      - person.ava
-      - person.danielle
-      - person.joerod
+      - person.aly_rodriguez
+      - person.ava_rodriguez
+      - person.danielle_rodriguez
+      - person.joe_rodriguez
+      - person.arabella_rodriguez

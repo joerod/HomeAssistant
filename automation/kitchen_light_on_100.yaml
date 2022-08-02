@@ -1,0 +1,13 @@
+alias: 'Kitchen lights go on 100%'
+trigger:
+  platform: state
+  entity_id: light.kitchen_light
+  to: "on"
+condition:
+  condition: template
+  value_template:  "{{ state_attr('light.kitchen_light', 'brightness') != 255 }}"
+action:    
+  - service: light.turn_on
+    data:
+      entity_id: light.kitchen_light
+      brightness_pct: 100

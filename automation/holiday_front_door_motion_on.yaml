@@ -1,8 +1,10 @@
 alias: 'Holiday front door motion lights On'
 trigger:
-  platform: state
-  entity_id: binary_sensor.front_door_motion
-  to: 'on'
+  - platform: event
+    event_type: nest_event
+    event_data:
+      device_id: a2546111bb8249995011ae373926226f
+      type: camera_person
 condition:
   condition: and
   conditions:
@@ -18,3 +20,6 @@ action:
     data:   
       entity_id: 
         - switch.front_door_lights
+  - service: timer.start
+    target:
+      entity_id: timer.front_door_lights

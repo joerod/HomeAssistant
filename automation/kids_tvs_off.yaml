@@ -20,8 +20,8 @@ condition:
       value_template: '{% if now().month in [7,8] %}{{false}}{% else %}{{true}}{% endif %}'
 action:
   - service: media_player.turn_off
-    entity_id: media_player.vizio_smartcast_aly
+    entity_id: mmedia_player.alu
   - service: media_player.turn_off
-    entity_id: media_player.vizio_smartcast_ara
+    entity_id: media_player.arabella
   - service: media_player.turn_off
-    entity_id: media_player.vizio_smartcast_ava
+    entity_id: media_player.ava

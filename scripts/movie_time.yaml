@@ -1,8 +1,8 @@
 movie_on:
   sequence:
-    - service: media_player.turn_on
+    - service: switch.turn_on
       data:
-        entity_id: media_player.living_room_tv
+        entity_id: switch.lg
     - service: cover.set_cover_position
       data:
         entity_id: cover.kitchen_blind
@@ -51,3 +51,6 @@ movie_off:
       data:
         entity_id: media_player.living_room_tv
         sound_output: tv_speaker
+    - service: cover.open_cover
+      target:
+        entity_id: cover.kitchen_blind

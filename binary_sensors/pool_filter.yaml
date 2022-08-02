@@ -1,0 +1,5 @@
+  - platform: template
+    sensors:
+      pool_filter_on_too_long:
+        friendly_name: "Pool filter is on for more than 300 minutes"
+        value_template: "{{states('sensor.pool_filter_on_today')|float * 60 > 300 and states('switch.outdoor_switch')  == 'on'}}"

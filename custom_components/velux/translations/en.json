@@ -1,0 +1,24 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Device is already configured",
+            "no_devices_found": "No devices found on the network"
+        },
+        "error": {
+            "cannot_connect": "Failed to connect",
+            "invalid_auth": "Invalid authentication",
+            "invalid_host": "Invalid hostname or IP address"
+        },
+        "step": {
+            "user": {
+                "data": {
+                    "host": "Host",
+                    "password": "Password"
+                },
+                "description": "Please enter your password, you will find it on the backside of the KLF200",
+                "title": "Configure the KLF200 Gateway"
+            }
+        }
+    },
+    "title": "Velux KLF200 Gateway"
+}

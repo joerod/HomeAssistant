@@ -1,0 +1,7 @@
+  - platform: history_stats
+    name: Pool filter on today
+    entity_id: switch.outdoor_switch
+    state: "on"
+    type: time
+    start: "{{ now().replace(hour=0, minute=0, second=0) }}"
+    end: "{{ now() }}"

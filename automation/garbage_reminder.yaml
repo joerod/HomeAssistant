@@ -1,0 +1,20 @@
+alias: "Garbage Day Reminder"
+trigger:
+  platform: time
+  at: '19:00:00'
+condition:
+  - condition: template
+    value_template: >
+      {% if states('sensor.garbage') == '1' %}
+        {{ true }}
+      {% else %}
+        {{ false }} 
+      {% endif %} 
+action: 
+  - service: tts.google_say
+    entity_id: 
+      - media_player.kitchen
+      - media_player.basement
+    data_template:
+      message: >-
+         "The garbage" {%- if states('sensor.recycling') == '1' %}" and recycling "{% else %}" "{% endif -%}"is collected tommorow, don't forget to put it out"

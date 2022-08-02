@@ -1,0 +1,15 @@
+alias: 'Mets Win Light Up'
+trigger:
+  platform: state
+  entity_id: sensor.mets_game_status
+  from: "In Progress"
+  to: "Final"
+condition:
+  condition: state
+  entity_id: light.garden
+  state: 'on'
+action:  
+service: hue.hue_activate_scene
+data:
+  group_name: "Garden"
+  scene_name: "Mets"

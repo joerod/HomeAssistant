@@ -2,4 +2,3 @@
     platform: group
     services:
       - service: mobile_app_joerod_s_iphone
-      - service: mobile_app_danielles_iphone
