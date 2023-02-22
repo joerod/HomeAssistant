@@ -1,0 +1,24 @@
+alias: 'Turn Off Side Door Light When Side Door is locked.'
+trigger:
+  platform: state
+  entity_id: lock.side_door_lock
+  to: 'locked'
+  for:
+    minutes: 2
+condition:
+  condition: and
+  conditions:
+    - condition: state
+      entity_id: sun.sun
+      state: 'below_horizon'
+    - condition: state
+      entity_id:  group.side_entrance_lights
+      state: 'on'
+action:
+  - service: light.turn_off
+    data:
+      entity_id: group.light.side_entrance_light
+  - service: notify.all_notify
+    data:
+      message:
+        The side door was locked and the side entrace light was still on so I turned it off.
