@@ -1,9 +1,10 @@
 alias: 'Turn On Side Door Light When Side Door is Open after Sunset.'
+variables:
+  volume: '{{ states("sensor.kitchen_sonos_volume") }}'
 trigger:
   platform: state
-  entity_id: binary_sensor.side_door_open
-  from: 'off'
-  to: 'on'
+  entity_id: lock.side_door_lock
+  to: 'unlocked'
 condition:
   condition: and
   conditions:
@@ -11,22 +12,35 @@ condition:
       entity_id: sun.sun
       state: 'below_horizon'
     - condition: state
-      entity_id:  light.side_entrance
+      entity_id:  group.side_entrance_lights
       state: 'off'
 action:
   - service: light.turn_on
     data:
-      entity_id: light.side_entrance
+      entity_id: group.light.side_entrance_light
       brightness_pct: 100
-  - service: notify.mobile_app_joerod_s_iphone
+  - service: notify.all_notify
     data:
       message:
         You came in through the side door and it was dark out so I turned on the lights.  Don't forget to turn the side door light off.
+  - service: media_player.volume_set
+    data:
+      entity_id:
+        - media_player.kitchen
+    volume_level: 0.80
   - service: tts.google_say
     entity_id: media_player.kitchen
     data_template:
-      message: >-
-        {{ [
-        "Don't forget to lock the door and turn off the side door light. " ,
-        "Please remember to lock the side door. "
-        ] |random }}
+      message: >
+        {% if now().hour > 21  %}
+          {{[
+            "Don't forget to lock the door and turn off the side door light. " ,
+            "Please remember to lock the side door. "
+            ] |random}}
+        {% else %}
+        {% endif %}
+  - service: media_player.volume_set
+    data:
+      volume_level: '{{ volume }}'
+    target:
+      entity_id: media_player.kitchen
