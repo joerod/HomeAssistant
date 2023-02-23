@@ -15,29 +15,29 @@ condition:
       entity_id:  group.side_entrance_lights
       state: 'off'
 action:
-  - service: light.turn_on
-    data:
-      entity_id: group.light.side_entrance_light
-      brightness_pct: 100
+  - service: homeassistant.turn_on
+    target:
+      entity_id: group.side_entrance_light
   - service: notify.all_notify
     data:
       message:
         You came in through the side door and it was dark out so I turned on the lights.  Don't forget to turn the side door light off.
   - service: media_player.volume_set
     data:
-      entity_id:
-        - media_player.kitchen
-    volume_level: 0.80
+      volume_level: 0.8
+    target:
+      entity_id: media_player.kitchen
   - service: tts.google_say
     entity_id: media_player.kitchen
     data_template:
       message: >
-        {% if now().hour > 21  %}
+        {% if now().hour < 21  %}
           {{[
             "Don't forget to lock the door and turn off the side door light. " ,
             "Please remember to lock the side door. "
             ] |random}}
         {% else %}
+        ""
         {% endif %}
   - service: media_player.volume_set
     data:
