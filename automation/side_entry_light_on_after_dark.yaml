@@ -17,7 +17,7 @@ condition:
 action:
   - service: homeassistant.turn_on
     target:
-      entity_id: group.side_entrance_light
+      entity_id: group.side_entrance_lights
   - service: notify.all_notify
     data:
       message:
@@ -31,13 +31,12 @@ action:
     entity_id: media_player.kitchen
     data_template:
       message: >
-        {% if now().hour < 21  %}
+        {% if now().hour in [4,5,6,7,8,9]  %}
           {{[
             "Don't forget to lock the door and turn off the side door light. " ,
             "Please remember to lock the side door. "
             ] |random}}
         {% else %}
-        ""
         {% endif %}
   - service: media_player.volume_set
     data:
