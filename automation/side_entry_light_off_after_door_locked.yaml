@@ -15,10 +15,10 @@ condition:
       entity_id:  group.side_entrance_lights
       state: 'on'
 action:
-  - service: light.turn_off
-    data:
-      entity_id: group.light.side_entrance_light
+  - service: homeassistant.turn_off
+    target:
+      entity_id: group.side_entrance_lights
   - service: notify.all_notify
     data:
       message:
-        The side door was locked and the side entrace light was still on so I turned it off.
+        The side door was locked and the side entrance light was still on so I turned it off.
