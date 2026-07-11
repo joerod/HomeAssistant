@@ -13,6 +13,15 @@ homeassistant:
 frontend:
   themes: !include_dir_merge_named themes
 
+lovelace:
+  dashboards:
+    joerod:
+      mode: yaml
+      title: Rodriguez Home
+      icon: mdi:home-assistant
+      show_in_sidebar: true
+      filename: joerod.yml
+
 alexa:
 cloud: !include cloud.yaml
 config:

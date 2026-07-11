@@ -1,0 +1,2050 @@
+title: Rodriguez Home
+views:
+  - icon: mdi:home-assistant
+    panel: false
+    path: default_view
+    theme: default
+    title: Home
+    badges:
+      - type: entity
+        show_name: true
+        show_state: true
+        show_icon: true
+        entity: sensor.openweathermap_feels_like_temperature
+        name: Feels Like Outside
+      - type: entity
+        entity: sun.sun
+      - type: entity
+        show_name: true
+        show_state: true
+        show_icon: true
+        entity: sensor.waqi_maspeth_new_york_usa_2
+        name: Air Quality
+      - type: entity
+        show_name: true
+        show_state: true
+        show_icon: true
+        entity: sensor.basement_temperature
+        name: Basement
+      - type: entity
+        show_name: true
+        show_state: true
+        show_icon: true
+        entity: sensor.living_room_temperature
+        name: Living Room
+      - type: entity
+        show_name: true
+        show_state: true
+        show_icon: true
+        entity: sensor.upstairs_temperature
+        name: 2nd Floor
+      - type: entity
+        show_name: true
+        show_state: true
+        show_icon: true
+        entity: sensor.main_bedroom_inside_temperature
+        name: Main Bedroom
+      - type: entity
+        entity: sensor.exchange_rate_1_btc
+        name: Bitcoin Price
+      - type: entity
+        show_name: true
+        show_state: true
+        show_icon: true
+        entity: binary_sensor.basement_door_contact
+        name: Basement Door
+      - type: entity
+        show_name: true
+        show_state: true
+        show_icon: true
+        entity: switch.virtual_sprinkler
+        icon: mdi:water
+        name: Sprinkler
+    cards:
+      - type: custom:stack-in-card
+        title: Cameras
+        mode: vertical
+        keep:
+          background: true
+          outer_padding: true
+          margin: true
+          box_shadow: true
+          border_radius: true
+        cards:
+          - type: grid
+            columns: 2
+            square: false
+            cards:
+              - type: picture-entity
+                entity: camera.front_door
+                camera_image: camera.front_door
+                fit_mode: cover
+                aspect_ratio: 75%
+                show_state: false
+                show_name: false
+              - type: picture-entity
+                entity: camera.backyard
+                fit_mode: cover
+                aspect_ratio: 75%
+                show_state: false
+                show_name: false
+              - type: picture-entity
+                entity: camera.driveway
+                fit_mode: cover
+                aspect_ratio: 75%
+                show_state: false
+                show_name: false
+      - type: weather-forecast
+        entity: weather.home
+        name: 5-Day Forecast
+        show_current: true
+        show_forecast: true
+        forecast_type: daily
+      - type: vertical-stack
+        title: Split units
+        cards:
+          - type: custom:bubble-card
+            card_type: separator
+            name: Main
+            icon: mdi:home-floor-1
+          - type: custom:bubble-card
+            card_type: climate
+            entity: climate.kitchen
+            name: Kitchen
+            icon: mdi:silverware-fork-knife
+            sub_buttons:
+              - entity: climate.kitchen
+                attribute: current_temperature
+                name: Temp
+                icon: mdi:thermometer
+              - entity: climate.kitchen
+                attribute: hvac_action
+                name: HVAC
+                icon: mdi:hvac
+            sub_button:
+              main:
+                - name: HVAC modes menu
+                  select_attribute: hvac_modes
+                  state_background: false
+                  show_arrow: false
+                  sub_button_type: select
+              bottom: []
+            show_state: true
+            show_attribute: true
+          - type: custom:bubble-card
+            card_type: climate
+            entity: climate.living_room
+            name: Living Room
+            icon: mdi:sofa
+            sub_buttons:
+              - entity: climate.living_room
+                attribute: current_temperature
+                name: Temp
+                icon: mdi:thermometer
+              - entity: climate.living_room
+                attribute: hvac_action
+                name: HVAC
+                icon: mdi:hvac
+              - entity: climate.living_room
+                attribute: fan_mode
+                name: Fan
+                icon: mdi:fan
+            sub_button:
+              main:
+                - name: HVAC modes menu
+                  select_attribute: hvac_modes
+                  state_background: false
+                  show_arrow: false
+                  sub_button_type: select
+              bottom: []
+            show_state: true
+            show_attribute: true
+          - type: custom:bubble-card
+            card_type: separator
+            name: 2nd Floor
+            icon: mdi:home-floor-2
+          - type: custom:bubble-card
+            card_type: climate
+            entity: climate.ava_room
+            name: Ava
+            icon: mdi:bed-king-outline
+            sub_buttons:
+              - entity: climate.ava_room
+                attribute: current_temperature
+                name: Temp
+                icon: mdi:thermometer
+              - entity: climate.ava_room
+                attribute: hvac_action
+                name: HVAC
+                icon: mdi:hvac
+              - entity: climate.ava_room
+                attribute: fan_mode
+                name: Fan
+                icon: mdi:fan
+            sub_button:
+              main:
+                - name: HVAC modes menu
+                  select_attribute: hvac_modes
+                  state_background: false
+                  show_arrow: false
+                  sub_button_type: select
+              bottom: []
+            show_state: true
+            show_attribute: true
+          - type: custom:bubble-card
+            card_type: climate
+            entity: climate.aly
+            name: Aly
+            icon: mdi:bed-king-outline
+            sub_buttons:
+              - entity: climate.aly
+                attribute: current_temperature
+                name: Temp
+                icon: mdi:thermometer
+              - entity: climate.aly
+                attribute: hvac_action
+                name: HVAC
+                icon: mdi:hvac
+              - entity: climate.aly
+                attribute: fan_mode
+                name: Fan
+                icon: mdi:fan
+            sub_button:
+              main:
+                - name: HVAC modes menu
+                  select_attribute: hvac_modes
+                  state_background: false
+                  show_arrow: false
+                  sub_button_type: select
+              bottom: []
+            show_state: true
+            show_attribute: true
+          - type: custom:bubble-card
+            card_type: climate
+            entity: climate.arabella
+            name: Arabella
+            icon: mdi:bed-king-outline
+            sub_buttons:
+              - entity: climate.arabella
+                attribute: current_temperature
+                name: Temp
+                icon: mdi:thermometer
+              - entity: climate.arabella
+                attribute: hvac_action
+                name: HVAC
+                icon: mdi:hvac
+              - entity: climate.arabella
+                attribute: fan_mode
+                name: Fan
+                icon: mdi:fan
+            sub_button:
+              main:
+                - name: HVAC modes menu
+                  select_attribute: hvac_modes
+                  state_background: false
+                  show_arrow: false
+                  sub_button_type: select
+              bottom: []
+            show_state: true
+            show_attribute: true
+          - type: custom:bubble-card
+            card_type: separator
+            name: 3rd Floor
+            icon: mdi:home-floor-3
+          - type: custom:bubble-card
+            card_type: climate
+            entity: climate.main_bedroom
+            name: Main Bedroom
+            icon: mdi:bed-king-outline
+            sub_buttons:
+              - entity: climate.main_bedroom
+                attribute: current_temperature
+                name: Temp
+                icon: mdi:thermometer
+              - entity: climate.main_bedroom
+                attribute: hvac_action
+                name: HVAC
+                icon: mdi:hvac
+            sub_button:
+              main:
+                - name: HVAC modes menu
+                  select_attribute: hvac_modes
+                  state_background: false
+                  show_arrow: false
+                  sub_button_type: select
+              bottom: []
+            show_state: true
+            show_attribute: true
+      - type: entities
+        title: Fans
+        show_header_toggle: false
+        entities:
+          - entity: fan.main_bedroom_fan
+            icon: mdi:fan
+            type: custom:bubble-card
+            card_type: button
+            button_type: slider
+            show_attribute: false
+            show_state: true
+          - type: conditional
+            conditions:
+              - entity: fan.office
+                state_not: unavailable
+              - entity: fan.office
+                state_not: unknown
+            row:
+              entity: fan.office
+              name: Office Fan
+              type: custom:bubble-card
+              card_type: button
+              button_type: slider
+              show_state: true
+      - type: vertical-stack
+        title: Heat
+        cards:
+          - type: custom:bubble-card
+            card_type: climate
+            entity: climate.basement
+            name: Basement
+            icon: mdi:home-floor-b
+            sub_buttons:
+              - entity: climate.basement
+                attribute: current_temperature
+                name: Temp
+                icon: mdi:thermometer
+            sub_button:
+              - name: HVAC modes menu
+                select_attribute: hvac_modes
+                state_background: false
+                show_arrow: false
+            show_state: false
+            show_attribute: true
+            attribute: temperature
+          - type: custom:bubble-card
+            card_type: climate
+            entity: climate.living_room_2
+            name: Main Floor
+            icon: mdi:home-floor-1
+            sub_buttons:
+              - entity: climate.living_room_2
+                attribute: current_temperature
+                name: Temp
+                icon: mdi:thermometer
+            sub_button:
+              - name: HVAC modes menu
+                select_attribute: hvac_modes
+                state_background: false
+                show_arrow: false
+            show_state: false
+            show_attribute: true
+            attribute: temperature
+          - type: custom:bubble-card
+            card_type: climate
+            entity: climate.upstairs
+            name: Upstairs
+            icon: mdi:home-floor-2
+            sub_buttons:
+              - entity: climate.upstairs
+                attribute: current_temperature
+                name: Temp
+                icon: mdi:thermometer
+              - entity: sensor.upstairs_humidity
+                name: Humidity
+                icon: mdi:water-percent
+            sub_button:
+              - name: HVAC modes menu
+                select_attribute: hvac_modes
+                state_background: false
+                show_arrow: false
+            show_state: false
+            show_attribute: true
+            attribute: temperature
+      - type: entities
+        title: Locks
+        show_header_toggle: false
+        entities:
+          - entity: lock.side_door
+            type: custom:bubble-card
+            card_type: button
+            button_type: switch
+            icon: mdi:home-lock
+            show_state: true
+      - type: grid
+        title: Quick Scripts
+        columns: 2
+        square: false
+        cards:
+          - type: custom:button-card
+            entity: input_boolean.tv_sound_mode_music
+            show_state: false
+            name: |
+              [[[
+                return states['input_boolean.tv_sound_mode_music']?.state === 'on'
+                  ? 'Music'
+                  : 'Sports';
+              ]]]
+            icon: |
+              [[[
+                return states['input_boolean.tv_sound_mode_music']?.state === 'on'
+                  ? 'mdi:music'
+                  : 'mdi:basketball';
+              ]]]
+            tap_action:
+              action: call-service
+              service: script.turn_on
+              target:
+                entity_id: script.toggle_tv_sound_mode
+            hold_action:
+              action: more-info
+            styles:
+              card:
+                - padding: 10px
+                - border-radius: 12px
+              name:
+                - font-size: 14px
+                - font-weight: "600"
+              icon:
+                - width: 24px
+                - color: var(--primary-color)
+          - type: custom:button-card
+            entity: script.tv_surround_mute
+            name: Mute
+            icon: mdi:volume-mute
+            show_state: false
+            tap_action:
+              action: call-service
+              service: script.turn_on
+              target:
+                entity_id: script.tv_surround_mute
+            hold_action:
+              action: more-info
+            styles:
+              card:
+                - padding: 10px
+                - border-radius: 12px
+              name:
+                - font-size: 14px
+                - font-weight: "600"
+              icon:
+                - width: 24px
+                - color: var(--primary-color)
+          - type: custom:button-card
+            entity: script.vacuum_then_mop
+            name: Vacuum/Mop
+            icon: mdi:robot-vacuum-variant
+            show_state: false
+            tap_action:
+              action: call-service
+              service: script.turn_on
+              target:
+                entity_id: script.vacuum_then_mop
+            hold_action:
+              action: more-info
+            styles:
+              card:
+                - padding: 10px
+                - border-radius: 12px
+              name:
+                - font-size: 14px
+                - font-weight: "600"
+              icon:
+                - width: 24px
+                - color: var(--primary-color)
+          - type: custom:button-card
+            entity: script.christmas_morning_on
+            name: Christmas
+            icon: mdi:pine-tree
+            show_state: false
+            hidden: |
+              [[[
+                return new Date().getMonth() !== 11;
+              ]]]
+            tap_action:
+              action: call-service
+              service: script.turn_on
+              target:
+                entity_id: script.christmas_morning_on
+            hold_action:
+              action: more-info
+            styles:
+              card:
+                - padding: 10px
+                - border-radius: 12px
+              name:
+                - font-size: 14px
+                - font-weight: "600"
+              icon:
+                - width: 24px
+                - color: var(--primary-color)
+      - type: grid
+        title: Lights On
+        columns: 2
+        square: false
+        cards:
+          - type: custom:mushroom-entity-card
+            entity: switch.font_door_lights
+            name: Front Door Lights
+            icon: mdi:outdoor-lamp
+            tap_action:
+              action: toggle
+            hold_action:
+              action: more-info
+            fill_container: true
+            visibility:
+              - condition: state
+                entity: switch.font_door_lights
+                state: "on"
+          - type: custom:mushroom-entity-card
+            entity: switch.side_door_light
+            name: Side Door Light
+            icon: mdi:outdoor-lamp
+            tap_action:
+              action: toggle
+            hold_action:
+              action: more-info
+            fill_container: true
+            visibility:
+              - condition: state
+                entity: switch.side_door_light
+                state: "on"
+          - type: custom:mushroom-light-card
+            entity: light.garden
+            name: Garden Lights
+            icon: mdi:flower
+            show_brightness_control: true
+            use_light_color: true
+            tap_action:
+              action: toggle
+            hold_action:
+              action: more-info
+            fill_container: true
+            visibility:
+              - condition: state
+                entity: light.garden
+                state: "on"
+          - type: custom:mushroom-light-card
+            entity: group.side_entrance_lights
+            name: Side Entrance
+            icon: mdi:wall-sconce-flat
+            show_brightness_control: true
+            use_light_color: true
+            tap_action:
+              action: toggle
+            hold_action:
+              action: more-info
+            fill_container: true
+            visibility:
+              - condition: state
+                entity: light.side_entrance_light
+                state: "on"
+          - type: conditional
+            conditions:
+              - entity: light.vestibule
+                state: "on"
+            card:
+              type: custom:mushroom-light-card
+              entity: light.vestibule
+              name: Vestibule
+              icon: mdi:wall-sconce-flat
+              show_brightness_control: true
+              use_light_color: true
+              tap_action:
+                action: toggle
+              hold_action:
+                action: more-info
+              fill_container: true
+          - type: custom:mushroom-light-card
+            entity: light.kitchen_light
+            name: Kitchen
+            icon: mdi:ceiling-light
+            show_brightness_control: true
+            use_light_color: true
+            tap_action:
+              action: toggle
+            hold_action:
+              action: more-info
+            fill_container: true
+            visibility:
+              - condition: state
+                entity: light.kitchen_light
+                state: "on"
+          - type: custom:mushroom-light-card
+            entity: light.dinning_room
+            name: Dining Room
+            icon: mdi:ceiling-light
+            show_brightness_control: true
+            use_light_color: true
+            tap_action:
+              action: toggle
+            hold_action:
+              action: more-info
+            fill_container: true
+            visibility:
+              - condition: state
+                entity: light.dinning_room
+                state: "on"
+          - type: custom:mushroom-light-card
+            entity: light.office
+            name: Office
+            show_brightness_control: true
+            show_color_control: true
+            use_light_color: true
+            tap_action:
+              action: toggle
+            hold_action:
+              action: more-info
+            fill_container: true
+            visibility:
+              - condition: state
+                entity: light.office
+                state: "on"
+          - type: custom:mushroom-light-card
+            entity: light.office_desk_lightstrip
+            name: Office Desk Lightstrip
+            show_brightness_control: true
+            use_light_color: true
+            tap_action:
+              action: toggle
+            hold_action:
+              action: more-info
+            fill_container: true
+            visibility:
+              - condition: state
+                entity: light.office_desk_lightstrip
+                state: "on"
+          - type: custom:mushroom-entity-card
+            entity: switch.yard_lights
+            name: Yard Lights
+            tap_action:
+              action: toggle
+            hold_action:
+              action: more-info
+            fill_container: true
+            visibility:
+              - condition: state
+                entity: switch.yard_lights
+                state: "on"
+          - type: custom:mushroom-light-card
+            entity: group.main_bedroom_lamps
+            name: Main Bedroom Lamps
+            icon: mdi:desk-lamp
+            show_brightness_control: true
+            show_color_control: true
+            use_light_color: true
+            tap_action:
+              action: toggle
+            hold_action:
+              action: more-info
+            fill_container: true
+            visibility:
+              - condition: state
+                entity: group.main_bedroom_lamps
+                state: "on"
+          - type: custom:mushroom-light-card
+            entity: light.living_room_table_lamp
+            name: Living Room Table Lamp
+            icon: mdi:lamp
+            show_brightness_control: true
+            use_light_color: true
+            tap_action:
+              action: toggle
+            hold_action:
+              action: more-info
+            fill_container: true
+            visibility:
+              - condition: state
+                entity: light.living_room_table_lamp
+                state: "on"
+          - type: conditional
+            conditions:
+              - entity: binary_sensor.twinkly_light_exists
+                state: "on"
+            card:
+              type: custom:mushroom-light-card
+              entity: light.twinkly_37bdd1
+              name: Christmas Tree
+              icon: mdi:pine-tree
+              show_brightness_control: true
+              use_light_color: true
+              tap_action:
+                action: toggle
+              hold_action:
+                action: more-info
+              fill_container: true
+              visibility:
+                - condition: state
+                  entity: light.twinkly_37bdd1
+                  state: "on"
+      - type: entities
+        title: Robot Cleaners
+        show_header_toggle: false
+        entities:
+          - type: custom:vacuum-card
+            entity: vacuum.rosey
+            battery_entity: sensor.rosey_battery
+          - type: custom:vacuum-card
+            entity: vacuum.agnes
+            battery_entity: sensor.agnes_battery_level
+          - entity: vacuum.henry_orbit
+            name: Mac
+          - entity: sensor.mac_water_tank_level
+            name: Mac Water Tank
+            icon: mdi:water-percent
+          - entity: sensor.henry_orbit_battery
+            name: Mac Battery
+            icon: mdi:battery-high
+      - type: vertical-stack
+        title: Blinds & Skylight
+        cards:
+          - type: custom:mushroom-cover-card
+            entity: cover.skylight_1
+            name: Skylight
+            show_position_control: true
+            show_buttons_control: true
+            fill_container: false
+            layout: horizontal
+          - type: custom:mushroom-cover-card
+            entity: cover.blind_1
+            name: Skylight Blind
+            show_position_control: true
+            show_buttons_control: true
+            fill_container: false
+            layout: horizontal
+          - type: custom:mushroom-cover-card
+            entity: cover.kitchen_blind_trimmed
+            name: Kitchen Blind
+            show_position_control: true
+            show_buttons_control: true
+            fill_container: false
+            layout: horizontal
+      - type: custom:stack-in-card
+        title: Garden Sprinkler
+        mode: vertical
+        cards:
+          - type: entities
+            show_header_toggle: false
+            entities:
+              - entity: switch.virtual_sprinkler
+                name: Sprinkler
+                icon: mdi:sprinkler-variant
+              - entity: sensor.sprinkler_on_today_minutes
+                name: Sprinkler Today Runtime (min)
+                icon: mdi:timer-outline
+              - entity: sensor.garden_rain_last_5_days_total
+                name: Rain Total Last 5 Days (in)
+                icon: mdi:weather-rainy
+              - entity: sensor.garden_rain_recent_covers_one_watering
+                name: Enough Rain to Skip Watering
+                icon: mdi:sprinkler-alert
+              - entity: input_number.garden_sprinkler_inches_per_10_minutes
+                name: Watering Threshold (in / 10 min)
+                icon: mdi:water-percent
+          - type: custom:bar-card
+            title: Sprinkler Runtime - Last 5 Days
+            height: 28px
+            positions:
+              icon: "off"
+              name: inside
+              value: inside
+            entities:
+              - entity: sensor.sprinkler_on_today_5d_minutes
+                name: Today
+              - entity: sensor.sprinkler_on_yesterday_5d_minutes
+                name: Yesterday
+              - entity: sensor.sprinkler_on_2_days_ago_5d_minutes
+                name: 2 Days Ago
+              - entity: sensor.sprinkler_on_3_days_ago_5d_minutes
+                name: 3 Days Ago
+              - entity: sensor.sprinkler_on_4_days_ago_5d_minutes
+                name: 4 Days Ago
+          - type: custom:bar-card
+            title: Rainfall - Last 5 Days
+            height: 28px
+            positions:
+              icon: "off"
+              name: inside
+              value: inside
+            entities:
+              - entity: sensor.openweathermap_rain
+                name: Today
+              - entity: input_number.garden_rain_yesterday
+                name: Yesterday
+              - entity: input_number.garden_rain_2_days_ago
+                name: 2 Days Ago
+              - entity: input_number.garden_rain_3_days_ago
+                name: 3 Days Ago
+              - entity: input_number.garden_rain_4_days_ago
+                name: 4 Days Ago
+      - type: vertical-stack
+        cards:
+          - type: conditional
+            conditions:
+              - entity: sensor.team_tracker_knicks
+                state: IN
+            card:
+              type: custom:teamtracker-card
+              entity: sensor.team_tracker_knicks
+              attribute: team_win_probability
+          - type: conditional
+            conditions:
+              - entity: sensor.team_tracker_mets
+                state: IN
+            card:
+              type: custom:teamtracker-card
+              entity: sensor.team_tracker_mets
+              attribute: team_win_probability
+          - type: conditional
+            conditions:
+              - entity: sensor.team_tracker_nyjets
+                state: IN
+            card:
+              type: custom:teamtracker-card
+              entity: sensor.team_tracker_nyjets
+              attribute: team_win_probability
+          - type: conditional
+            conditions:
+              - entity: sensor.team_tracker_nyrangers
+                state: IN
+            card:
+              type: custom:teamtracker-card
+              entity: sensor.team_tracker_nyrangers
+              attribute: team_win_probability
+          - type: conditional
+            conditions:
+              - entity: sensor.team_tracker_nycfc
+                state: IN
+            card:
+              type: custom:teamtracker-card
+              entity: sensor.team_tracker_nycfc
+              attribute: team_win_probability
+      - type: entities
+        title: Waste Collection
+        state_color: true
+        show_header_toggle: false
+        entities:
+          - entity: sensor.dashboard_garbage_pickup
+            name: Trash
+            icon: mdi:trash-can
+            card_mod:
+              style: >-
+                :host {\n  --paper-item-icon-color: {% set s =
+                states(config.entity) %}{% if s == 'Today' %}red{% elif s ==
+                'Tomorrow' %}yellow{% else %}green{% endif %}
+                !important;\n}\n:host .info,\n:host .text-content,\n:host
+                .secondary,\n:host .state {\n  color: {% set s =
+                states(config.entity) %}{% if s == 'Today' %}red{% elif s ==
+                'Tomorrow' %}yellow{% else %}green{% endif %} !important;\n}
+          - entity: sensor.dashboard_recycling_pickup
+            name: Recycling
+            card_mod:
+              style: >-
+                :host {\n  --paper-item-icon-color: {% set s =
+                states(config.entity) %}{% if s == 'Today' %}red{% elif s ==
+                'Tomorrow' %}yellow{% else %}green{% endif %}
+                !important;\n}\n:host .info,\n:host .text-content,\n:host
+                .secondary,\n:host .state {\n  color: {% set s =
+                states(config.entity) %}{% if s == 'Today' %}red{% elif s ==
+                'Tomorrow' %}yellow{% else %}green{% endif %} !important;\n}
+          - entity: sensor.dashboard_organics_pickup
+            name: Organics
+            card_mod:
+              style: >-
+                :host {\n  --paper-item-icon-color: {% set s =
+                states(config.entity) %}{% if s == 'Today' %}red{% elif s ==
+                'Tomorrow' %}yellow{% else %}green{% endif %}
+                !important;\n}\n:host .info,\n:host .text-content,\n:host
+                .secondary,\n:host .state {\n  color: {% set s =
+                states(config.entity) %}{% if s == 'Today' %}red{% elif s ==
+                'Tomorrow' %}yellow{% else %}green{% endif %} !important;\n}
+          - entity: sensor.dashboard_large_items_pickup
+            name: Large Items
+            card_mod:
+              style: >-
+                :host {\n  --paper-item-icon-color: {% set s =
+                states(config.entity) %}{% if s == 'Today' %}red{% elif s ==
+                'Tomorrow' %}yellow{% else %}green{% endif %}
+                !important;\n}\n:host .info,\n:host .text-content,\n:host
+                .secondary,\n:host .state {\n  color: {% set s =
+                states(config.entity) %}{% if s == 'Today' %}red{% elif s ==
+                'Tomorrow' %}yellow{% else %}green{% endif %} !important;\n}
+  - badges: []
+    cards:
+      - entities:
+          - entity: switch.font_door_lights
+            type: custom:bubble-card
+            card_type: button
+            button_type: switch
+            icon: mdi:outdoor-lamp
+            show_last_changed: false
+            show_state: true
+          - entity: switch.side_door_light
+            type: custom:bubble-card
+            card_type: button
+            button_type: switch
+            icon: mdi:outdoor-lamp
+            show_state: true
+          - entity: light.garden
+            type: custom:bubble-card
+            card_type: button
+            button_type: slider
+            icon: mdi:flower
+            name: Garden Lights
+            show_state: true
+          - entity: group.side_entrance_lights
+            type: custom:bubble-card
+            card_type: button
+            button_type: switch
+            icon: mdi:wall-sconce-flat
+            show_state: true
+          - entity: light.vestibule
+            type: custom:bubble-card
+            card_type: button
+            button_type: switch
+            icon: mdi:wall-sconce-flat
+            show_state: true
+          - entity: light.kitchen_light
+            type: custom:bubble-card
+            card_type: button
+            button_type: slider
+            icon: mdi:ceiling-light
+            show_state: true
+          - entity: light.dinning_room
+            type: custom:bubble-card
+            card_type: button
+            button_type: slider
+            icon: mdi:ceiling-light
+            show_state: true
+          - entity: light.living_room_table_lamp
+            type: custom:bubble-card
+            card_type: button
+            button_type: slider
+            icon: mdi:lamp
+            name: Living Room Lamp
+            show_state: true
+          - entity: light.office
+            type: custom:bubble-card
+            card_type: button
+            button_type: slider
+            show_state: true
+          - entity: light.office_desk_lightstrip
+            type: custom:bubble-card
+            card_type: button
+            button_type: slider
+            name: Office Desk Lightstrip
+            show_state: true
+          - entity: switch.yard_lights
+            type: custom:bubble-card
+            card_type: button
+            button_type: switch
+            show_state: true
+          - entity: group.main_bedroom_lamps
+            type: custom:bubble-card
+            card_type: button
+            button_type: slider
+            icon: mdi:desk-lamp
+            name: Main bedroom lamp
+            show_state: true
+          - entity: light.twinkly_37bdd1
+            type: custom:bubble-card
+            card_type: button
+            button_type: slider
+            icon: mdi:pine-tree
+            name: Christmas Tree
+            show_state: true
+        icon: mdi:lightbulb-on-outline
+        show_header_toggle: false
+        title: Light
+        type: entities
+    icon: mdi:lightbulb-on-outline
+    panel: false
+    path: insidelights
+    title: InsideLights
+  - badges:
+      - type: entity
+        show_name: true
+        show_state: true
+        show_icon: true
+        entity: weather.home
+      - type: entity
+        show_name: true
+        show_state: true
+        show_icon: true
+        entity: sensor.openweathermap_feels_like_temperature
+        name: Feels like temperature
+      - sun.sun
+    cards:
+      - entities:
+          - entity: switch.font_door_lights
+            icon: mdi:coach-lamp
+          - entity: switch.side_door_light
+            icon: mdi:coach-lamp
+        show_header_toggle: false
+        title: Lights
+        type: entities
+      - entities:
+          - entity: light.garden
+            type: custom:slider-entity-row
+          - entity: switch.virtual_sprinkler
+            icon: mdi:sprinkler-variant
+            name: Garden Sprinkler
+        show_header_toggle: false
+        title: Garden
+        type: entities
+      - entities:
+          - entity: switch.outdoor_switch
+            icon: mdi:water
+        show_header_toggle: false
+        title: Pool
+        type: entities
+      - type: custom:vacuum-card
+        entity: vacuum.wally
+        stats:
+          default:
+            - entity_id: sensor.joerod_gmail_com_error_state
+              subtitle: Error State
+              value_template: "{{ value | replace('_', ' ') | title }}"
+            - entity_id: sensor.joerod_gmail_com_canister_level
+              subtitle: Canister
+              unit: "%"
+    icon: mdi:exit-to-app
+    title: Outside
+  - title: Smart Switches
+    path: smart-switches
+    icon: mdi:toggle-switch
+    badges: []
+    cards:
+      - title: Smart Switches
+        type: glance
+        entities:
+          - entity: switch.arabella_name_light
+            name: Arabella's Name Light
+            icon: mdi:alphabetical-variant
+          - entity: switch.candle
+            name: Candle
+            icon: mdi:candle
+          - entity: switch.front_window
+            name: Front Window
+            icon: mdi:window-closed-variant
+          - entity: light.living_room_table_lamp
+            name: Living Room Table
+            icon: mdi:lamp
+  - theme: Backend-selected
+    icon: mdi:desktop-classic
+    title: Home Office
+    path: home-office
+    badges:
+      - type: entity
+        show_name: false
+        show_state: true
+        show_icon: true
+        entity: sensor.office_temperature
+        name: Office Temperature
+      - type: entity
+        show_name: false
+        show_state: true
+        show_icon: true
+        entity: sensor.office_humidity
+        name: Office Humidity
+    cards:
+      - type: horizontal-stack
+        title: Synology
+        cards:
+          - type: vertical-stack
+            cards:
+              - type: gauge
+                entity: sensor.rod_nas_cpu_utilization_total
+                name: CPU
+              - type: gauge
+                entity: sensor.rod_nas_memory_usage_real
+                name: Memory Usage
+              - type: gauge
+                entity: sensor.rod_nas_volume_1_volume_used
+                name: Volume 1
+              - type: gauge
+                entity: sensor.rod_nas_volume_2_volume_used
+                name: Volume 2
+          - type: vertical-stack
+            cards:
+              - type: sensor
+                entity: sensor.rod_nas_temperature
+                name: Temperature
+              - type: custom:mini-graph-card
+                entities:
+                  - sensor.rod_nas_upload_throughput
+                name: Upload
+                hours_to_show: 168
+                points_per_hour: 0.25
+                line_color: red
+              - type: custom:mini-graph-card
+                entities:
+                  - sensor.rod_nas_download_throughput
+                name: Download
+                hours_to_show: 168
+                points_per_hour: 0.25
+                line_color: blue
+      - type: horizontal-stack
+        title: HP ColorLaserJet MFP
+        cards:
+          - type: vertical-stack
+            cards:
+              - type: gauge
+                entity: sensor.hp_colorlaserjet_mfp_m182_m185_cyan_cartridge_hp_w2311a
+                name: Cyan Cartridge
+                segments:
+                  - from: 0
+                    color: "#00FFFF"
+              - type: gauge
+                entity: >-
+                  sensor.hp_colorlaserjet_mfp_m182_m185_yellow_cartridge_hp_w2312a
+                name: Yellow Cartridge
+                segments:
+                  - from: 0
+                    color: "#FFFF00"
+          - type: vertical-stack
+            cards:
+              - type: gauge
+                entity: >-
+                  sensor.hp_colorlaserjet_mfp_m182_m185_magenta_cartridge_hp_w2313a
+                name: Magenta Cartridge
+                segments:
+                  - from: 0
+                    color: "#FF00FF"
+              - type: gauge
+                entity: >-
+                  sensor.hp_colorlaserjet_mfp_m182_m185_black_cartridge_hp_w2310a
+                name: Black Cartridge
+                segments:
+                  - from: 0
+                    color: "#000000"
+      - type: entities
+        entities:
+          - entity: fan.office
+            name: Office Fan
+          - entity: light.office
+            type: custom:slider-entity-row
+          - entity: binary_sensor.basement_door_contact
+            name: Basement Door
+            icon: mdi:door
+        title: Misc
+        show_header_toggle: false
+  - badges: []
+    cards:
+      - entities:
+          - entity: lock.side_door
+            icon: mdi:home-lock
+          - entity: binary_sensor.basement_door_contact
+            icon: mdi:door
+        show_header_toggle: false
+        title: Lock
+        type: entities
+    icon: mdi:home-lock
+    path: doors
+    title: Doors
+  - badges:
+      - type: entity
+        entity: media_player.spotify_joe_rodriguez
+    cards:
+      - type: custom:sonos-card
+        entities:
+          - media_player.basement_tv
+          - media_player.basement_xbox
+          - media_player.xbox_2
+          - media_player.living_room_tv
+          - media_player.living_room_zone2
+          - media_player.samsung_cu7000_43_2
+          - media_player.sony_bravia_tv
+          - media_player.yamaha_receiver_zone_2
+          - update.alexa_media_player_update
+          - media_player.living_room_tv
+          - media_player.lg_webos_tv_ut7000pua
+          - media_player.lg_webos_tv_oled77b2pua
+          - media_player.yamaha_receiver
+          - media_player.spotify_joe_rodriguez
+        excludeItemsInEntitiesList: true
+        showNonSonosPlayers: true
+        sections:
+          - player
+          - volumes
+          - groups
+          - grouping
+          - media browser
+          - queue
+      - name: Xbox One
+        type: picture-elements
+        image: /local/xbox_one.svg
+        elements:
+          - type: service-button
+            title: ""
+            service: remote.send_command
+            service_data:
+              entity_id: remote.basement_xbox_remote
+              command: Up
+            style:
+              top: 45.35%
+              left: 14.3%
+              width: 6.2%
+              height: 15%
+              overflow: hidden
+          - type: service-button
+            title: ""
+            service: remote.send_command
+            service_data:
+              entity_id: remote.basement_xbox_remote
+              command: Down
+            style:
+              top: 74.7%
+              left: 14.3%
+              width: 6.2%
+              height: 15%
+              overflow: hidden
+          - type: service-button
+            title: ""
+            service: remote.send_command
+            service_data:
+              entity_id: remote.basement_xbox_remote
+              command: Left
+            style:
+              top: 60%
+              left: 8.05%
+              height: 14.4%
+              width: 6.4%
+              overflow: hidden
+          - type: service-button
+            title: ""
+            service: remote.send_command
+            service_data:
+              entity_id: remote.basement_xbox_remote
+              command: Right
+            style:
+              top: 60%
+              left: 20.65%
+              height: 14.4%
+              width: 6.4%
+              overflow: hidden
+          - type: service-button
+            title: ""
+            service: remote.send_command
+            service_data:
+              entity_id: remote.basement_xbox_remote
+              command: A
+            style:
+              top: 82.5%
+              left: 80.05%
+              width: 10.5%
+              height: 24.4%
+              border-radius: 100%
+              overflow: hidden
+          - type: service-button
+            title: ""
+            service: remote.send_command
+            service_data:
+              entity_id: remote.basement_xbox_remote
+              command: X
+            style:
+              top: 60.0%
+              left: 70.6%
+              width: 10.5%
+              height: 24.4%
+              border-radius: 100%
+              overflow: hidden
+          - type: service-button
+            title: ""
+            service: remote.send_command
+            service_data:
+              entity_id: remote.basement_xbox_remote
+              command: B
+            style:
+              top: 60.0%
+              left: 89.5%
+              width: 10.5%
+              height: 24.4%
+              border-radius: 100%
+              overflow: hidden
+          - type: service-button
+            title: ""
+            service: remote.send_command
+            service_data:
+              entity_id: remote.basement_xbox_remote
+              command: "Y"
+            style:
+              top: 37.9%
+              left: 80.05%
+              width: 10.5%
+              height: 24.4%
+              border-radius: 100%
+              overflow: hidden
+          - type: service-button
+            title: ""
+            service: remote.toggle
+            service_data:
+              entity_id: remote.basement_xbox_remote
+            style:
+              top: 80.2%
+              left: 47.2%
+              width: 7%
+              height: 16%
+              border-radius: 100%
+              overflow: hidden
+          - type: service-button
+            title: ""
+            service: media_player.play_media
+            service_data:
+              entity_id: media_player.joerod_xboxone_2
+              media_content_type: ""
+              media_content_id: Home
+            style:
+              top: 22.2%
+              left: 47.2%
+              width: 13.4%
+              height: 31.2%
+              border-radius: 100%
+              overflow: hidden
+      - type: custom:bubble-card
+        card_type: media-player
+        entity: media_player.yamaha_receiver
+        name: Living Room Amp
+        icon: mdi:audio-video
+        sub_buttons:
+          - entity: media_player.yamaha_receiver
+            attribute: source
+            name: Source
+            icon: mdi:playlist-music
+          - entity: media_player.yamaha_receiver
+            attribute: sound_mode
+            name: Sound
+            icon: mdi:surround-sound
+          - entity: media_player.yamaha_receiver
+            attribute: volume_level
+            name: Vol
+            icon: mdi:volume-high
+        show_attribute: true
+        attribute: source
+      - title: Living Room TV
+        name: Living Room TV
+        type: custom:lg-remote-control
+        entity: media_player.living_room_tv
+        dimensions:
+          scale: "0.79"
+          border_width: 1px
+      - type: custom:bubble-card
+        card_type: media-player
+        entity: media_player.sony_bravia_tv
+        name: Bravia
+        icon: mdi:television
+        show_last_changed: false
+        show_state: true
+        hide:
+          play_pause_button: false
+          volume_button: false
+        show_attribute: false
+        sub_button:
+          main: []
+          bottom: []
+    icon: mdi:play-circle-outline
+    path: media
+    title: Media
+    type: masonry
+  - type: sections
+    max_columns: 4
+    title: Laundry
+    path: laundry
+    icon: mdi:washing-machine
+    sections:
+      - cards:
+          - type: heading
+            heading: Dryer
+            heading_style: title
+            icon: mdi:tumble-dryer
+          - type: tile
+            entity: sensor.dryer_current_status
+          - type: tile
+            entity: sensor.dryer_remaining_time
+          - type: tile
+            entity: binary_sensor.dryer_remote_start
+          - type: tile
+            entity: select.dryer_operation
+      - type: grid
+        cards:
+          - type: heading
+            heading: Washing Machine
+            heading_style: title
+            icon: mdi:washing-machine
+          - type: tile
+            entity: binary_sensor.washing_machine_status
+            name: Washing Current status
+            vertical: false
+            features_position: bottom
+  - type: sections
+    max_columns: 4
+    title: Travel
+    path: travel
+    icon: mdi:train-car
+    dense_section_placement: true
+    sections:
+      - type: grid
+        cards:
+          - type: heading
+          - type: map
+            entities:
+              - entity: person.joe_rodriguez
+            theme_mode: auto
+            title: Joe's Location
+      - type: grid
+        cards:
+          - type: logbook
+            entities:
+              - person.joe_rodriguez
+            hours_to_show: 24
+            title: Location Summary
+    badges:
+      - type: entity
+        show_name: false
+        show_state: true
+        show_icon: true
+        entity: sensor.1_dry_harbor_rd_63_av
+        show_entity_picture: true
+      - type: entity
+        show_name: true
+        show_state: true
+        show_icon: true
+        entity: sensor.1_woodhaven_blvd
+        show_entity_picture: true
+        name:
+          type: entity
+      - type: entity
+        show_name: true
+        show_state: true
+        show_icon: true
+        entity: sensor.2_jackson_hts_roosevelt_av
+        icon: mdi:train
+        show_entity_picture: true
+        name:
+          type: entity
+      - type: entity
+        show_name: true
+        show_state: true
+        show_icon: true
+        entity: binary_sensor.nyc311_parking_exception_today
+        show_entity_picture: true
+        name: Pakring Suspended
+        icon: mdi:parking
+      - type: entity
+        show_name: true
+        show_state: true
+        show_icon: true
+        entity: binary_sensor.e_service_alerts
+        name:
+          type: entity
+        show_entity_picture: true
+      - type: entity
+        show_name: true
+        show_state: true
+        show_icon: true
+        entity: binary_sensor.m_service_alerts
+        name:
+          type: entity
+        show_entity_picture: true
+      - type: entity
+        show_name: true
+        show_state: true
+        show_icon: true
+        entity: binary_sensor.q29_service_alerts
+        name:
+          type: entity
+        show_entity_picture: true
+    header:
+      card:
+        type: markdown
+        text_only: true
+        content: |
+          Departures near 8239 63rd Ave
+  - type: sections
+    max_columns: 4
+    title: Indoor Climate
+    path: indoor-climate
+    icon: mdi:home-thermometer-outline
+    sections:
+      - type: grid
+        cards:
+          - type: heading
+            heading: Cool
+            heading_style: title
+            icon: mdi:air-conditioner
+          - type: thermostat
+            entity: climate.kitchen
+          - type: thermostat
+            entity: climate.living_room
+          - type: thermostat
+            entity: climate.main_bedroom
+          - type: thermostat
+            entity: climate.ava_room
+          - type: thermostat
+            entity: climate.arabella
+      - type: grid
+        cards:
+          - type: heading
+            heading: Heat
+            heading_style: title
+            icon: mdi:radiator
+          - type: thermostat
+            entity: climate.basement
+          - type: thermostat
+            entity: climate.living_room_2
+          - type: thermostat
+            entity: climate.upstairs
+    badges:
+      - type: entity
+        entity: sensor.office_temperature
+      - type: entity
+        show_name: true
+        show_state: true
+        show_icon: true
+        entity: climate.basement
+        name: Basement
+      - type: entity
+        show_name: true
+        show_state: true
+        show_icon: true
+        entity: sensor.kitchen_inside_temperature
+        name: Kitchen
+      - type: entity
+        show_name: true
+        show_state: true
+        show_icon: true
+        entity: climate.living_room_2
+      - type: entity
+        show_name: true
+        show_state: true
+        show_icon: true
+        entity: climate.upstairs
+        name: Upper Floor
+      - type: entity
+        show_name: true
+        show_state: true
+        show_icon: true
+        entity: sensor.main_bedroom_inside_temperature
+        name: Main Bedroom
+  - badges: []
+    cards:
+      - entities:
+          - entity: fan.office
+            name: Basement Fan
+          - entity: fan.main_bedroom_fan
+        show_header_toggle: false
+        title: Fans
+        type: entities
+    icon: mdi:fan
+    path: fans
+    title: Fans
+  - type: sections
+    max_columns: 4
+    title: Health
+    path: health
+    icon: mdi:heart-pulse
+    sections:
+      - type: grid
+        cards:
+          - type: heading
+            heading: Scale
+            heading_style: title
+            icon: mdi:scale-bathroom
+          - type: entity
+            entity: sensor.scale_joe_weight_last_known_2
+            name: Weight
+          - type: entity
+            entity: sensor.scale_joe_bmi_last_known_2
+            name: BMI
+          - type: history-graph
+            hours_to_show: 168
+            refresh_interval: 60
+            entities:
+              - entity: sensor.scale_joe_weight_last_known_2
+                name: Weight
+      - type: grid
+        cards:
+          - type: heading
+            heading: Phone
+            heading_style: title
+            icon: mdi:cellphone
+          - type: entity
+            entity: sensor.joerod_iphone_activity
+            name: Activity
+          - type: entity
+            entity: sensor.joerod_iphone_steps
+            name: Steps
+          - type: entity
+            entity: sensor.joerod_iphone_distance
+            name: Distance
+          - type: entity
+            entity: sensor.joerod_iphone_average_active_pace
+            name: Active Pace
+      - type: grid
+        cards:
+          - type: heading
+            heading: Strava
+            heading_style: title
+            icon: mdi:run
+          - type: entity
+            entity: sensor.strava_joe_rodriguez_stats_recent_run_count
+            name: Recent Count
+          - type: entity
+            entity: sensor.strava_joe_rodriguez_recent_activity_distance
+            name: Recent Distance
+          - type: entity
+            entity: sensor.strava_joe_rodriguez_recent_activity_moving_time
+            name: Recent Moving Time
+          - type: entity
+            entity: sensor.strava_recent_activity_moving_time_formatted
+            name: Recent Moving Time Formatted
+          - type: entity
+            entity: sensor.strava_joe_rodriguez_run_calories
+            name: Calories
+          - type: entity
+            entity: sensor.strava_joe_rodriguez_run_speed
+            name: Speed
+          - type: history-graph
+            hours_to_show: 168
+            refresh_interval: 60
+            entities:
+              - entity: sensor.strava_joe_rodriguez_run_distance
+                name: Distance
+              - entity: sensor.recent_run_moving_time_minutes
+                name: Moving Time
+  - icon: mdi:cctv
+    panel: false
+    cards:
+      - type: picture-entity
+        entity: camera.front_door
+        camera_image: camera.front_door
+        fit_mode: cover
+        aspect_ratio: 70%
+        show_state: false
+        show_name: true
+        name: Front Door
+      - type: picture-entity
+        entity: camera.backyard
+        fit_mode: cover
+        aspect_ratio: 50%
+        show_state: false
+        show_name: true
+        name: Backyard
+      - type: picture-entity
+        entity: camera.driveway
+        fit_mode: cover
+        aspect_ratio: 50%
+        show_state: false
+        show_name: true
+        name: Driveway
+    title: Cameras
+    path: cameras
+    badges: []
+    type: masonry
+  - icon: mdi:account-group
+    path: family
+    title: Family
+    badges:
+      - entity: group.household
+      - type: entity
+        entity: person.joe_rodriguez
+        show_entity_picture: true
+      - type: entity
+        entity: person.ava_rodriguez
+        show_entity_picture: true
+      - type: entity
+        entity: person.aly_rodriguez
+        show_entity_picture: true
+      - type: entity
+        entity: person.arabella_rodriguez
+        show_entity_picture: true
+    type: masonry
+    cards:
+      - type: map
+        title: Family Locations
+        default_zoom: 13
+        hours_to_show: 24
+        entities:
+          - entity: device_tracker.life360_joe_rodriguez
+            name: Joe
+          - entity: device_tracker.life360_ava_rodriguez
+            name: Ava
+          - entity: device_tracker.life360_aly_rodriguez
+            name: Aly
+          - entity: device_tracker.life360_arabella_rodriguez
+            name: Arabella
+      - type: map
+        title: Joe Location
+        default_zoom: 15
+        hours_to_show: 24
+        entities:
+          - entity: device_tracker.life360_joe_rodriguez
+            name: Joe
+      - type: map
+        title: Ava Location
+        default_zoom: 15
+        hours_to_show: 24
+        entities:
+          - entity: device_tracker.life360_ava_rodriguez
+            name: Ava
+      - type: map
+        title: Aly Location
+        default_zoom: 15
+        hours_to_show: 24
+        entities:
+          - entity: device_tracker.life360_aly_rodriguez
+            name: Aly
+      - type: map
+        title: Arabella Location
+        default_zoom: 15
+        hours_to_show: 24
+        entities:
+          - entity: device_tracker.life360_arabella_rodriguez
+            name: Arabella
+  - badges: []
+    cards:
+      - entities:
+          - entity: sensor.rosey_battery
+            name: Rosey
+          - entity: sensor.henry_orbit_battery
+            name: Mac
+          - entity: sensor.agnes_battery_level
+            name: Agnes
+          - entity: sensor.basement_door_battery
+            name: Basement Door Sensor
+          - entity: sensor.joerod_iphone_battery_level
+            name: Joe's iPhone
+          - entity: sensor.kitchen_blind_battery_level
+            name: Kitchen Blind
+          - entity: sensor.aqara_smart_lock_u100_battery
+            name: Side Door Lock
+          - entity: sensor.kitch_sonos_battery
+            name: Kitchen Sonos
+          - entity: sensor.tessy_battery_level
+            name: Tessy
+        refresh_interval: 60
+        title: Batteries
+        type: history-graph
+        hours_to_show: 12
+    icon: mdi:battery-charging-outline
+    title: Batteries
+  - title: Tesla
+    path: tesla
+    icon: mdi:car-electric
+    panel: false
+    type: masonry
+    badges: []
+    cards:
+      - type: vertical-stack
+        cards:
+          - type: entities
+            title: Tessy
+            show_header_toggle: false
+            entities:
+              - entity: device_tracker.tessy_location
+                name: Location
+              - entity: lock.tessy_lock
+                name: Doors
+              - entity: binary_sensor.tessy_needs_to_charge
+                name: Needs Charge
+              - entity: update.tessy_update
+                name: Update
+              - entity: sensor.tessy_battery_level
+                name: Battery
+              - entity: sensor.tessy_estimate_battery_range
+                name: Estimated Range
+              - entity: sensor.tessy_inside_temperature
+                name: Inside Temp
+              - entity: sensor.tessy_outside_temperature
+                name: Outside Temp
+              - entity: cover.tessy_windows
+                name: Windows
+              - entity: cover.tessy_trunk
+                name: Trunk
+              - entity: cover.tessy_frunk
+                name: Frunk
+              - entity: cover.tessy_charge_port_door
+                name: Charge Port
+          - type: picture
+            image: /local/tesla-car-image.jpeg
+          - type: map
+            entities:
+              - device_tracker.tessy_location
+            hours_to_show: 24
+            default_zoom: 15
+          - type: gauge
+            name: Battery
+            entity: sensor.tessy_battery_level
+            min: 0
+            max: 100
+            severity:
+              green: 70
+              yellow: 25
+              red: 0
+          - type: grid
+            title: Controls
+            columns: 2
+            square: false
+            cards:
+              - type: button
+                entity: climate.tessy_climate
+                name: Climate
+                icon: mdi:car-climate
+                show_state: true
+                tap_action:
+                  action: more-info
+              - type: button
+                entity: switch.tessy_charge
+                name: Charging
+                icon: mdi:ev-station
+                show_state: true
+                tap_action:
+                  action: toggle
+              - type: button
+                entity: lock.tessy_lock
+                name: Car Lock
+                icon: mdi:car-door-lock
+                show_state: true
+                tap_action:
+                  action: more-info
+              - type: button
+                entity: button.tessy_flash_lights
+                name: Find Car
+                icon: mdi:car-search
+                show_state: true
+                tap_action:
+                  action: call-service
+                  service: button.press
+                  target:
+                    entity_id: button.tessy_flash_lights
+              - type: button
+                entity: select.tessy_seat_heater_front_left
+                name: Driver Seat Heat
+                icon: mdi:car-seat-heater
+                show_state: true
+                tap_action:
+                  action: call-service
+                  service: select.select_next
+                  target:
+                    entity_id: select.tessy_seat_heater_front_left
+                  data:
+                    cycle: true
+                hold_action:
+                  action: call-service
+                  service: select.select_option
+                  target:
+                    entity_id: select.tessy_seat_heater_front_left
+                  data:
+                    option: "off"
+              - type: button
+                entity: select.tessy_seat_heater_front_right
+                name: Passenger Seat Heat
+                icon: mdi:car-seat-heater
+                show_state: true
+                tap_action:
+                  action: call-service
+                  service: select.select_next
+                  target:
+                    entity_id: select.tessy_seat_heater_front_right
+                  data:
+                    cycle: true
+                hold_action:
+                  action: call-service
+                  service: select.select_option
+                  target:
+                    entity_id: select.tessy_seat_heater_front_right
+                  data:
+                    option: "off"
+              - type: button
+                entity: select.tessy_steering_wheel_heater
+                name: Steering Heat
+                icon: mdi:steering
+                show_state: true
+                tap_action:
+                  action: call-service
+                  service: select.select_next
+                  target:
+                    entity_id: select.tessy_steering_wheel_heater
+                  data:
+                    cycle: true
+                hold_action:
+                  action: call-service
+                  service: select.select_option
+                  target:
+                    entity_id: select.tessy_steering_wheel_heater
+                  data:
+                    option: "off"
+  - title: Plants
+    path: plants
+    icon: mdi:flower
+    panel: true
+    badges: []
+    cards:
+      - type: entities
+        title: Plant Schedule
+        show_header_toggle: false
+        state_color: true
+        entities:
+          - type: section
+            label: Kitchen Aloe
+          - entity: sensor.kitchen_alo_watering_next
+            name: Next Water
+            icon: mdi:watering-can
+          - entity: button.kitchen_alo_watering_mark_watered
+            name: Mark Water Complete
+            icon: mdi:check
+          - entity: sensor.kitchen_alo_fertilizing_next
+            name: Next Feeding
+            icon: mdi:sprout
+          - entity: button.kitchen_alo_fertilizing_mark_fertilized
+            name: Mark Feeding Complete
+            icon: mdi:check
+          - type: section
+            label: Dwarf Alberta Spruce
+          - entity: sensor.dwarf_alberta_spruce_black_pot_watering_next
+            name: Next Water
+            icon: mdi:watering-can
+          - entity: button.dwarf_alberta_spruce_black_pot_watering_mark_watered
+            name: Mark Water Complete
+            icon: mdi:check
+          - entity: sensor.dwarf_alberta_spruce_black_pot_fertilizing_next
+            name: Next Feeding
+            icon: mdi:sprout
+          - entity: button.dwarf_alberta_spruce_black_pot_fertilizing_mark_fertilized
+            name: Mark Feeding Complete
+            icon: mdi:check
+          - type: section
+            label: Arborvitae
+          - entity: sensor.arborvitae_background_pot_watering_next
+            name: Next Water
+            icon: mdi:watering-can
+          - entity: button.arborvitae_background_pot_watering_mark_watered
+            name: Mark Water Complete
+            icon: mdi:check
+          - entity: sensor.arborvitae_background_pot_fertilizing_next
+            name: Next Feeding
+            icon: mdi:sprout
+          - entity: button.arborvitae_background_pot_fertilizing_mark_fertilized
+            name: Mark Feeding Complete
+            icon: mdi:check
+          - type: section
+            label: Spiral Juniper
+          - entity: sensor.spiral_juniper_watering_next
+            name: Next Water
+            icon: mdi:watering-can
+          - entity: button.spiral_juniper_watering_mark_watered
+            name: Mark Water Complete
+            icon: mdi:check
+          - entity: sensor.spiral_juniper_fertilizing_next
+            name: Next Feeding
+            icon: mdi:sprout
+          - entity: button.spiral_juniper_fertilizing_mark_fertilized
+            name: Mark Feeding Complete
+            icon: mdi:check
+          - type: section
+            label: Hosta
+          - entity: sensor.hosta_gray_pot_watering_next
+            name: Next Water
+            icon: mdi:watering-can
+          - entity: button.hosta_gray_pot_watering_mark_watered
+            name: Mark Water Complete
+            icon: mdi:check
+          - entity: sensor.hosta_gray_pot_fertilizing_next
+            name: Next Feeding
+            icon: mdi:sprout
+          - entity: button.hosta_gray_pot_fertilizing_mark_fertilized
+            name: Mark Feeding Complete
+            icon: mdi:check
+          - type: section
+            label: Lavender
+          - entity: sensor.backyard_lavender_watering_next
+            name: Next Water
+            icon: mdi:watering-can
+          - entity: button.backyard_lavender_watering_mark_watered
+            name: Mark Water Complete
+            icon: mdi:check
+          - entity: sensor.backyard_lavender_fertilizing_next
+            name: Next Feeding
+            icon: mdi:sprout
+          - entity: button.backyard_lavender_fertilizing_mark_fertilized
+            name: Mark Feeding Complete
+            icon: mdi:check
+  - title: Sports
+    path: sports
+    icon: mdi:scoreboard
+    panel: false
+    badges: []
+    cards:
+      - type: custom:teamtracker-card
+        entity: sensor.team_tracker_knicks
+        attribute: team_win_probability
+      - type: custom:teamtracker-card
+        entity: sensor.team_tracker_mets
+        attribute: team_win_probability
+      - type: custom:teamtracker-card
+        entity: sensor.team_tracker_nyjets
+        attribute: team_win_probability
+      - type: custom:teamtracker-card
+        entity: sensor.team_tracker_nyrangers
+        attribute: team_win_probability
+      - type: custom:teamtracker-card
+        entity: sensor.team_tracker_nycfc
+        attribute: team_win_probability
+      - type: custom:teamtracker-card
+        entity: sensor.team_tracker_usmnt
+        attribute: opponent_score
+  - title: Automations
+    path: automations
+    icon: mdi:robot
+    badges: []
+    cards:
+      - type: custom:auto-entities
+        card:
+          type: entities
+          title: Automations (Enabled)
+          show_header_toggle: false
+          state_color: true
+          icon: mdi:home-automation
+        filter:
+          include:
+            - domain: automation
+              state: "on"
+          exclude: []
+        sort:
+          method: name
+      - type: custom:auto-entities
+        card:
+          type: entities
+          title: Automations (Disabled)
+          show_header_toggle: false
+          state_color: true
+          icon: mdi:home-automation
+        filter:
+          include:
+            - domain: automation
+              state: "off"
+          exclude: []
+        sort:
+          method: name
+  - title: Alerts
+    path: alerts
+    icon: mdi:alert
+    badges: []
+    cards:
+      - card:
+          title: Active Alerts
+          type: glance
+        entities:
+          - entity: alert.agnes_full_bin_alert
+            icon: mdi:robot-vacuum
+            tap_action:
+              action: toggle
+          - entity: alert.garden_sprinkler
+            icon: mdi:sprinkler
+            tap_action:
+              action: toggle
+          - entity: alert.filter_on_too_long
+            icon: mdi:pool
+            tap_action:
+              action: toggle
+        state_filter:
+          - "on"
+        type: entity-filter
