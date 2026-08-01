@@ -5,13 +5,13 @@ trigger:
 condition:
   - condition: state
     entity_id: automation.holiday_lights_on
-    state: 'on'    
+    state: 'on'
 action:
   - service: light.turn_on
     data:
-      entity_id: 
+      entity_id:
         - light.twinkly_37bdd1
   - service: switch.turn_on
     data:
       entity_id:
-        - switch.drier      
+        - switch.drier

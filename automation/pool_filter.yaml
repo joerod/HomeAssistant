@@ -11,10 +11,10 @@ condition:
       entity_id: sensor.dark_sky_precip_probability
       below: 35
     - condition: template
-      value_template: "{{states('sensor.pool_filter_on_today')|float * 60 < 300}}"  
+      value_template: "{{states('sensor.pool_filter_on_today')|float * 60 < 300}}"
 action:
-  - service: notify.mobile_app_joerod_s_iphone
-    data_template:
+  - service: notify.notify
+    data:
       message: >
         {% if states('sensor.max_temperature')|float  >= 85.00 %}
         🏊 Pool filter has been turned on will run for 150 minutes.
@@ -25,7 +25,7 @@ action:
   - service: switch.turn_on
     entity_id: switch.outdoor_switch
   - delay:
-      minutes: > 
+      minutes: >
         {% if states('sensor.max_temperature')|float  >= 85.00 %}
           150
         {% else %}
@@ -33,7 +33,8 @@ action:
         {%- endif %}
   - service: switch.turn_off
     entity_id: switch.outdoor_switch
-  - service: notify.mobile_app_joerod_s_iphone
-    data_template:
+  - service: notify.notify
+    data:
       message: >
-        🏊 Pool filter has been turned off.       
+        🏊 Pool filter has been turned off.
+mode: single

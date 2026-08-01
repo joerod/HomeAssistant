@@ -1,0 +1,62 @@
+alias: "Tessy plug-in reminder at 9:30 PM"
+id: tessy_plug_in_reminder_930pm
+mode: single
+trigger:
+  - platform: time
+    at: "21:30:00"
+condition:
+  - condition: state
+    entity_id: device_tracker.tessy_location
+    state: "home"
+  - condition: state
+    entity_id: binary_sensor.tessy_charge_cable
+    state: "off"
+action:
+  - variables:
+      tts_message: >-
+        Tessy is home and not plugged in. Battery is at
+        {{ states('sensor.tessy_battery_level') | int(0) }}%.
+
+  - service: notify.mobile_app_resident_one_iphone
+    data:
+      title: "Tessy Charging Reminder"
+      message: "{{ tts_message }}"
+
+  - service: sonos.snapshot
+    continue_on_error: true
+    target:
+      entity_id:
+        - media_player.basement
+        - media_player.kitchen
+        - media_player.resident_ones_room
+    data:
+      with_group: true
+
+  - service: tts.google_say
+    continue_on_error: true
+    data:
+      entity_id:
+        - media_player.basement
+        - media_player.kitchen
+        - media_player.resident_ones_room
+      message: "{{ tts_message }}"
+      language: "en"
+
+  - wait_template: >
+      {{
+        not is_state('media_player.basement', 'playing') and
+        not is_state('media_player.kitchen', 'playing') and
+        not is_state('media_player.resident_ones_room', 'playing')
+      }}
+    timeout: '00:01:30'
+    continue_on_timeout: true
+
+  - service: sonos.restore
+    continue_on_error: true
+    target:
+      entity_id:
+        - media_player.basement
+        - media_player.kitchen
+        - media_player.resident_ones_room
+    data:
+      with_group: true

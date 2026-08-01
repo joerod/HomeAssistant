@@ -1,0 +1,11 @@
+  - binary_sensor:
+      - name: "Sprinkler ran last 7 days"
+        unique_id: sprinkler_ran_last_7_days
+        state: >
+          {{ states('sensor.sprinkler_on_last_7_days_minutes') | float(0) > 0 }}
+        icon: >
+          {% if is_state('binary_sensor.sprinkler_ran_last_7_days', 'on') %}
+            mdi:calendar-check
+          {% else %}
+            mdi:calendar-remove
+          {% endif %}

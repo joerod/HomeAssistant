@@ -1,4 +1,4 @@
   - platform: qbittorrent
-    url: 'http://rod-nas.rodriguez.home:8080'
-    username: 'admin'
+    url: 'http://rod-nas.resident.home:8080'
+    username: !secret qbittorrent_username
     password: !secret qbittorrent_pw

@@ -1,0 +1,66 @@
+input_number:
+  scale_resident_one_weight_last_known:
+    name: Scale resident_one Weight Last Known
+    min: 0
+    max: 1000
+    step: 0.1
+    mode: box
+    unit_of_measurement: lb
+    icon: mdi:scale-bathroom
+
+  scale_resident_one_bmi_last_known:
+    name: Scale resident_one BMI Last Known
+    min: 0
+    max: 100
+    step: 0.1
+    mode: box
+    unit_of_measurement: BMI
+    icon: mdi:human-pregnant
+
+automation:
+  - id: scale_resident_one_weight_cache_update
+    alias: Scale resident_one Weight Cache Update
+    mode: single
+    trigger:
+      - platform: state
+        entity_id: sensor.scale_resident_one_weight
+    condition:
+      - condition: template
+        value_template: "{{ states('sensor.scale_resident_one_weight') not in ['unknown', 'unresident_threeilable', 'none', ''] }}"
+    action:
+      - service: input_number.set_value
+        target:
+          entity_id: input_number.scale_resident_one_weight_last_known
+        data:
+          value: "{{ states('sensor.scale_resident_one_weight') | float(0) }}"
+
+  - id: scale_resident_one_bmi_cache_update
+    alias: Scale resident_one BMI Cache Update
+    mode: single
+    trigger:
+      - platform: state
+        entity_id: sensor.scale_resident_one_bmi
+    condition:
+      - condition: template
+        value_template: "{{ states('sensor.scale_resident_one_bmi') not in ['unknown', 'unresident_threeilable', 'none', ''] }}"
+    action:
+      - service: input_number.set_value
+        target:
+          entity_id: input_number.scale_resident_one_bmi_last_known
+        data:
+          value: "{{ states('sensor.scale_resident_one_bmi') | float(0) }}"
+
+template:
+  - sensor:
+      - name: Scale resident_one Weight Last Known
+        unique_id: scale_resident_one_weight_last_known_sensor
+        device_class: weight
+        state_class: measurement
+        unit_of_measurement: lb
+        state: "{{ states('input_number.scale_resident_one_weight_last_known') | float(0) }}"
+
+      - name: Scale resident_one BMI Last Known
+        unique_id: scale_resident_one_bmi_last_known_sensor
+        state_class: measurement
+        unit_of_measurement: BMI
+        state: "{{ states('input_number.scale_resident_one_bmi_last_known') | float(0) }}"

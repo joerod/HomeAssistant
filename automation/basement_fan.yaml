@@ -1,7 +1,7 @@
 alias: 'Turn off basement fan when no one is around'
 trigger:
   platform: state
-  entity_id: person.joerod
+  entity_id: person.resident_one
   from: "home"
   to: "not_home"
   for:
@@ -13,7 +13,7 @@ condition:
 action:
   - service: switch.turn_off
     entity_id: switch.basement_fan
-  - service: notify.mobile_app_joerod_s_iphone
+  - service: notify.notify
     data:
       message:
         The basement fan has been turned off.

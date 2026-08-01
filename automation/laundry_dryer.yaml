@@ -1,31 +1,152 @@
 alias: 'Check when dryer is done'
+mode: queued
+max: 5
 trigger:
-  platform: numeric_state
-  entity_id: sensor.current_power_usage_sonoffs31_3
-  below: 5
-  for:
-    minutes: 5
-condition:
-  - condition: numeric_state
-    entity_id: 'sensor.uptime'
-    above: 8
-action:
-  - service: notify.all_notify
-    data:
-      message:
-        🔥 The dryer is done!
-  - service: notify.living_room_tv
-    data:
-      message: "🔥 The dryer is done!"
-  - service: tts.google_say
-    entity_id:
-      - media_player.basement
-      - media_player.kitchen
-    data_template:
-      message: >-
-        {{ [
+  platform: state
+  entity_id: sensor.dryer_current_status
+  to: "power_off"
+
+variables:
+  tts_targets:
+    - media_player.resident_twos_room
+    - media_player.resident_threes_room
+    - media_player.basement
+    - media_player.kitchen
+    - media_player.main_bedroom
+  tts_active_targets: >-
+    {% set bad = ['unresident_threeilable', 'unknown'] %}
+    {{ tts_targets | reject('in', expand(tts_targets) | selectattr('state', 'in', bad) | map(attribute='entity_id') | list) | list }}
+  volume_resident_two: "{{ state_attr('media_player.resident_twos_room', 'volume_level') | float(0.4) }}"
+  volume_resident_three: "{{ state_attr('media_player.resident_threes_room', 'volume_level') | float(0.4) }}"
+  volume_basement: "{{ state_attr('media_player.basement', 'volume_level') | float(0.4) }}"
+  volume_kitchen: "{{ state_attr('media_player.kitchen', 'volume_level') | float(0.4) }}"
+  volume_bedroom: "{{ state_attr('media_player.main_bedroom', 'volume_level') | float(0.4) }}"
+  washer_done: >-
+    {{ states('sensor.current_power_usage_switch_4') | float(999) < 5 }}
+  dryer_done_push_message: >-
+    {% if washer_done %}
+      🔥 The dryer is done. Also, empty the washing machine.
+    {% else %}
+      🔥 The dryer is done!
+    {% endif %}
+  dryer_done_tts: >-
+    {% if washer_done %}
+      {{ [
+        "The dryer is done. Also, empty the washing machine.",
+        "The dryer is done, and the washing machine is already finished too. Empty the washing machine.",
+        "The dryer is done. Don't forget to empty the washing machine too."
+      ] | random }}
+    {% else %}
+      {{ [
         "The dryer is done!" ,
         "Looks like the load of clothes that are in the dryer are done.",
         "Check the dryer, the dry cycle is complete.",
-        "The dryer has stopped, you know how that goes, it may not be fully dry.  Check it out!"
-        ] |random }}
+        "The dryer has stopped, you know how that goes, it may not be fully dry. Check it out!",
+        "Ding ding! The dryer has stopped running.",
+        "The dryer stopped. Better check if the clothes are actually dry.",
+        "Dry cycle is over, might be time to fold!"
+      ] | random }}
+    {% endif %}
+
+action:
+  - service: notify.notify
+    continue_on_error: true
+    data:
+      message: "{{ dryer_done_push_message }}"
+
+  - service: scene.create
+    continue_on_error: true
+    data:
+      scene_id: laundry_dryer_lamp_restore
+      snapshot_entities:
+        - light.living_room_table_lamp
+
+  - repeat:
+      count: 3
+      sequence:
+        - service: light.turn_on
+          continue_on_error: true
+          target:
+            entity_id: light.living_room_table_lamp
+          data:
+            rgb_color: [255, 0, 0]
+            brightness_pct: 100
+        - delay: "00:00:01"
+        - service: light.turn_off
+          continue_on_error: true
+          target:
+            entity_id: light.living_room_table_lamp
+        - delay: "00:00:01"
+
+  - service: scene.turn_on
+    continue_on_error: true
+    target:
+      entity_id: scene.laundry_dryer_lamp_restore
+
+  - service: notify.living_room_tv
+    continue_on_error: true
+    data:
+      message: "{{ dryer_done_push_message }}"
+
+  - condition: template
+    value_template: "{{ tts_active_targets | count > 0 }}"
+
+  - service: media_player.volume_set
+    continue_on_error: true
+    data:
+      entity_id: "{{ tts_active_targets }}"
+      volume_level: 0.7
+
+  - service: tts.google_say
+    continue_on_error: true
+    data:
+      entity_id: "{{ tts_active_targets }}"
+      message: "{{ dryer_done_tts }}"
+
+  - wait_template: >
+      {{
+        is_state('media_player.resident_twos_room', 'playing') or
+        is_state('media_player.resident_threes_room', 'playing') or
+        is_state('media_player.basement', 'playing') or
+        is_state('media_player.kitchen', 'playing') or
+        is_state('media_player.main_bedroom', 'playing')
+      }}
+    timeout: '00:00:10'
+    continue_on_timeout: true
+
+  - wait_template: >
+      {{
+        not is_state('media_player.resident_twos_room', 'playing') and
+        not is_state('media_player.resident_threes_room', 'playing') and
+        not is_state('media_player.basement', 'playing') and
+        not is_state('media_player.kitchen', 'playing') and
+        not is_state('media_player.main_bedroom', 'playing')
+      }}
+    timeout: '00:01:30'
+    continue_on_timeout: true
+
+  - service: media_player.volume_set
+    continue_on_error: true
+    data:
+      entity_id: media_player.resident_twos_room
+      volume_level: "{{ volume_resident_two }}"
+  - service: media_player.volume_set
+    continue_on_error: true
+    data:
+      entity_id: media_player.resident_threes_room
+      volume_level: "{{ volume_resident_three }}"
+  - service: media_player.volume_set
+    continue_on_error: true
+    data:
+      entity_id: media_player.basement
+      volume_level: "{{ volume_basement }}"
+  - service: media_player.volume_set
+    continue_on_error: true
+    data:
+      entity_id: media_player.kitchen
+      volume_level: "{{ volume_kitchen }}"
+  - service: media_player.volume_set
+    continue_on_error: true
+    data:
+      entity_id: media_player.main_bedroom
+      volume_level: "{{ volume_bedroom }}"

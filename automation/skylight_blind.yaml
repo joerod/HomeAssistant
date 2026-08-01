@@ -1,22 +1,205 @@
-alias: "Open Skylight Blind During the Day"
+alias: "Smart Blind"
 trigger:
-  - platform: time
-    at: '07:10:00'
-condition:
-  condition: and
-  conditions:
-    - condition: time
-      weekday:
-        - mon
-        - tue
-        - wed
-        - thu
-        - fri
-  #  - condition: state
-  #    entity_id: person.danielle_rodriguez
-  #    state: 'home'  
-    - condition: template
-      value_template: "{{ state_attr('calendar.deerodster_gmail_com','message') | regex_match('vacation', ignorecase=true) != True }}"
+  - platform: time_pattern
+    minutes: "/5"
+
+condition: []
+
 action:
-  - service: cover.open_cover
-    entity_id: cover.blind_1
+  - variables:
+      elevation: "{{ state_attr('sun.sun', 'elevation') | float(0) }}"
+      azimuth: "{{ state_attr('sun.sun', 'azimuth') | float(0) }}"
+      rising: "{{ state_attr('sun.sun', 'rising') }}"
+      month: "{{ now().month }}"
+      temp: "{{ states('sensor.openweathermap_feels_like_temperature') | float(0) }}"
+      weather_state: "{{ states('weather.home') }}"
+      cloud_coverage: "{{ state_attr('weather.home', 'cloud_coverage') | float(100) }}"
+      sunny_enough_for_heat_blocking: >-
+        {{
+          weather_state not in ['cloudy', 'rainy', 'pouring', 'snowy', 'snowy-rainy', 'lightning', 'hail']
+          and cloud_coverage <= 70
+        }}
+      direct_sun_blind_position: >-
+        {% set el = elevation | float(0) %}
+        {% set az = azimuth | float(0) %}
+        {# 8239 63rd Ave, Queens: strongest skylight heat comes from the high southern sun arc. #}
+        {% if el >= 62 and 125 <= az <= 255 %}
+          0
+        {% elif el >= 50 and 115 <= az <= 265 %}
+          15
+        {% elif el >= 38 and 105 <= az <= 275 %}
+          35
+        {% elif el >= 28 and 95 <= az <= 285 %}
+          60
+        {% else %}
+          100
+        {% endif %}
+      # Today's sunrise, not tomorrow's
+      sunrise: >-
+        {% set next_rise = as_local(as_datetime(state_attr('sun.sun','next_rising'))) %}
+        {% set today = now().date() %}
+        {% set todays_rise = (next_rise - timedelta(days=1)) if next_rise.date() != today else next_rise %}
+        {{ as_timestamp(todays_rise) | float(0) }}
+      # 👇 Today's sunset, not tomorrow's
+      sunset: >-
+        {% set next_set = as_local(as_datetime(state_attr('sun.sun','next_setting'))) %}
+        {% set today = now().date() %}
+        {% set todays_set = (next_set - timedelta(days=1)) if next_set.date() != today else next_set %}
+        {{ as_timestamp(todays_set) | float(0) }}
+      now_ts: "{{ as_timestamp(now()) | float(0) }}"
+      weekday: "{{ now().weekday() }}"
+      time_now: "{{ now().strftime('%H:%M') }}"
+      sunset_plus_1h: "{{ (sunset + 3600) | float(0) }}"
+      sfp_in_session_today: "{{ is_state('binary_sensor.sfp_school_in_session_today', 'on') }}"
+      resident_one_in_office_today: "{{ is_state('binary_sensor.resident_one_in_office_today', 'on') }}"
+      bank_holiday_today: >-
+        {% set msg = (state_attr('calendar.holidays_in_united_states', 'message') or '') | lower %}
+        {% set s_raw = state_attr('calendar.holidays_in_united_states', 'start_time') %}
+        {% set e_raw_attr = state_attr('calendar.holidays_in_united_states', 'end_time') %}
+        {% set s = as_local(as_datetime(s_raw)) if s_raw else none %}
+        {% set e_raw = as_local(as_datetime(e_raw_attr)) if e_raw_attr else none %}
+        {% set e = (e_raw - timedelta(seconds=1)) if e_raw else none %}
+        {% set t = now().date() %}
+        {{
+          is_state('calendar.holidays_in_united_states', 'on')
+          and s and e
+          and (t >= s.date()) and (t <= e.date())
+          and ('bank holiday' in msg or 'holiday' in msg)
+        }}
+      weekday_open_time: >-
+        {% if is_state('binary_sensor.resident_one_in_office_today', 'on') %}
+          06:30
+        {% elif is_state('binary_sensor.sfp_school_in_session_today', 'on') %}
+          07:15
+        {% else %}
+          08:15
+        {% endif %}
+      is_scheduled_open_now: >-
+        {{
+          (not bank_holiday_today) and
+          (
+            (weekday in [0,1,2,3,4] and time_now == weekday_open_time) or
+            (weekday in [5,6] and time_now == '10:00')
+          )
+        }}
+
+
+  - choose:
+      ### 🌇 PRIORITY: Always close 1 hour after sunset (ALL MONTHS)
+      - conditions:
+          - condition: template
+            value_template: "{{ now_ts >= sunset_plus_1h }}"
+          - condition: state
+            entity_id: cover.blind_1
+            state: "open"
+        sequence:
+          - condition: template
+            value_template: "{{ (state_attr('cover.blind_1', 'current_position') | int(-1)) != 0 }}"
+          - service: cover.set_cover_position
+            target:
+              entity_id: cover.blind_1
+            data:
+              position: 0
+
+      ### 1️⃣ DAILY OPEN (WEEKDAYS) OR 10:30 AM (WEEKENDS)
+      - conditions:
+          - condition: template
+            value_template: >-
+              {{
+                is_scheduled_open_now
+              }}
+          - condition: template
+            value_template: "{{ now_ts < sunset_plus_1h }}"
+          - condition: template
+            value_template: "{{ is_state('binary_sensor.resident_one_day_off_today', 'off') }}"
+        sequence:
+          - condition: template
+            value_template: "{{ (state_attr('cover.blind_1', 'current_position') | int(-1)) != 100 }}"
+          - service: cover.set_cover_position
+            target:
+              entity_id: cover.blind_1
+            data:
+              position: 100
+
+      ### 2️⃣ SUMMER MODE (JUN–AUG) - Block direct hot sun through the skylight
+      - conditions:
+          - condition: template
+            value_template: "{{ month in [6, 7, 8] }}"
+          - condition: template
+            value_template: "{{ now_ts < sunset_plus_1h }}"
+          - condition: template
+            value_template: "{{ temp > 80 }}"
+          - condition: template
+            value_template: "{{ sunny_enough_for_heat_blocking | bool }}"
+          - condition: template
+            value_template: "{{ is_state('binary_sensor.resident_one_day_off_today', 'off') }}"
+          - condition: time
+            after: "10:00:00"
+            before: "20:00:00"
+        sequence:
+          - condition: template
+            value_template: "{{ (state_attr('cover.blind_1', 'current_position') | int(-1)) != (direct_sun_blind_position | int) }}"
+          - service: cover.set_cover_position
+            target:
+              entity_id: cover.blind_1
+            data:
+              position: "{{ direct_sun_blind_position | int }}"
+
+      ### 2b SUMMER RESET - Reopen when heat/direct sun blocking is not needed
+      - conditions:
+          - condition: template
+            value_template: "{{ month in [6, 7, 8] }}"
+          - condition: template
+            value_template: "{{ now_ts < sunset_plus_1h }}"
+          - condition: template
+            value_template: "{{ is_state('binary_sensor.resident_one_day_off_today', 'off') }}"
+          - condition: template
+            value_template: "{{ not is_scheduled_open_now }}"
+          - condition: time
+            after: "10:00:00"
+            before: "20:00:00"
+          - condition: template
+            value_template: >-
+              {{
+                temp <= 80
+                or not (sunny_enough_for_heat_blocking | bool)
+                or (direct_sun_blind_position | int) == 100
+              }}
+        sequence:
+          - condition: template
+            value_template: "{{ (state_attr('cover.blind_1', 'current_position') | int(-1)) != 100 }}"
+          - service: cover.set_cover_position
+            target:
+              entity_id: cover.blind_1
+            data:
+              position: 100
+
+      ### 3️⃣ NON-SUMMER MODE (ALL OTHER MONTHS)
+      - conditions:
+          - condition: template
+            value_template: "{{ month not in [6, 7, 8] }}"
+          - condition: template
+            value_template: "{{ now_ts < sunset_plus_1h }}"
+          - condition: template
+            value_template: "{{ is_state('binary_sensor.resident_one_day_off_today', 'off') }}"
+          - condition: template
+            value_template: "{{ not is_scheduled_open_now }}"
+        sequence:
+          - choose:
+              # Open 1 hour after sunrise (but only during daylight)
+              - conditions:
+                  - condition: template
+                    value_template: >-
+                      {{
+                        now_ts > (sunrise + 3600)
+                        and now_ts < (sunset - 3600)
+                        and (weekday not in [5,6] or time_now >= '10:00')
+                      }}
+                sequence:
+                  - condition: template
+                    value_template: "{{ (state_attr('cover.blind_1', 'current_position') | int(-1)) != 100 }}"
+                  - service: cover.set_cover_position
+                    target:
+                      entity_id: cover.blind_1
+                    data:
+                      position: 100

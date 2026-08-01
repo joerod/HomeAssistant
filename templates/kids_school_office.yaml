@@ -1,0 +1,72 @@
+- binary_sensor:
+    - name: "Kids To resident_one Active"
+      state: >-
+        {% set msg = (state_attr('calendar.deerodster_gmail_com', 'message') or '') | lower %}
+        {% set s_raw = state_attr('calendar.deerodster_gmail_com', 'start_time') %}
+        {% set e_raw_attr = state_attr('calendar.deerodster_gmail_com', 'end_time') %}
+        {% set s = as_local(as_datetime(s_raw)) if s_raw else none %}
+        {% set e_raw = as_local(as_datetime(e_raw_attr)) if e_raw_attr else none %}
+        {% set e = (e_raw - timedelta(seconds=1)) if e_raw else none %}
+        {% set now_local = now() %}
+        {% set in_event_window = s and e and (now_local.date() >= s.date()) and (now_local <= e) %}
+        {{ in_event_window and (msg | regex_search('\\bkids\\s+to\\s+resident_one\\b', ignorecase=true)) }}
+
+    - name: "SFP School In Session Tomorrow"
+      state: >-
+        {% set msg = (state_attr('calendar.sfp_school_calendar','message') or '') | lower %}
+        {% set s_raw = state_attr('calendar.sfp_school_calendar','start_time') %}
+        {% set e_raw_attr = state_attr('calendar.sfp_school_calendar','end_time') %}
+        {% set s = as_local(as_datetime(s_raw)) if s_raw else None %}
+        {% set e_raw = as_local(as_datetime(e_raw_attr)) if e_raw_attr else None %}
+        {% set e = (e_raw - timedelta(seconds=1)) if e_raw else None %}
+        {% set t = (now() + timedelta(days=1)).date() %}
+        {% set summer_break = t.month in [7, 8] %}
+        {% set no_school_pattern = '(?:school\s*closed|no\s*classes?|no\s*school|students?\s*(?:do\s*not|don\'t)\s*attend\s*school)' %}
+        {% set no_school_tomorrow = is_state('calendar.sfp_school_calendar', 'on') and s and e and (t >= s.date()) and (t <= e.date()) and (msg | regex_search(no_school_pattern, ignorecase=true)) %}
+        {{ (not summer_break) and (not no_school_tomorrow) }}
+
+    - name: "SFP School In Session Today"
+      state: >-
+        {% set msg = (state_attr('calendar.sfp_school_calendar','message') or '') | lower %}
+        {% set s_raw = state_attr('calendar.sfp_school_calendar','start_time') %}
+        {% set e_raw_attr = state_attr('calendar.sfp_school_calendar','end_time') %}
+        {% set s = as_local(as_datetime(s_raw)) if s_raw else None %}
+        {% set e_raw = as_local(as_datetime(e_raw_attr)) if e_raw_attr else None %}
+        {% set e = (e_raw - timedelta(seconds=1)) if e_raw else None %}
+        {% set t = now().date() %}
+        {% set summer_break = t.month in [7, 8] %}
+        {% set no_school_pattern = '(?:school\s*closed|no\s*classes?|no\s*school|students?\s*(?:do\s*not|don\'t)\s*attend\s*school)' %}
+        {% set no_school_today = is_state('calendar.sfp_school_calendar', 'on') and s and e and (t >= s.date()) and (t <= e.date()) and (msg | regex_search(no_school_pattern, ignorecase=true)) %}
+        {{ (not summer_break) and (not no_school_today) }}
+
+    - name: "resident_one In Office Tomorrow"
+      state: >-
+        {% set msg = (state_attr('calendar.resident_one','message') or '') | lower %}
+        {% set s = as_local(as_datetime(state_attr('calendar.resident_one','start_time'))) %}
+        {% set e_raw = as_local(as_datetime(state_attr('calendar.resident_one','end_time'))) %}
+        {% set e = (e_raw - timedelta(seconds=1)) if e_raw else None %}
+        {% set t = (now() + timedelta(days=1)).date() %}
+        {% set on_tomorrow = s and e and (t >= s.date()) and (t <= e.date()) %}
+        {% set wfh = ('wfh' in msg) or ('work from home' in msg) or ('working from home' in msg) or ('home office' in msg) %}
+        {{ on_tomorrow and ('office' in msg) and (not wfh) }}
+
+    - name: "resident_one In Office Today"
+      state: >-
+        {% set msg = (state_attr('calendar.resident_one','message') or '') | lower %}
+        {% set s = as_local(as_datetime(state_attr('calendar.resident_one','start_time'))) %}
+        {% set e_raw = as_local(as_datetime(state_attr('calendar.resident_one','end_time'))) %}
+        {% set e = (e_raw - timedelta(seconds=1)) if e_raw else None %}
+        {% set t = now().date() %}
+        {% set on_today = s and e and (t >= s.date()) and (t <= e.date()) %}
+        {% set wfh = ('wfh' in msg) or ('work from home' in msg) or ('working from home' in msg) or ('home office' in msg) %}
+        {{ on_today and ('office' in msg) and (not wfh) }}
+
+    - name: "resident_one Day Off Today"
+      state: >-
+        {% set msg = (state_attr('calendar.resident_one','message') or '') | lower %}
+        {% set s = as_local(as_datetime(state_attr('calendar.resident_one','start_time'))) %}
+        {% set e_raw = as_local(as_datetime(state_attr('calendar.resident_one','end_time'))) %}
+        {% set e = (e_raw - timedelta(seconds=1)) if e_raw else None %}
+        {% set t = now().date() %}
+        {% set on_today = s and e and (t >= s.date()) and (t <= e.date()) %}
+        {{ on_today and ('day off' in msg) }}

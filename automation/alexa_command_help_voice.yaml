@@ -1,0 +1,58 @@
+id: alexa_command_help_voice
+alias: Alexa Command Help Voice
+description: Answers Alexa command-help questions for all commands or a requested room.
+mode: restart
+
+trigger:
+  - platform: state
+    entity_id:
+      - event.main_bedroom_main_bedroom_alexa_voice_event
+      - event.backyard_living_room_firetv_stick_voice_event
+      - event.living_room_yard_fire_tv_voice_event
+      - event.kitchen_main_floor_sonos_one_voice_event
+      - event.kitchen_kitchen_sonos_voice_event
+      - event.basement_basement_fire_tv_voice_event
+      - event.resident_twos_room_resident_two_s_sonos_voice_event
+      - event.resident_fours_room_resident_four_s_echo_dot_voice_event
+      - event.resident_one_s_fire_tv_voice_event
+      - event.resident_one_s_2nd_fire_tv_voice_event
+
+variables:
+  command: "{{ trigger.to_state.attributes.voice_command | default('') | lower | trim }}"
+  requested_room: >-
+    {% if 'living room' in command %}living room
+    {% elif 'main bedroom' in command or 'master bedroom' in command %}main bedroom
+    {% elif 'backyard' in command or 'yard' in command %}yard
+    {% elif 'kitchen' in command %}kitchen
+    {% elif 'basement' in command %}basement
+    {% elif 'bedroom' in command %}bedrooms
+    {% else %}all{% endif %}
+  source_device_id: "{{ device_id(trigger.entity_id) | default('') }}"
+
+condition:
+  - condition: template
+    value_template: >-
+      {{ 'alexa command help' in command
+         or 'house guide' in command
+         or 'living room guide' in command
+         or 'main bedroom guide' in command
+         or 'kitchen guide' in command
+         or 'basement guide' in command
+         or 'bedroom guide' in command
+         or 'yard guide' in command
+         or 'what commands can i say' in command
+         or 'which commands can i say' in command
+         or 'tell me the alexa commands' in command
+         or 'tell me alexa commands' in command
+         or ('what can i say' in command and
+             ('living room' in command or 'bedroom' in command or
+              'kitchen' in command or 'basement' in command or
+              'yard' in command or 'backyard' in command)) }}
+
+action:
+  - delay:
+      seconds: 2
+  - action: script.alexa_command_help
+    data:
+      room: "{{ requested_room }}"
+      source_device_id: "{{ source_device_id }}"

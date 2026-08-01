@@ -1,0 +1,7 @@
+  - platform: group
+    name: "resident_two to School"
+    unique_id: resident_two_to_school_group
+    entities:
+      - media_player.kitchen
+      - media_player.basement
+      - media_player.main_bedroom

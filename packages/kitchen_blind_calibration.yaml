@@ -1,0 +1,55 @@
+input_number:
+  kitchen_blind_max_travel:
+    name: Kitchen Blind Max Travel
+    min: 1
+    max: 100
+    step: 1
+    mode: box
+    unit_of_measurement: "%"
+    icon: mdi:blinds
+    initial: 56
+
+template:
+  - cover:
+      - name: Kitchen Blind Trimmed
+        unique_id: kitchen_blind_trimmed
+        device_class: blind
+        resident_threeilability: "{{ states('cover.kitchen_blind') not in ['unknown', 'unresident_threeilable', 'none', ''] }}"
+        position: >
+          {% set max_travel = states('input_number.kitchen_blind_max_travel') | int(56) %}
+          {% set raw = state_attr('cover.kitchen_blind', 'current_position') | int(0) %}
+          {% if max_travel < 100 %}
+            {% set scaled = ((raw - max_travel) / (100 - max_travel) * 100) | round(0) | int %}
+            {{ [0, [scaled, 100] | min] | max }}
+          {% else %}
+            {{ 100 if raw >= 100 else 0 }}
+          {% endif %}
+        open_cover:
+          action: cover.set_cover_position
+          target:
+            entity_id: cover.kitchen_blind
+          data:
+            position: 100
+        close_cover:
+          action: cover.set_cover_position
+          target:
+            entity_id: cover.kitchen_blind
+          data:
+            position: "{{ states('input_number.kitchen_blind_max_travel') | int(56) }}"
+        stop_cover:
+          action: cover.stop_cover
+          target:
+            entity_id: cover.kitchen_blind
+        set_cover_position:
+          action: cover.set_cover_position
+          target:
+            entity_id: cover.kitchen_blind
+          data:
+            position: >
+              {% set max_travel = states('input_number.kitchen_blind_max_travel') | int(56) %}
+              {% set requested = position | int(0) %}
+              {% if max_travel < 100 %}
+                {{ (max_travel + ((requested / 100) * (100 - max_travel))) | round(0) | int }}
+              {% else %}
+                {{ 100 if requested > 0 else max_travel }}
+              {% endif %}

@@ -1,0 +1,23 @@
+toggle_tv_sound_mode:
+  alias: Toggle TV Sound Mode
+  sequence:
+    - choose:
+        - conditions:
+            - condition: state
+              entity_id: input_boolean.tv_sound_mode_music
+              state: "off"
+          sequence:
+            - action: script.turn_on
+              target:
+                entity_id: script.tv_surround_sound_game
+            - action: input_boolean.turn_on
+              target:
+                entity_id: input_boolean.tv_sound_mode_music
+      default:
+        - action: script.turn_on
+          target:
+            entity_id: script.tv_surround_sound_music
+        - action: input_boolean.turn_off
+          target:
+            entity_id: input_boolean.tv_sound_mode_music
+  mode: single

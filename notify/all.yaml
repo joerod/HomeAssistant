@@ -1,4 +1,4 @@
   - name: all_notify
     platform: group
     services:
-      - service: mobile_app_joerod_s_iphone
+      - service: mobile_app_resident_one_s_iphone

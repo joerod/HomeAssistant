@@ -1,0 +1,75 @@
+id: outdoor_plants_rain_counts_as_watering
+alias: Outdoor plants - rain counts as watering
+description: >-
+  When accumulated rain meets the garden sprinkler rain threshold, mark due
+  backyard plant watering schedules complete so their next watering dates move
+  out by each plant's configured interval.
+mode: single
+trigger:
+  - platform: time
+    at: "00:15:00"
+  - platform: numeric_state
+    entity_id: sensor.garden_rain_today
+    above: 0.02
+variables:
+  rain_threshold_in: 0.02
+  rain_today_in: "{{ states('sensor.garden_rain_today') | float(0) }}"
+  rain_yesterday_in: >-
+    {{ state_attr('sensor.garden_rain_today', 'last_period') | float(0) }}
+condition:
+  - condition: template
+    value_template: >-
+      {{ rain_today_in >= rain_threshold_in or rain_yesterday_in >= rain_threshold_in }}
+action:
+  - if:
+      - condition: template
+        value_template: >-
+          {{ states('sensor.dwarf_alberta_spruce_black_pot_watering_next') not in ['unknown', 'unresident_threeilable', 'none', 'None', '']
+             and as_datetime(states('sensor.dwarf_alberta_spruce_black_pot_watering_next')).date() <= now().date() }}
+    then:
+      - service: button.press
+        target:
+          entity_id: button.dwarf_alberta_spruce_black_pot_watering_mark_watered
+  - if:
+      - condition: template
+        value_template: >-
+          {{ states('sensor.arborvitae_background_pot_watering_next') not in ['unknown', 'unresident_threeilable', 'none', 'None', '']
+             and as_datetime(states('sensor.arborvitae_background_pot_watering_next')).date() <= now().date() }}
+    then:
+      - service: button.press
+        target:
+          entity_id: button.arborvitae_background_pot_watering_mark_watered
+  - if:
+      - condition: template
+        value_template: >-
+          {{ states('sensor.spiral_juniper_watering_next') not in ['unknown', 'unresident_threeilable', 'none', 'None', '']
+             and as_datetime(states('sensor.spiral_juniper_watering_next')).date() <= now().date() }}
+    then:
+      - service: button.press
+        target:
+          entity_id: button.spiral_juniper_watering_mark_watered
+  - if:
+      - condition: template
+        value_template: >-
+          {{ states('sensor.hosta_gray_pot_watering_next') not in ['unknown', 'unresident_threeilable', 'none', 'None', '']
+             and as_datetime(states('sensor.hosta_gray_pot_watering_next')).date() <= now().date() }}
+    then:
+      - service: button.press
+        target:
+          entity_id: button.hosta_gray_pot_watering_mark_watered
+  - if:
+      - condition: template
+        value_template: >-
+          {{ states('sensor.backyard_lavender_watering_next') not in ['unknown', 'unresident_threeilable', 'none', 'None', '']
+             and as_datetime(states('sensor.backyard_lavender_watering_next')).date() <= now().date() }}
+    then:
+      - service: button.press
+        target:
+          entity_id: button.backyard_lavender_watering_mark_watered
+  - service: notify.mobile_app_resident_one_iphone
+    data:
+      title: Backyard plant watering skipped
+      message: >-
+        Rain met the watering threshold. Today: {{ rain_today_in | round(2) }} in;
+        yesterday: {{ rain_yesterday_in | round(2) }} in. Due backyard plant
+        watering schedules were marked complete.

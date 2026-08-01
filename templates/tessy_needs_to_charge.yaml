@@ -1,0 +1,18 @@
+  - binary_sensor:
+      - device_class: problem
+        default_entity_id: binary_sensor.tessy_needs_to_charge
+        name: "Tessy is not plugged in and needs a charge"
+        state: >
+          {{
+            is_state('binary_sensor.tessy_parking_brake', 'on')
+            and now().hour >= 17
+            and is_state('binary_sensor.tessy_charger', 'off')
+            and (states('sensor.tessy_battery') | int(0) < 80)
+            and is_state('device_tracker.tessy_location_tracker', 'home')
+          }}
+        icon: >
+          {% if states('binary_sensor.tessy_needs_to_charge') in ['on', 'True', 'true'] %}
+            mdi:ev-station-alert
+          {% else %}
+            mdi:ev-station
+          {% endif %}

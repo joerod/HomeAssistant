@@ -1,0 +1,27 @@
+alias: Turn Off 1st Floor Lights After Inactivity
+trigger:
+  - platform: state
+    entity_id: binary_sensor.event_living_room_motion
+    to: 'off'
+    for: '00:15:00'
+condition:
+  - condition: time
+    after: '00:30:00'
+  - condition: or
+    conditions:
+      - condition: state
+        entity_id: light.kitchen_light
+        state: 'on'
+      - condition: state
+        entity_id: light.dinning_room
+        state: 'on'
+      - condition: state
+        entity_id: group.side_entrance_lights
+        state: 'on'
+action:
+  - service: light.turn_off
+    target:
+      entity_id:
+        - light.kitchen_light
+        - light.dinning_room
+        - group.side_entrance_lights

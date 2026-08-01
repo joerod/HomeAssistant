@@ -1,0 +1,41 @@
+alias: 'Check when 3D print is complete'
+trigger:
+  platform: state
+  entity_id: binary_sensor.octoprint_printing
+  to: 'off'
+condition:
+  - condition: time
+    before: "22:00:00"
+action:
+  - service: notify.notify
+    data:
+      message: "🖨️ The 3D print is done!"
+
+  - service: sonos.snapshot
+    continue_on_error: true
+    target:
+      entity_id: media_player.basement
+    data:
+      with_group: true
+
+  - service: tts.google_say
+    entity_id:
+      - media_player.basement
+    data:
+      message: >-
+        {{ [
+        "The 3D print is complete!",
+        "Looks like the 3D print is done."
+        ] | random }}
+
+  - wait_template: "{{ not is_state('media_player.basement', 'playing') }}"
+    timeout: '00:01:00'
+    continue_on_timeout: true
+
+  - service: sonos.restore
+    continue_on_error: true
+    target:
+      entity_id: media_player.basement
+    data:
+      with_group: true
+mode: single

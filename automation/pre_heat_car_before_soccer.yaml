@@ -1,0 +1,36 @@
+alias: "Preheat Tessy Before Soccer"
+mode: queued
+trigger:
+  - platform: calendar
+    event: start
+    entity_id: calendar.deerodster_gmail_com
+    offset: "-00:35:00"
+condition:
+  - condition: template
+    value_template: "{{ 'Soccer Practice' in trigger.calendar_event.summary }}"
+  - condition: state
+    entity_id: device_tracker.tessy_location
+    state: "home"
+  - condition: numeric_state
+    entity_id: sensor.tessy_inside_temperature
+    below: 60
+  - condition: numeric_state
+    entity_id: sensor.tessy_battery_level
+    above: 55
+action:
+  - service: climate.turn_on
+    target:
+      entity_id: climate.tessy_climate
+
+  - service: climate.set_temperature
+    target:
+      entity_id: climate.tessy_climate
+    data:
+      temperature: 70
+      hvac_mode: heat
+
+  - service: notify.notify
+    data:
+      message: >-
+        🔥 Warming up Tessy before soccer. Inside temperature is
+        {{ states('sensor.tessy_inside_temperature') | float(0) | round(0) }}°F.

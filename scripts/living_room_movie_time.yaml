@@ -1,0 +1,110 @@
+living_room_movie_time:
+  alias: Living Room Movie Time
+  sequence:
+    - action: media_player.turn_on
+      target:
+        entity_id: media_player.yamaha_receiver
+
+    - action: wake_on_lan.send_magic_packet
+      data:
+        broadcast_port: 9
+        mac: 00:00:00:00:00:00
+
+    - action: cover.set_cover_position
+      target:
+        entity_id: cover.kitchen_blind
+      data:
+        position: 55
+
+    - wait_template: "{{ is_state('media_player.living_room_tv', 'on') }}"
+      timeout: "00:00:30"
+      continue_on_timeout: true
+
+    - choose:
+        - conditions:
+            - condition: template
+              value_template: "{{ states('media_player.living_room_tv') not in ['unknown', 'unresident_threeilable'] }}"
+          sequence:
+            - action: media_player.select_source
+              continue_on_error: true
+              target:
+                entity_id: media_player.living_room_tv
+              data:
+                source: Fire TV Stick
+
+            - action: webostv.select_sound_output
+              continue_on_error: true
+              target:
+                entity_id: media_player.living_room_tv
+              data:
+                sound_output: tv_external_speaker
+
+            - action: media_player.volume_set
+              continue_on_error: true
+              target:
+                entity_id: media_player.living_room_tv
+              data:
+                volume_level: 0.12
+
+    - action: media_player.select_source
+      continue_on_error: true
+      target:
+        entity_id: media_player.yamaha_receiver
+      data:
+        source: AUDIO1
+
+    - action: media_player.select_sound_mode
+      continue_on_error: true
+      target:
+        entity_id: media_player.yamaha_receiver
+      data:
+        sound_mode: 7ch Stereo
+
+    - action: media_player.volume_set
+      continue_on_error: true
+      target:
+        entity_id: media_player.yamaha_receiver
+      data:
+        volume_level: 0.75
+
+    - delay: "00:00:05"
+
+    # Launch Jellyfin with an explicit ADB command. Fire TV does not reliably
+    # honor media_player.select_source for app package IDs.
+    - action: androidtv.adb_command
+      target:
+        entity_id: media_player.living_room_fire_tv
+      data:
+        command: monkey -p org.jellyfin.androidtv -c android.intent.category.LAUNCHER 1
+  mode: single
+
+living_room_movie_time_off:
+  alias: Living Room Movie Time Off
+  sequence:
+    - choose:
+        - conditions:
+            - condition: template
+              value_template: "{{ states('media_player.living_room_tv') not in ['unknown', 'unresident_threeilable'] }}"
+          sequence:
+            - action: webostv.select_sound_output
+              continue_on_error: true
+              target:
+                entity_id: media_player.living_room_tv
+              data:
+                sound_output: tv_speaker
+
+    - action: media_player.turn_off
+      continue_on_error: true
+      target:
+        entity_id: media_player.yamaha_receiver
+
+    - action: cover.open_cover
+      target:
+        entity_id: cover.kitchen_blind
+
+    - action: androidtv.adb_command
+      target:
+        entity_id: media_player.living_room_fire_tv
+      data:
+        command: monkey -p ar.tvplayer.tv -c android.intent.category.LAUNCHER 1
+  mode: single

@@ -9,7 +9,7 @@ action:
   repeat:
     sequence:
       - service: switch.toggle
-        data:   
+        data:
           entity_id:
             - switch.kitchen_light
             - switch.dining_room_light
@@ -18,3 +18,4 @@ action:
       - condition: state
         entity_id: input_boolean.panic
         state: 'off'
+mode: single

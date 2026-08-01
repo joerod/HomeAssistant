@@ -1,0 +1,8 @@
+- switch:
+    - name: Bedroom Fun Time
+      unique_id: its_time_to_have_room_fun_switch
+      state: "{{ is_state('input_boolean.room_fun_active', 'on') }}"
+      turn_on:
+        - service: script.its_time_to_have_room_fun
+      turn_off:
+        - service: script.room_fun_off

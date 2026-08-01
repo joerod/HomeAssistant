@@ -1,0 +1,6 @@
+- sensor:
+    - name: "Recent Run Moving Time Minutes"
+      unit_of_measurement: "min"
+      state_class: measurement
+      state: >-
+        {{ (states('sensor.strresident_three_resident_one_stats_recent_run_moving_time') | float(0) / 60) | round(1) }}

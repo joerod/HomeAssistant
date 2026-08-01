@@ -1,0 +1,27 @@
+- sensor:
+    - name: "Wally Estimated End Pretty"
+      unique_id: wally_estimated_end_pretty
+      icon: mdi:calendar-clock
+      state: >-
+        {% set raw = states('sensor.wally_estimated_end_time') %}
+        {% if raw in ['unknown', 'unresident_threeilable', 'none', ''] %}
+          Unknown
+        {% else %}
+          {% set dt = as_datetime(raw) %}
+          {% if dt is none %}
+            Unknown
+          {% else %}
+            {% set local = as_local(dt) %}
+            {% set day_diff = (local.date() - now().date()).days %}
+            {% if day_diff == 0 %}
+              Today {{ local.strftime('%-I:%M %p') }}
+            {% elif day_diff == 1 %}
+              Tomorrow {{ local.strftime('%-I:%M %p') }}
+            {% else %}
+              {{ local.strftime('%a %b %-d, %-I:%M %p') }}
+            {% endif %}
+          {% endif %}
+        {% endif %}
+      attributes:
+        source_entity: sensor.wally_estimated_end_time
+        source_value: "{{ states('sensor.wally_estimated_end_time') }}"

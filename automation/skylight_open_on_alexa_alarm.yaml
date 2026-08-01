@@ -1,0 +1,15 @@
+alias: Open Skylight On Alexa Alarm
+id: open_skylight_on_alexa_alarm
+mode: single
+trigger:
+  - platform: template
+    value_template: >-
+      {% set ts = as_timestamp(states('sensor.main_bedroom_alexa_next_alarm'), 0) %}
+      {{ ts > 0 and now().timestamp() >= ts and now().timestamp() < (ts + 60) }}
+condition:
+  - condition: template
+    value_template: "{{ now().weekday() not in [5,6] or now().strftime('%H:%M') >= '10:00' }}"
+action:
+  - service: cover.open_cover
+    target:
+      entity_id: cover.blind_1

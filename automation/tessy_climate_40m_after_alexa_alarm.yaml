@@ -1,0 +1,20 @@
+alias: Start Tessy Climate 40m After Alexa Alarm
+id: start_tessy_climate_40m_after_alexa_alarm
+mode: single
+trigger:
+  - platform: template
+    value_template: >-
+      {% set ts = as_timestamp(states('sensor.main_bedroom_alexa_next_alarm'), 0) %}
+      {{ ts > 0 and now().timestamp() >= (ts + 2400) and now().timestamp() < (ts + 2460) }}
+condition:
+  - condition: state
+    entity_id: device_tracker.tessy_location
+    state: "home"
+action:
+  - service: button.press
+    target:
+      entity_id: button.tessy_wake
+    continue_on_error: true
+  - service: climate.turn_on
+    target:
+      entity_id: climate.tessy_climate

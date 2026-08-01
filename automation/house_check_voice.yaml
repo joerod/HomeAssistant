@@ -1,0 +1,18 @@
+id: house_check_voice_command
+alias: House Check Voice Command
+mode: restart
+
+trigger:
+  - platform: state
+    entity_id: event.main_bedroom_main_bedroom_alexa_voice_event
+
+condition:
+  - condition: template
+    value_template: >-
+      {{ trigger.to_state.attributes.voice_command | default('') | lower
+         in ['start house check', 'house check'] }}
+
+action:
+  - delay:
+      seconds: 2
+  - service: script.who_is_home

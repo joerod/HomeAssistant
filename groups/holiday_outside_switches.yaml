@@ -1,5 +1,6 @@
-holiday__outside_lights:
+holiday_outside_lights:
   name: Outside Holiday Lights
   entities:
-    - switch.fence_lights
     - switch.outdoor_switch
+    - switch.outdoor_switch_2
+    - switch.outdoor_holiday_front_left

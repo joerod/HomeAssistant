@@ -1,0 +1,89 @@
+alias: Get to School Reminder for resident_four
+id: get_to_school_reminder_for_ara
+mode: single
+
+trigger:
+  - platform: time
+    at: "08:20:00"
+
+condition:
+  - condition: time
+    weekday: [mon, tue, wed, thu, fri]
+
+action:
+  - variables:
+      school_in_session: "{{ is_state('binary_sensor.nyc311_school_exception_today', 'off') }}"
+      k2j_on: "{{ is_state('binary_sensor.kids_to_resident_one_active', 'on') }}"
+      today_str: "{{ now().strftime('%A, %B %-d') }}"
+
+      weather_entity: "weather.home"
+      w_temp: "{{ state_attr(weather_entity, 'temperature') }}"
+      w_forecast: "{{ state_attr(weather_entity, 'forecast') }}"
+      w_condition: >-
+        {% if w_forecast and w_forecast[0] is defined and w_forecast[0].condition is defined %}
+          {{ w_forecast[0].condition }}
+        {% else %}
+          {{ states(weather_entity) }}
+        {% endif %}
+
+      is_cold: "{{ w_temp is number and w_temp < 40 }}"
+      is_rainy: "{{ w_condition in ['rainy', 'pouring', 'snowy', 'snowy-rainy'] }}"
+
+      reminder_message: >-
+        {% set name = ['resident_four', 'resident_four'] | random %}
+        {% set base = "Good morning " + name + ". It's 8:20. Time to head out for school. Don't forget your lunch." %}
+
+        {% if is_cold and is_rainy %}
+          {{ base }} It's cold and rainy today, so wear something warm and grab an umbrella. Have a great day sweetheart.
+        {% elif is_cold %}
+          {{ base }} It's cold today, so throw on a warm jacket. Have an amazing day.
+        {% elif is_rainy %}
+          {{ base }} It looks like rain today, so take an umbrella or your raincoat. Have a great day.
+        {% else %}
+          {{ base }} Have an awesome day at school.
+        {% endif %}
+
+  - choose:
+      - conditions:
+          - condition: template
+            value_template: "{{ k2j_on and school_in_session }}"
+        sequence:
+          - service: tts.google_say
+            continue_on_error: true
+            data:
+              entity_id: media_player.main_floor_sonos_one
+              message: "{{ reminder_message }}"
+
+          - service: tts.google_say
+            continue_on_error: true
+            data:
+              entity_id: media_player.resident_fours_alexa
+              message: "{{ reminder_message }}"
+
+          - delay: "00:00:01"
+
+          - choose:
+              - conditions:
+                  - condition: template
+                    value_template: "{{ not is_state('media_player.resident_fours_alexa', 'playing') }}"
+                sequence:
+                  - service: tts.google_say
+                    continue_on_error: true
+                    data:
+                      entity_id: media_player.resident_fours_alexa
+                      message: "{{ reminder_message }}"
+
+          - service: notify.notify
+            data:
+              message: >
+                School reminder played for resident_four at 8:20 am on {{ today_str }}.
+                Kids with resident_one: {{ 'Yes' if k2j_on else 'No' }}.
+                Public school in session: {{ 'Yes' if school_in_session else 'No' }}.
+                Weather: {{ w_condition }}, {{ w_temp }}°.
+    default:
+      - service: notify.notify
+        data:
+          message: >
+            Skipped resident_four school reminder at 8:20 am on {{ today_str }}.
+            Kids with resident_one: {{ 'Yes' if k2j_on else 'No' }}.
+            Public school in session: {{ 'Yes' if school_in_session else 'No' }}.

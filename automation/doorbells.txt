@@ -1,0 +1,10 @@
+Halloween
+"https://dl.dropboxusercontent.com/s/5t8kk671ee2k023/ghost_sound.mp3?dl=0"
+"https://dl.dropboxusercontent.com/s/4xkfjdomn2frofu/werewolf.mp3?dl=0"
+"https://dl.dropboxusercontent.com/s/xv0tu90or9rzdk5/Monster%20Mash.mp3?dl=0"
+
+Thanksgiving
+"https://dl.dropboxusercontent.com/s/w1g8h24vh25o8gd/Turkey%20gobble.mp3?dl=0"
+
+Bell
+"https://dl.dropboxusercontent.com/s/pwjqi8n8uh4vo07/CT.mp3?dl=0"

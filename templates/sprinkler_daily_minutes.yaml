@@ -1,0 +1,36 @@
+- sensor:
+    - name: "Sprinkler ON today 5d Minutes"
+      unique_id: sprinkler_on_today_5d_minutes
+      unit_of_measurement: "min"
+      state_class: measurement
+      icon: mdi:timer-outline
+      state: >-
+        {{ (states('sensor.sprinkler_on_today_5d') | float(0) * 60) | round(0) }}
+    - name: "Sprinkler ON yesterday 5d Minutes"
+      unique_id: sprinkler_on_yesterday_5d_minutes
+      unit_of_measurement: "min"
+      state_class: measurement
+      icon: mdi:timer-outline
+      state: >-
+        {{ (states('sensor.sprinkler_on_yesterday_5d') | float(0) * 60) | round(0) }}
+    - name: "Sprinkler ON 2 days ago 5d Minutes"
+      unique_id: sprinkler_on_2_days_ago_5d_minutes
+      unit_of_measurement: "min"
+      state_class: measurement
+      icon: mdi:timer-outline
+      state: >-
+        {{ (states('sensor.sprinkler_on_2_days_ago_5d') | float(0) * 60) | round(0) }}
+    - name: "Sprinkler ON 3 days ago 5d Minutes"
+      unique_id: sprinkler_on_3_days_ago_5d_minutes
+      unit_of_measurement: "min"
+      state_class: measurement
+      icon: mdi:timer-outline
+      state: >-
+        {{ (states('sensor.sprinkler_on_3_days_ago_5d') | float(0) * 60) | round(0) }}
+    - name: "Sprinkler ON 4 days ago 5d Minutes"
+      unique_id: sprinkler_on_4_days_ago_5d_minutes
+      unit_of_measurement: "min"
+      state_class: measurement
+      icon: mdi:timer-outline
+      state: >-
+        {{ (states('sensor.sprinkler_on_4_days_ago_5d') | float(0) * 60) | round(0) }}

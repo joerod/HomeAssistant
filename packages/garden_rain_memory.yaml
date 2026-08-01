@@ -1,0 +1,103 @@
+input_number:
+  garden_sprinkler_inches_per_10_minutes:
+    name: Garden Sprinkler Inches Per 10 Minutes
+    min: 0
+    max: 2
+    step: 0.05
+    mode: box
+    unit_of_measurement: in
+    icon: mdi:sprinkler
+
+  garden_rain_yesterday:
+    name: Garden Rain Yesterday
+    min: 0
+    max: 10
+    step: 0.01
+    mode: box
+    unit_of_measurement: in
+    icon: mdi:weather-rainy
+
+  garden_rain_2_days_ago:
+    name: Garden Rain 2 Days Ago
+    min: 0
+    max: 10
+    step: 0.01
+    mode: box
+    unit_of_measurement: in
+    icon: mdi:weather-rainy
+
+  garden_rain_3_days_ago:
+    name: Garden Rain 3 Days Ago
+    min: 0
+    max: 10
+    step: 0.01
+    mode: box
+    unit_of_measurement: in
+    icon: mdi:weather-rainy
+
+  garden_rain_4_days_ago:
+    name: Garden Rain 4 Days Ago
+    min: 0
+    max: 10
+    step: 0.01
+    mode: box
+    unit_of_measurement: in
+    icon: mdi:weather-rainy
+
+automation:
+  - id: garden_rain_daily_rollover
+    alias: Garden Rain Daily Rollover
+    mode: single
+    trigger:
+      - platform: time
+        at: "00:05:00"
+    condition:
+      - condition: template
+        value_template: >-
+          {{ states('sensor.garden_rain_today') not in ['unknown', 'unresident_threeilable', 'none', ''] }}
+    action:
+      - variables:
+          today_rain: "{{ states('sensor.garden_rain_today') | float(0) }}"
+      - service: input_number.set_value
+        target:
+          entity_id: input_number.garden_rain_4_days_ago
+        data:
+          value: "{{ states('input_number.garden_rain_3_days_ago') | float(0) }}"
+      - service: input_number.set_value
+        target:
+          entity_id: input_number.garden_rain_3_days_ago
+        data:
+          value: "{{ states('input_number.garden_rain_2_days_ago') | float(0) }}"
+      - service: input_number.set_value
+        target:
+          entity_id: input_number.garden_rain_2_days_ago
+        data:
+          value: "{{ states('input_number.garden_rain_yesterday') | float(0) }}"
+      - service: input_number.set_value
+        target:
+          entity_id: input_number.garden_rain_yesterday
+        data:
+          value: "{{ today_rain }}"
+
+template:
+  - sensor:
+      - name: Garden Rain Last 5 Days Total
+        unique_id: garden_rain_last_5_days_total
+        unit_of_measurement: in
+        state_class: measurement
+        icon: mdi:weather-rainy
+        state: >-
+          {% set today = states('sensor.garden_rain_today') | float(0) %}
+          {% set y = states('input_number.garden_rain_yesterday') | float(0) %}
+          {% set d2 = states('input_number.garden_rain_2_days_ago') | float(0) %}
+          {% set d3 = states('input_number.garden_rain_3_days_ago') | float(0) %}
+          {% set d4 = states('input_number.garden_rain_4_days_ago') | float(0) %}
+          {{ (today + y + d2 + d3 + d4) | round(2) }}
+
+      - name: Garden Rain Recent Covers One Watering
+        unique_id: garden_rain_recent_covers_one_watering
+        icon: mdi:sprinkler-variant
+        state: >-
+          {% set rain_total = states('sensor.garden_rain_last_5_days_total') | float(0) %}
+          {% set sprinkler_inches = states('input_number.garden_sprinkler_inches_per_10_minutes') | float(0.25) %}
+          {{ rain_total >= sprinkler_inches }}

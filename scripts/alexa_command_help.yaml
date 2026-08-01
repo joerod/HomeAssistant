@@ -1,0 +1,73 @@
+alexa_command_help:
+  alias: Alexa Command Help
+  description: Announces custom Alexa commands for all rooms or one requested room.
+  fields:
+    room:
+      name: Room
+      description: all, living room, main bedroom, yard, kitchen, basement, or bedrooms
+      default: all
+      selector:
+        text:
+    source_device_id:
+      name: Source Alexa device
+      description: Home Assistant device ID of the Alexa that heard the request.
+      default: ""
+      selector:
+        text:
+  sequence:
+    - variables:
+        requested_room: "{{ room | default('all') | lower | trim }}"
+        room_name: >-
+          {% if 'living' in requested_room %}living room
+          {% elif 'main' in requested_room or 'master' in requested_room %}main bedroom
+          {% elif 'yard' in requested_room or 'backyard' in requested_room %}yard
+          {% elif 'kitchen' in requested_room %}kitchen
+          {% elif 'basement' in requested_room %}basement
+          {% elif 'bedroom' in requested_room %}bedrooms
+          {% else %}all{% endif %}
+        response: >-
+          {% if room_name == 'living room' %}
+            For the living room, say: turn on the Living Room TV; turn off the Living Room TV;
+            turn on Living Room Movie Time; turn off Living Room Movie Time;
+            turn on Sports; turn on Commercial; or toggle Living Room Sound.
+          {% elif room_name == 'main bedroom' %}
+            For the main bedroom, say: turn on the Main Bedroom TV; turn off the Main Bedroom TV;
+            turn on Bedroom Fun Time; turn off Bedroom Fun Time;
+            turn on Main Room Sleep; or turn on Main Room Wake.
+          {% elif room_name == 'yard' %}
+            For the yard, say: turn on Yard Fire TV Stick; turn on Yard Fire TV Stick Open App;
+            or turn on Yard Fire TV Stick Open Sports.
+          {% elif room_name == 'kitchen' %}
+            For the kitchen, you can ask Alexa to turn kitchen lights on or off,
+            set the kitchen temperature, or open and close the kitchen blind.
+          {% elif room_name == 'basement' %}
+            For the basement, you can ask Alexa to turn basement lights on or off,
+            set the basement temperature, or start the exposed Wally cleaning commands.
+          {% elif room_name == 'bedrooms' %}
+            For bedrooms, you can control the exposed bedroom lights and temperatures.
+            You can also say turn on Bedroom Fun Time, Main Room Sleep, or Main Room Wake.
+          {% else %}
+            Your custom commands include: House Check, or Who Is Home; Dryer Time;
+            Living Room TV on or off; Living Room Movie Time on or off; Sports; Commercial;
+            Toggle Living Room Sound; Main Bedroom TV on or off; Bedroom Fun Time;
+            Main Room Sleep or Wake; Meeting Lights; House Ready; and the Yard Fire TV commands.
+            For a shorter list, ask: what commands can I say in the living room,
+            main bedroom, kitchen, basement, bedrooms, or yard?
+          {% endif %}
+    - choose:
+        - conditions:
+            - condition: template
+              value_template: "{{ source_device_id | default('') | trim != '' }}"
+          sequence:
+            - action: alexa_devices.send_text_command
+              data:
+                device_id: "{{ source_device_id }}"
+                text_command: "Simon says {{ response | trim }}"
+      default:
+        - action: notify.send_message
+          target:
+            entity_id: notify.kitchen_sonos_announce
+          data:
+            message: "{{ response | trim }}"
+  mode: queued
+  max: 3

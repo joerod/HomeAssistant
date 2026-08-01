@@ -1,0 +1,14 @@
+sensor:
+  - platform: integration
+    source: sensor.openweathermap_rain
+    name: Garden Rain Accumulated
+    unique_id: garden_rain_accumulated
+    unit_time: h
+    method: trapezoidal
+    round: 3
+
+utility_meter:
+  garden_rain_today:
+    source: sensor.garden_rain_accumulated
+    name: Garden Rain Today
+    cycle: daily

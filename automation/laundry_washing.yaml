@@ -1,30 +1,194 @@
 alias: 'Check when washing machine is done'
+mode: queued
+max: 5
 trigger:
-  platform: numeric_state
-  entity_id: sensor.current_power_usage_sonoffs31_2
-  below: 5
-  for:
-    minutes: 5
+  - id: washer_running
+    platform: numeric_state
+    entity_id: sensor.current_power_usage_switch_4
+    above: 12
+    for:
+      minutes: 3
+  - id: washer_done
+    platform: numeric_state
+    entity_id: sensor.current_power_usage_switch_4
+    below: 5
+    for:
+      minutes: 2
+
 condition:
-  - condition: numeric_state
-    entity_id: 'sensor.uptime'
-    above: 8
+  - condition: template
+    value_template: >-
+      {{ trigger.id != 'washer_done' or is_state('input_boolean.washer_was_running', 'on') }}
+
+variables:
+  tts_targets:
+    - media_player.resident_twos_room
+    - media_player.resident_threes_room
+    - media_player.basement
+    - media_player.kitchen
+    - media_player.main_bedroom
+  tts_active_targets: >-
+    {% set bad = ['unresident_threeilable', 'unknown'] %}
+    {{ tts_targets | reject('in', expand(tts_targets) | selectattr('state', 'in', bad) | map(attribute='entity_id') | list) | list }}
+  volume_resident_two: "{{ state_attr('media_player.resident_twos_room', 'volume_level') | float(0.4) }}"
+  volume_resident_three: "{{ state_attr('media_player.resident_threes_room', 'volume_level') | float(0.4) }}"
+  volume_basement: "{{ state_attr('media_player.basement', 'volume_level') | float(0.4) }}"
+  volume_kitchen: "{{ state_attr('media_player.kitchen', 'volume_level') | float(0.4) }}"
+  volume_bedroom: "{{ state_attr('media_player.main_bedroom', 'volume_level') | float(0.4) }}"
+  dryer_status: "{{ states('sensor.dryer_current_status') | lower }}"
+  dryer_remaining_time: "{{ states('sensor.dryer_remaining_time') }}"
+  dryer_time_left: >-
+    {% set bad = ['unknown','unresident_threeilable','','none'] %}
+    {% if dryer_status not in ['power_off','off','unresident_threeilable','unknown','idle'] and dryer_remaining_time | lower not in bad %}
+      {% set mins = (((as_timestamp(dryer_remaining_time) - as_timestamp(now())) / 60) | round(0, 'ceil')) | int %}
+      {% set mins = [mins, 0] | max %}
+      {{ mins ~ ' minute' ~ ('s' if mins != 1 else '') }}
+    {% else %}
+      unknown
+    {% endif %}
+  dryer_running: >-
+    {{ dryer_status not in ['power_off','off','unresident_threeilable','unknown','idle'] and dryer_time_left | lower != 'unknown' }}
+  washer_push_message: >-
+    {% if dryer_running %}
+      🧺 The washing machine is done, but the dryer has about {{ dryer_time_left }} left.
+    {% else %}
+      🧺 The washing machine is done!
+    {% endif %}
+
 action:
-  - service: notify.all_notify
+  - choose:
+      - conditions:
+          - condition: template
+            value_template: "{{ trigger.id == 'washer_running' }}"
+        sequence:
+          - service: input_boolean.turn_on
+            target:
+              entity_id: input_boolean.washer_was_running
+          - stop: Washer marked as running.
+
+  - service: notify.notify
+    continue_on_error: true
     data:
-      message:
-        🧺 The washing machine is done!
-  - service: notify.living_room_tv
+      message: "{{ washer_push_message }}"
+
+  - service: scene.create
+    continue_on_error: true
     data:
-      message: "🧺 The washing machine is done!"
+      scene_id: laundry_washer_lamp_restore
+      snapshot_entities:
+        - light.living_room_table_lamp
+
+  - repeat:
+      count: 3
+      sequence:
+        - service: light.turn_on
+          continue_on_error: true
+          target:
+            entity_id: light.living_room_table_lamp
+          data:
+            rgb_color: [0, 0, 255]
+            brightness_pct: 100
+        - delay: "00:00:01"
+        - service: light.turn_off
+          continue_on_error: true
+          target:
+            entity_id: light.living_room_table_lamp
+        - delay: "00:00:01"
+
+  - service: scene.turn_on
+    continue_on_error: true
+    target:
+      entity_id: scene.laundry_washer_lamp_restore
+
+  - choose:
+      - conditions:
+          - condition: template
+            value_template: >-
+              {{ not is_state('media_player.living_room_tv', 'off')
+                 and not is_state('media_player.living_room_tv', 'unresident_threeilable')
+                 and not is_state('media_player.living_room_tv', 'unknown') }}
+        sequence:
+          - service: notify.living_room_tv
+            continue_on_error: true
+            data:
+              message: "{{ washer_push_message }}"
+
+  - condition: template
+    value_template: "{{ tts_active_targets | count > 0 }}"
+
+  - service: media_player.volume_set
+    continue_on_error: true
+    data:
+      entity_id: "{{ tts_active_targets }}"
+      volume_level: 0.7
+
   - service: tts.google_say
-    entity_id:
-      - media_player.basement
-      - media_player.kitchen
-    data_template:
+    continue_on_error: true
+    data:
+      entity_id: "{{ tts_active_targets }}"
       message: >-
-        {{ [
-        "The washing machine is done!" ,
-        "Looks like the load of clothes that are in the washing machine are done.",
-        "Clear the washing machine before the clothes start to stink."
-        ] |random }}
+        {% if dryer_running %}
+          {{ 'The washing machine is done, but the dryer has about ' ~ dryer_time_left ~ ' left.' }}
+        {% else %}
+          {{ [
+            'The washing machine is done!',
+            'Looks like the load of clothes that are in the washing machine are done.',
+            'Clear the washing machine before the clothes start to stink.',
+            'Hey, the washer is done-time to unload the clothes.',
+            "Washer's done! Don't forget to move the clothes to the dryer.",
+            'Clothes are clean! Now let''s keep them from getting musty.',
+            'Time to empty the washing machine before the clothes get that damp smell.'
+          ] | random }}
+        {% endif %}
+
+  - wait_template: >
+      {{
+        is_state('media_player.resident_twos_room', 'playing') or
+        is_state('media_player.resident_threes_room', 'playing') or
+        is_state('media_player.basement', 'playing') or
+        is_state('media_player.kitchen', 'playing') or
+        is_state('media_player.main_bedroom', 'playing')
+      }}
+    timeout: '00:00:10'
+    continue_on_timeout: true
+
+  - wait_template: >
+      {{
+        not is_state('media_player.resident_twos_room', 'playing') and
+        not is_state('media_player.resident_threes_room', 'playing') and
+        not is_state('media_player.basement', 'playing') and
+        not is_state('media_player.kitchen', 'playing') and
+        not is_state('media_player.main_bedroom', 'playing')
+      }}
+    timeout: '00:01:30'
+    continue_on_timeout: true
+
+  - service: media_player.volume_set
+    continue_on_error: true
+    data:
+      entity_id: media_player.resident_twos_room
+      volume_level: "{{ volume_resident_two }}"
+  - service: media_player.volume_set
+    continue_on_error: true
+    data:
+      entity_id: media_player.resident_threes_room
+      volume_level: "{{ volume_resident_three }}"
+  - service: media_player.volume_set
+    continue_on_error: true
+    data:
+      entity_id: media_player.basement
+      volume_level: "{{ volume_basement }}"
+  - service: media_player.volume_set
+    continue_on_error: true
+    data:
+      entity_id: media_player.kitchen
+      volume_level: "{{ volume_kitchen }}"
+  - service: media_player.volume_set
+    continue_on_error: true
+    data:
+      entity_id: media_player.main_bedroom
+      volume_level: "{{ volume_bedroom }}"
+
+  - service: input_boolean.turn_off
+    target:
+      entity_id: input_boolean.washer_was_running

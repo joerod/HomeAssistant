@@ -1,0 +1,10 @@
+  InsideLights:
+    entities:
+      - light.vestibule
+      - light.side_entrance
+      - switch.kitchen_light
+      - switch.dining_room_light
+      - light.resident_fours_room
+      - light.resident_threes_room
+      - light.master_bedroom_lights
+      - light.office

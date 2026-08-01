@@ -5,17 +5,42 @@ trigger:
 condition:
   condition: and
   conditions:
-    - condition: template
-      value_template: "{{is_state_attr('binary_sensor.nyc311_school_exception_today', 'status', 'Open')}}"
+    - condition: time
+      weekday:
+        - mon
+        - tue
+        - wed
+        - thu
+        - fri
     - condition: state
-      entity_id: 'person.aly_rodriguez'
-      state: 'home'    
+      entity_id: 'person.resident_two'
+      state: 'home'
+    - condition: template
+      value_template: "{% if now().month in [7,8] %}{{false}}{% else %}{{true}}{% endif %}"
 action:
+  - action: calendar.get_events
+    target:
+      entity_id: calendar.sfp_school_calendar
+    data:
+      start_date_time: "{{ today_at('00:00') }}"
+      end_date_time: "{{ today_at('23:59:59') }}"
+    response_variable: sfp_school_events
+  - condition: template
+    value_template: >
+      {% set events = sfp_school_events['calendar.sfp_school_calendar']['events'] | default([], true) %}
+      {% set ns = namespace(skip=false) %}
+      {% for event in events %}
+        {% set summary = event.summary | default('', true) | lower %}
+        {% if summary | regex_search('no classes|no school|school(s)? closed|break|holiday|recess|conference|clerical|staff development') %}
+          {% set ns.skip = true %}
+        {% endif %}
+      {% endfor %}
+      {{ not ns.skip }}
   - service: hue.hue_activate_scene
     data:
-      group_name: "Alys Room"
+      group_name: "resident_twos Room"
       scene_name: "Read"
   - service: hue.hue_activate_scene
     data:
-      group_name: "Arabellas Room"
+      group_name: "resident_fours Room"
       scene_name: "Read"

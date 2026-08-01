@@ -1,0 +1,11 @@
+alias: Turn Off Candle After 4 Hours
+description: Automatically turns off switch.switch_4 if it is on for more than 4 hours.
+trigger:
+  - platform: state
+    entity_id: switch.switch_4
+    to: "on"
+    for: "04:00:00"
+action:
+  - service: switch.turn_off
+    target:
+      entity_id: switch.switch_4

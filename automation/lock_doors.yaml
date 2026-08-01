@@ -1,33 +1,48 @@
 alias: "Lock All Doors"
 trigger:
   platform: state
-  entity_id: person.joerod, person.danielle
-  from: "home"
+  entity_id: person.resident_one
   to: "not_home"
   for:
-    minutes: 10 #"{{ states('input_number.lock_min')|int }}"
+    minutes: 10
 condition:
   condition: or
   conditions:
-    - condition: state
-      entity_id: lock.front_door_lock
-      state: "unlocked"
     - condition: state
       entity_id: lock.side_door_lock
       state: "unlocked"
 action:
   - service: lock.lock
-    entity_id: lock.front_door_lock
-  - service: lock.lock
     entity_id: lock.side_door_lock
-  - service: notify.all_notify
+
+  - service: notify.notify
     data:
-      message: 🔒 All doors are locked.  You're safe!
+      message: "🔒 All doors are locked. You're safe!"
+
+  - service: sonos.snapshot
+    continue_on_error: true
+    target:
+      entity_id: media_player.kitchen
+    data:
+      with_group: true
+
   - service: tts.google_say
     entity_id: media_player.kitchen
-    data_template:
+    data:
       message: >-
         {{ [
-        "All doors are locked.  You're safe!" ,
-        "Someone left and didn't lock the doors, let me get that for you. "
-        ] |random }}
+          "All doors are locked. You're safe!",
+          "Someone left and didn't lock the doors, let me get that for you."
+        ] | random }}
+
+  - wait_template: "{{ not is_state('media_player.kitchen', 'playing') }}"
+    timeout: '00:01:00'
+    continue_on_timeout: true
+
+  - service: sonos.restore
+    continue_on_error: true
+    target:
+      entity_id: media_player.kitchen
+    data:
+      with_group: true
+mode: single

@@ -1,0 +1,4 @@
+  main_bedroom_lamps:
+    entities:
+      - light.hue_go_1
+      - light.resident_ones_lamp

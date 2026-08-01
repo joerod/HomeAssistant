@@ -1,7 +1,6 @@
   Cameras:
     entities:
     - camera.living_room
-    - camera.basement
     - camera.backyard
     - camera.driveway
     - camera.front_door

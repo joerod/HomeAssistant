@@ -1,0 +1,97 @@
+alias: Wally cleaning status announcement
+description: Alert when Wally stops cleaning with an error or finishes the job.
+mode: single
+trigger:
+  - platform: state
+    entity_id: vacuum.wally
+    from: cleaning
+    to: error
+  - platform: state
+    entity_id: vacuum.wally
+    from: cleaning
+    to: idle
+    for: "00:02:00"
+
+action:
+  - variables:
+      is_error: "{{ trigger.to_state.state == 'error' }}"
+      error_lines:
+        - "Alert: Wally hit a rough patch in the pool and needs a lifeguard."
+        - "Wally got himself into trouble. The water clearly won that round."
+        - "Wally is in trouble. He has officially hit a shallow spot."
+      done_lines:
+        - "Wally finished the job. The pool floor is sparkling and he can float on pride now."
+        - "Mission complete. Wally drained the drama and wrapped it up like a pool pro."
+        - "Wally is done. The water is clean and he is probably asking for a towel."
+      announcement: >-
+        {% if is_error %}
+          {{ error_lines | random }}
+        {% else %}
+          {{ done_lines | random }}
+        {% endif %}
+
+  - choose:
+      - conditions:
+          - condition: template
+            value_template: "{{ is_error }}"
+        sequence:
+          - service: notify.mobile_app_resident_one_iphone
+            data:
+              title: "Wally needs attention"
+              message: "{{ announcement }}"
+      - conditions:
+          - condition: template
+            value_template: "{{ not is_error }}"
+        sequence:
+          - service: notify.mobile_app_resident_one_iphone
+            data:
+              title: "Wally finished cleaning"
+              message: "{{ announcement }}"
+
+  - service: sonos.snapshot
+    continue_on_error: true
+    target:
+      entity_id:
+        - media_player.basement
+        - media_player.kitchen
+        - media_player.resident_ones_room_2
+    data:
+      with_group: true
+
+  - service: tts.google_say
+    continue_on_error: true
+    target:
+      entity_id: media_player.basement
+    data:
+      message: "{{ announcement }}"
+
+  - service: tts.google_say
+    continue_on_error: true
+    target:
+      entity_id: media_player.kitchen
+    data:
+      message: "{{ announcement }}"
+
+  - service: tts.google_say
+    continue_on_error: true
+    target:
+      entity_id: media_player.resident_ones_room_2
+    data:
+      message: "{{ announcement }}"
+
+  - wait_template: >-
+      {{ not is_state('media_player.basement', 'playing')
+         and not is_state('media_player.kitchen', 'playing')
+         and not is_state('media_player.resident_ones_room_2', 'playing') }}
+    timeout: "00:02:00"
+    continue_on_timeout: true
+
+  - service: sonos.restore
+    continue_on_error: true
+    target:
+      entity_id:
+        - media_player.basement
+        - media_player.kitchen
+        - media_player.resident_ones_room_2
+    data:
+      with_group: true

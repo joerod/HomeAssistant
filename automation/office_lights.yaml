@@ -1,7 +1,7 @@
-alias: 'Turn on office light when Joe is near after sunset.'
+alias: 'Turn on office light when resident_one is near after sunset.'
 trigger:
   platform: state
-  entity_id:  sensor.joerod_mainroom_presence
+  entity_id:  sensor.resident_one_mainroom_presence
   to: 'present'
   from: 'not_present'
 
@@ -12,10 +12,10 @@ condition:
       entity_id: sun.sun
       state: below_horizon
     - condition: state
-      entity_id: light.office_light
+      entity_id: light.office
       state: 'off'
 action:
   - service: light.turn_on
     data:
-      entity_id: light.office_light
+      entity_id: light.office
       brightness_pct: 100

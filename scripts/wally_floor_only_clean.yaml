@@ -1,0 +1,13 @@
+wally_floor_only_clean:
+  alias: Wally Floor Only Clean
+  mode: single
+  sequence:
+    - service: vacuum.set_fan_speed
+      target:
+        entity_id: vacuum.wally
+      data:
+        fan_speed: "Floor only"
+    - delay: "00:00:02"
+    - service: vacuum.start
+      target:
+        entity_id: vacuum.wally

@@ -1,0 +1,22 @@
+alias: Turn off office fan when resident_one leaves
+id: resident_one_office_fan_off_when_leaving
+mode: single
+
+trigger:
+  - platform: state
+    entity_id: person.resident_one
+    to: "not_home"
+    for:
+      minutes: 10
+
+condition:
+  - condition: template
+    value_template: "{{ not is_state('fan.office', 'off') }}"
+
+action:
+  - service: fan.turn_off
+    target:
+      entity_id: fan.office
+  - service: notify.notify
+    data:
+      message: The office fan has been turned off because resident_one left.

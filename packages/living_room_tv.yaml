@@ -1,0 +1,47 @@
+template:
+  - switch:
+      - name: "Living Room TV"
+        unique_id: living_room_tv_power
+        icon: mdi:television
+        state: "{{ is_state('media_player.living_room_tv', 'on') }}"
+        turn_on:
+          - action: wake_on_lan.send_magic_packet
+            data:
+              mac: "00:00:00:00:00:00"
+          - wait_template: "{{ is_state('media_player.living_room_tv', 'on') }}"
+            timeout: "00:00:30"
+            continue_on_timeout: true
+          - action: media_player.select_source
+            continue_on_error: true
+            target:
+              entity_id: media_player.living_room_tv
+            data:
+              source: Fire TV Stick
+          - action: webostv.select_sound_output
+            continue_on_error: true
+            target:
+              entity_id: media_player.living_room_tv
+            data:
+              sound_output: tv_speaker
+          - action: media_player.turn_off
+            continue_on_error: true
+            target:
+              entity_id: media_player.yamaha_receiver
+          - delay: "00:00:05"
+          - action: androidtv.adb_command
+            target:
+              entity_id: media_player.living_room_fire_tv
+            data:
+              command: monkey -p ar.tvplayer.tv -c android.intent.category.LAUNCHER 1
+        turn_off:
+          - action: media_player.turn_off
+            target:
+              entity_id: media_player.living_room_tv
+          - delay: "00:00:05"
+          - if:
+              - condition: template
+                value_template: "{{ not is_state('media_player.living_room_tv', 'off') }}"
+            then:
+              - action: media_player.turn_off
+                target:
+                  entity_id: media_player.living_room_tv

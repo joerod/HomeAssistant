@@ -1,0 +1,13 @@
+tv_normal_sound:
+  sequence:
+    # TV volume
+    - service: media_player.volume_set
+      data:
+        entity_id: media_player.living_room_tv
+        volume_level: 0.7
+
+    # Receiver volume
+    - service: media_player.volume_set
+      data:
+        entity_id: media_player.yamaha_receiver
+        volume_level: 0.2

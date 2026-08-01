@@ -1,0 +1,10 @@
+  charge_tessy:
+    name: "Charge Tessy"
+    done_message: "Thanks for pluging in Tessy"
+    entity_id: binary_sensor.tessy_needs_to_charge
+    state: 'on'
+    repeat: 30
+    can_acknowledge: true
+    skip_first: true
+    notifiers:
+      - notify.notify

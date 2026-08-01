@@ -2,7 +2,12 @@ media_sonos:
   entities:
     - media_player.basement
     - media_player.kitchen
+    - media_player.main_bedroom
+    - media_player.resident_ones_room
+    - media_player.resident_twos_room_2
+    - media_player.resident_threes_room_2
 media_doorbell:
   entities:
     - media_player.basement
     - media_player.kitchen
+    - media_player.resident_ones_room

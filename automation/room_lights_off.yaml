@@ -4,8 +4,8 @@ trigger:
   at: '22:30:00'
 action:
   - service: light.turn_off
-    entity_id: light.avas_room_lamp
+    entity_id: light.resident_threes_room_lamp
   - service: light.turn_off
-    entity_id: light.arabellas_hue_lightstrip_plus
+    entity_id: light.resident_fours_hue_lightstrip_plus
   - service: light.turn_off
-    entity_id: light.joe_lamp
+    entity_id: light.resident_one_lamp

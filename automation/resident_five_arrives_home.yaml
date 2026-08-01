@@ -1,0 +1,33 @@
+trigger:
+  platform: state
+  entity_id: person.resident_five
+  from: "not_home"
+  to: "home"
+  for:
+    seconds: 60 #"{{ states('input_number.lock_min')|int }}"
+condition:
+  condition: time
+  before: '20:00:00'
+  after: '17:00:00'
+action:
+  - service: notify.mobile_app_resident_one_s_iphone
+    data:
+      message:
+        resident_five is home.
+  - delay: 00:00:05
+  - service: tts.google_say
+    entity_id: media_player.kitchen
+    data_template:
+      message: >-
+        {{ [
+        "Welcome home Mrs. resident. " ,
+        "Hello resident_five. " ,
+        "Hi Dani. " ,
+        "Nice to see you back resident_five. " ,
+        "Hi resident_five, looking gorgeous as always. "
+        ] |random }}
+  - service: tts.google_say
+    entity_id: media_player.basement
+    data:
+      message: "resident_five is home"
+alias: 'Welcome home resident_five'

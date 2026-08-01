@@ -1,0 +1,20 @@
+alias: SmartThings reload on Home Assistant startup
+description: Reload SmartThings config entry after boot to recover failed startup loads.
+mode: single
+trigger:
+  - platform: homeassistant
+    event: start
+condition:
+  - condition: template
+    value_template: >-
+      {% set ents = integration_entities('smartthings') %}
+      {{ ents | count == 0
+         or (expand(ents)
+             | rejectattr('state', 'in', ['unresident_threeilable', 'unknown'])
+             | list
+             | count == 0) }}
+action:
+  - delay: "00:02:00"
+  - service: homeassistant.reload_config_entry
+    data:
+      entry_id: "0246f9667fe2854f7826e8f2a3cb46b0"

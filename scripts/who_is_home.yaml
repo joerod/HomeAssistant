@@ -1,0 +1,28 @@
+who_is_home:
+  alias: House Check
+  sequence:
+    - variables:
+        people_home: >-
+          {{ expand(
+              'person.resident_one',
+              'person.resident_two',
+              'person.resident_three',
+              'person.resident_four'
+            )
+            | selectattr('state', 'eq', 'home')
+            | map(attribute='name')
+            | list }}
+        response: >-
+          {% if people_home | count == 0 %}
+            Nobody is currently home.
+          {% elif people_home | count == 1 %}
+            {{ people_home[0] }} is home.
+          {% else %}
+            {{ people_home[:-1] | join(', ') }} and {{ people_home[-1] }} are home.
+          {% endif %}
+    - action: notify.send_message
+      target:
+        entity_id: notify.kitchen_sonos_announce
+      data:
+        message: "{{ response | trim }}"
+  mode: single

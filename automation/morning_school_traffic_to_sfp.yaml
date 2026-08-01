@@ -1,0 +1,144 @@
+alias: "Morning school traffic to St. Francis Prep"
+id: morning_school_traffic_to_sfp
+mode: single
+
+trigger:
+  - platform: time
+    at: "07:05:00"
+    id: t0705
+  - platform: time
+    at: "07:40:00"
+    id: t0740
+  - platform: time
+    at: "07:50:00"
+    id: t0750
+
+condition:
+  - condition: time
+    weekday:
+      - mon
+      - tue
+      - wed
+      - thu
+      - fri
+
+  - condition: state
+    entity_id: person.resident_two
+    state: "home"
+
+  - condition: template
+    value_template: >-
+      {% if trigger.id == 't0705' %}
+        {{ is_state('binary_sensor.resident_one_in_office_today', 'on') }}
+      {% elif trigger.id in ['t0740', 't0750'] %}
+        {{ is_state('binary_sensor.resident_one_in_office_today', 'off') }}
+      {% else %}
+        {{ false }}
+      {% endif %}
+
+action:
+  - service: logbook.log
+    data:
+      name: "SFP Morning Traffic"
+      message: "Automation triggered. resident_one_in_office_today={{ states('binary_sensor.resident_one_in_office_today') }}, sfp_school_in_session_today={{ states('binary_sensor.sfp_school_in_session_today') }}."
+
+  - condition: state
+    entity_id: binary_sensor.sfp_school_in_session_today
+    state: "on"
+
+  - variables:
+      run_slot: "{{ trigger.id | default('') }}"
+      travel_minutes: "{{ states('sensor.home_to_sfp') | int(0) }}"
+      weather_entity: weather.home
+      weather_temp: "{{ state_attr(weather_entity, 'temperature') | float(999) }}"
+      weather_forecast: "{{ state_attr(weather_entity, 'forecast') }}"
+      weather_condition: >-
+        {% if weather_forecast and weather_forecast[0] is defined and weather_forecast[0].condition is defined %}
+          {{ weather_forecast[0].condition }}
+        {% else %}
+          {{ states(weather_entity) }}
+        {% endif %}
+      temp_phrase: >-
+        {% if weather_temp < 900 %}
+          It's {{ weather_temp | round(0) | int }} degrees.
+        {% else %}
+        {% endif %}
+      weather_note: >-
+        {% set cond = weather_condition | lower %}
+        {% if cond in ['rainy', 'pouring', 'lightning', 'lightning-rainy'] %}
+          {{ temp_phrase }} Rain in the forecast, bring an umbrella.
+        {% elif cond in ['snowy', 'snowy-rainy'] %}
+          {{ temp_phrase }} Snow in the forecast, wear a warm coat.
+        {% elif weather_temp <= 40 %}
+          {{ temp_phrase }} It's cold, wear a coat.
+        {% elif weather_temp <= 55 %}
+          {{ temp_phrase }} It's chilly, wear a jacket.
+        {% else %}
+          {{ temp_phrase }} Forecast looks clear.
+        {% endif %}
+      traffic_comment: >-
+        {% set mins = states('sensor.home_to_sfp') | int(0) %}
+        {% if mins >= 30 %}
+          Traffic is heavy, leave now.
+        {% elif mins >= 22 %}
+          Moderate traffic.
+        {% else %}
+          Traffic is light.
+        {% endif %}
+      tts_message: >-
+        {% if run_slot == 't0750' %}
+          SFP is {{ travel_minutes }} minutes away. {{ traffic_comment }} {{ weather_note }}
+        {% else %}
+          Good morning! Drive time to Saint Francis Prep right now is
+          {{ travel_minutes }} minutes.
+          {{ traffic_comment }}
+          Have a great day.
+        {% endif %}
+      push_message: >-
+        {% if run_slot == 't0750' %}
+          SFP: {{ travel_minutes }} min. {{ traffic_comment }} {{ weather_note }}
+        {% else %}
+          Morning traffic to SFP is {{ travel_minutes }} minutes. {{ traffic_comment }}
+        {% endif %}
+
+  - service: notify.notify
+    data:
+      title: "SFP Morning Traffic"
+      message: "{{ push_message }}"
+
+  - service: sonos.snapshot
+    continue_on_error: true
+    target:
+      entity_id:
+        - media_player.kitchen
+        - media_player.basement
+        - media_player.main_bedroom
+    data:
+      with_group: true
+
+  - service: tts.google_say
+    data:
+      entity_id: media_player.resident_two_to_school
+      message: "{{ tts_message }}"
+      language: "en"
+
+  - wait_template: >
+      {{
+        not is_state('media_player.kitchen', 'playing') and
+        not is_state('media_player.basement', 'playing') and
+        not is_state('media_player.main_bedroom', 'playing')
+      }}
+    timeout: '00:01:30'
+    continue_on_timeout: true
+
+  - service: sonos.restore
+    continue_on_error: true
+    target:
+      entity_id:
+        - media_player.kitchen
+        - media_player.basement
+        - media_player.main_bedroom
+    data:
+      with_group: true
+
+  - delay: "00:00:10"

@@ -1,0 +1,4 @@
+- platform: androidtv
+  name: Yard FireTVStick
+  host: 192.0.2.1
+  device_class: firetv

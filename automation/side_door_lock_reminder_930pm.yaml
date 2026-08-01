@@ -1,0 +1,15 @@
+alias: "Side door lock reminder at 9:30 PM"
+id: side_door_lock_reminder_930pm
+mode: single
+trigger:
+  - platform: time
+    at: "21:30:00"
+condition:
+  - condition: state
+    entity_id: lock.side_door
+    state: "unlocked"
+action:
+  - service: notify.notify
+    data:
+      title: "Door Lock Reminder"
+      message: "The side door is unlocked at 9:30 PM."

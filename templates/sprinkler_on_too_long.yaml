@@ -1,0 +1,15 @@
+  - binary_sensor:
+      - device_class: problem
+        default_entity_id: binary_sensor.sprinkler_on_too_long
+        name: "Sprinkler is on for more than 10 minutes a day"
+        state: >
+          {{
+            (states('sensor.sprinkler_on_today_minutes') | float(0) > 10.0)
+            and is_state('switch.virtual_sprinkler', 'on')
+          }}
+        icon: >
+          {% if states('binary_sensor.sprinkler_on_too_long') in ['on', 'True', 'true'] %}
+            mdi:sprinkler-variant
+          {% else %}
+            mdi:sprinkler-variant-off
+          {% endif %}

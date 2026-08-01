@@ -1,0 +1,15 @@
+turn_on_sports:
+  alias: Turn On Sports
+  sequence:
+    - action: script.turn_on
+      target:
+        entity_id: script.tv_surround_sound_game
+  mode: single
+
+turn_on_commercial:
+  alias: Turn On Commercial
+  sequence:
+    - action: script.turn_on
+      target:
+        entity_id: script.tv_surround_sound_music
+  mode: single

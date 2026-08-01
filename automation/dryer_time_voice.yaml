@@ -1,0 +1,22 @@
+id: dryer_time_voice_command
+alias: Dryer Time Voice Command
+mode: restart
+
+trigger:
+  - platform: state
+    entity_id: event.main_bedroom_main_bedroom_alexa_voice_event
+
+condition:
+  - condition: template
+    value_template: >-
+      {{ trigger.to_state.attributes.voice_command | default('') | lower
+         in [
+           'how much time is left on the dryer',
+           'how much time is left in the dryer',
+           'dryer time remaining'
+         ] }}
+
+action:
+  - delay:
+      seconds: 2
+  - service: script.dryer_time_remaining_alexa

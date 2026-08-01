@@ -1,0 +1,10 @@
+alias: Theme light mode at sunrise
+mode: single
+trigger:
+  - platform: sun
+    event: sunrise
+action:
+  - service: frontend.set_theme
+    data:
+      name: default
+      name_dark: none

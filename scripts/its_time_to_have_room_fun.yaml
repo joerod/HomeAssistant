@@ -1,0 +1,62 @@
+its_time_to_have_room_fun:
+  alias: Its Time To Have Room Fun
+  sequence:
+    - service: scene.create
+      data:
+        scene_id: bedroom_fun_time_previous_lamps
+        snapshot_entities:
+          - light.resident_ones_lamp
+          - light.hue_go_1
+    - service: input_boolean.turn_on
+      target:
+        entity_id: input_boolean.room_fun_active
+    - choose:
+        - conditions:
+            - condition: state
+              entity_id: media_player.bravia_vu31
+              state: "on"
+          sequence:
+            - service: input_boolean.turn_on
+              target:
+                entity_id: input_boolean.room_fun_tv_was_on
+      default:
+        - service: input_boolean.turn_off
+          target:
+            entity_id: input_boolean.room_fun_tv_was_on
+    - service: media_player.turn_off
+      target:
+        entity_id: media_player.bravia_vu31
+    - service: remote.turn_off
+      target:
+        entity_id: remote.bravia_vu31
+    - service: light.turn_off
+      target:
+        entity_id: light.master_bedroom_lights
+    - service: light.turn_on
+      target:
+        entity_id:
+          - light.resident_ones_lamp
+          - light.hue_go_1
+      data:
+        brightness_pct: 70
+        rgb_color:
+          - 255
+          - 0
+          - 0
+    - delay:
+        seconds: 2
+    - service: light.turn_off
+      target:
+        entity_id: light.master_bedroom_lights
+    - service: media_player.volume_set
+      target:
+        entity_id: media_player.main_bedroom
+      data:
+        volume_level: 0.2
+    - service: media_player.play_media
+      target:
+        entity_id: media_player.main_bedroom
+      data:
+        media_content_id: https://open.spotify.com/playlist/4Jyn6FDxmOoazM70BkPKN4
+        media_content_type: music
+  mode: single

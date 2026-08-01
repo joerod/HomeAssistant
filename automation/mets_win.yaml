@@ -1,42 +1,118 @@
+alias: "Mets Win"
+mode: single
 trigger:
-  platform: state
-  entity_id: sensor.mets_game_status
-  from: 
-    - "In Progress"
-    - "Game Over"
-  to: "Final"
-condition: 
-  condition: template
-  value_template: >
-    {% if state_attr('sensor.mets_away_score', 'friendly_name') == 'New York Mets' %}
-      {% if states('sensor.mets_away_score') > states('sensor.mets_home_score') %}
-        {{"True"}}
-      {% else %}
-        {{"False"}}
-      {% endif %}
-    {% else %}
-      {% if states('sensor.mets_away_score') < states('sensor.mets_home_score') %}
-        {{"True"}}
-      {% else %}
-        {{"False"}}
-      {% endif %}
-    {% endif %} 
+  - platform: state
+    entity_id: sensor.team_tracker_mets
+    to: "POST"
+condition:
+  - condition: template
+    value_template: >
+      {{
+        trigger.to_state is not none and
+        trigger.to_state.state not in ['unknown', 'unresident_threeilable'] and
+        state_attr('sensor.team_tracker_mets', 'team_winner') == true
+      }}
 action:
-  - service: tts.google_say
-    entity_id: media_player.basement
-    data_template:
-      message: >-
-        {{ [
-          "Mets Win! Mets Win! ",
-          "Put it in the books!. ",
-          "And the ball game is over!. "
-        ] |random }}
-  - delay:
-      seconds: 2      
-  - service: media_player.play_media
-    data_template:
+  - service: sonos.snapshot
+    continue_on_error: true
+    target:
       entity_id:
+        - media_player.kitchen
         - media_player.basement
-      media_content_id: 
-          https://dl.dropboxusercontent.com/s/mqddi7z925om88w/NY_Groove.mp3?dl=0
+    data:
+      with_group: true
+
+  - variables:
+      pre_volume_kitchen: "{{ state_attr('media_player.kitchen', 'volume_level') | float(0.4) }}"
+      pre_volume_basement: "{{ state_attr('media_player.basement', 'volume_level') | float(0.4) }}"
+      now_mins: "{{ now().hour * 60 + now().minute }}"
+      late_cutoff_mins: "{{ 1410 if now().weekday() in [5, 6] else 1320 }}"
+      is_late_game: "{{ now_mins | int(0) > late_cutoff_mins | int(0) }}"
+      announce_volume_kitchen: >-
+        {% set v = pre_volume_kitchen | float(0.4) %}
+        {% if is_late_game %}
+          {{ [v - 0.20, 0.18] | max }}
+        {% else %}
+          {{ v }}
+        {% endif %}
+      announce_volume_basement: >-
+        {% set v = pre_volume_basement | float(0.4) %}
+        {% if is_late_game %}
+          {{ [v - 0.20, 0.18] | max }}
+        {% else %}
+          {{ v }}
+        {% endif %}
+      intro_clip: >-
+        {{ [
+          'https://dl.dropboxusercontent.com/scl/fi/70jmo0rli3jbkmdb8q48l/gary_cohen_ball_game.mp3?rlkey=zcxm44xrmcfd6a4jifol9rwee&dl=0',
+          'https://dl.dropboxusercontent.com/scl/fi/3tosmsvfzsg2chzqrc1jc/howie_rose_put_it_in_the_books.mp3?rlkey=0qpmjj2jtpy5o54596s0ms8ca&dl=0'
+        ] | random }}
+      intro_clip_seconds: >-
+        {% if 'gary_cohen_ball_game.mp3' in intro_clip %}
+          1.92
+        {% else %}
+          1.80
+        {% endif %}
+      audio_buffer_seconds: 0.6
+      ny_groove_seconds: 9.312
+
+  - service: media_player.volume_set
+    continue_on_error: true
+    data:
+      entity_id: media_player.kitchen
+      volume_level: "{{ announce_volume_kitchen }}"
+
+  - service: media_player.volume_set
+    continue_on_error: true
+    data:
+      entity_id: media_player.basement
+      volume_level: "{{ announce_volume_basement }}"
+
+  - variables:
+      intro_clip_started_at: "{{ now().isoformat() }}"
+
+  - service: media_player.play_media
+    data:
+      entity_id:
+        - media_player.kitchen
+        - media_player.basement
+      media_content_id: "{{ intro_clip }}"
       media_content_type: music
+
+  - wait_template: >
+      {{
+        now() >= as_datetime(intro_clip_started_at) + timedelta(seconds=intro_clip_seconds + audio_buffer_seconds) and
+        not is_state('media_player.kitchen', 'playing') and
+        not is_state('media_player.basement', 'playing')
+      }}
+    timeout: '00:00:20'
+    continue_on_timeout: true
+
+  - variables:
+      ny_groove_started_at: "{{ now().isoformat() }}"
+
+  - service: media_player.play_media
+    data:
+      entity_id:
+        - media_player.kitchen
+        - media_player.basement
+      media_content_id: https://dl.dropboxusercontent.com/scl/fi/qwfuw3nlwh1ahqmkbfmnv/ny_groove.mp3?rlkey=2ldwl52eg90r91h1ilfks471a&dl=0
+      media_content_type: music
+
+  - wait_template: >
+      {{
+        now() >= as_datetime(ny_groove_started_at) + timedelta(seconds=ny_groove_seconds + audio_buffer_seconds) and
+        not is_state('media_player.kitchen', 'playing') and
+        not is_state('media_player.basement', 'playing')
+      }}
+    timeout: '00:00:30'
+    continue_on_timeout: true
+
+  - service: sonos.restore
+    continue_on_error: true
+    target:
+      entity_id:
+        - media_player.kitchen
+        - media_player.basement
+    data:
+      with_group: true

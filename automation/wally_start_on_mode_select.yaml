@@ -1,0 +1,21 @@
+alias: Wally start on mode select
+description: Start Wally when clean mode is selected from the dashboard dropdown.
+mode: single
+trigger:
+  - platform: state
+    entity_id: select.wally_clean_mode
+
+condition:
+  - condition: template
+    value_template: "{{ trigger.from_state is not none and trigger.to_state.state != trigger.from_state.state }}"
+  - condition: not
+    conditions:
+      - condition: state
+        entity_id: vacuum.wally
+        state: cleaning
+
+action:
+  - delay: "00:00:01"
+  - service: vacuum.start
+    target:
+      entity_id: vacuum.wally

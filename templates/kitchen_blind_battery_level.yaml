@@ -1,0 +1,4 @@
+- sensor:
+    - name: "Kitchen Blind Battery Level"
+      unit_of_measurement: "%"
+      state: "{{ state_attr('cover.kitchen_blind', 'battery_level') | int(0) }}"

@@ -22,6 +22,6 @@ action:
   - service: media_player.turn_off
     entity_id: mmedia_player.alu
   - service: media_player.turn_off
-    entity_id: media_player.arabella
+    entity_id: media_player.resident_four
   - service: media_player.turn_off
-    entity_id: media_player.ava
+    entity_id: media_player.resident_three

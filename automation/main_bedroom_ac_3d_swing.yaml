@@ -1,0 +1,34 @@
+id: main_bedroom_ac_enable_3d_swing
+alias: Main Bedroom AC Enable 3D Swing When Starting
+description: Enables 3D swing whenever the main-bedroom mini split starts running.
+mode: restart
+
+trigger:
+  - platform: state
+    entity_id: climate.main_bedroom
+    attribute: hvac_action
+    to: cooling
+  - platform: state
+    entity_id: climate.main_bedroom
+    attribute: hvac_action
+    to: heating
+  - platform: state
+    entity_id: climate.main_bedroom
+    attribute: hvac_action
+    to: drying
+  - platform: state
+    entity_id: climate.main_bedroom
+    from: "off"
+
+condition:
+  - condition: template
+    value_template: >-
+      {{ states('climate.main_bedroom') != 'off'
+         and state_attr('climate.main_bedroom', 'swing_mode') != '3D' }}
+
+action:
+  - action: climate.set_swing_mode
+    target:
+      entity_id: climate.main_bedroom
+    data:
+      swing_mode: 3D
