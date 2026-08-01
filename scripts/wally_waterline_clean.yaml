@@ -1,0 +1,13 @@
+wally_waterline_clean:
+  alias: Wally Waterline Clean
+  mode: single
+  sequence:
+    - service: vacuum.set_fan_speed
+      target:
+        entity_id: vacuum.wally
+      data:
+        fan_speed: "Walls only"
+    - delay: "00:00:02"
+    - service: vacuum.start
+      target:
+        entity_id: vacuum.wally

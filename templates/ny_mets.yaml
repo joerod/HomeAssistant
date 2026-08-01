@@ -1,0 +1,29 @@
+- sensor:
+    - name: "Mets Away Score"
+      state: >-
+        {% if states('sensor.mets_game_status') == 'unknown' %}
+          No_Game
+        {% else %}
+          {{ state_attr('sensor.mets_game_status', 'dates')[0]['games'][0]['teams']['away']['score'] }}
+        {% endif %}
+      attributes:
+        entity_picture: >-
+          {% if states('sensor.mets_game_status') == 'unknown' %}
+            https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcR8rGHWIehoVzpadKbNwJhQ_IxdUbKv81ed06p_3fRsSvmJzluS
+          {% else %}
+            https://www.mlbstatic.com/mlb.com/builds/site-core/f1bd3a33969d8febdbcb23b1161db091cf3ae918_1561045539/images/logos/team-primary-on-light/{{ state_attr('sensor.mets_game_status', 'dates')[0]['games'][0]['teams']['away']['team']['id'] | int }}.svg
+          {% endif %}
+    - name: "Mets Home Score"
+      state: >-
+        {% if states('sensor.mets_game_status') == 'unknown' %}
+          No_Game
+        {% else %}
+          {{ state_attr('sensor.mets_game_status', 'dates')[0]['games'][0]['teams']['home']['score'] }}
+        {% endif %}
+      attributes:
+        entity_picture: >-
+          {% if states('sensor.mets_game_status') == 'unknown' %}
+            https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcR8rGHWIehoVzpadKbNwJhQ_IxdUbKv81ed06p_3fRsSvmJzluS
+          {% else %}
+            https://www.mlbstatic.com/mlb.com/builds/site-core/f1bd3a33969d8febdbcb23b1161db091cf3ae918_1561045539/images/logos/team-primary-on-light/{{ state_attr('sensor.mets_game_status', 'dates')[0]['games'][0]['teams']['home']['team']['id'] | int }}.svg
+          {% endif %}

@@ -1,0 +1,15 @@
+- sensor:
+    - name: "Sprinkler ON today Minutes"
+      unique_id: sprinkler_on_today_minutes
+      unit_of_measurement: "min"
+      state_class: measurement
+      icon: mdi:timer-outline
+      state: >-
+        {{ (states('sensor.sprinkler_on_today') | float(0) * 60) | round(0) }}
+    - name: "Sprinkler ON last 7 days Minutes"
+      unique_id: sprinkler_on_last_7_days_minutes
+      unit_of_measurement: "min"
+      state_class: measurement
+      icon: mdi:timer-outline
+      state: >-
+        {{ (states('sensor.sprinkler_on_last_7_days') | float(0) * 60) | round(0) }}

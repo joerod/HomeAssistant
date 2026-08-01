@@ -1,0 +1,11 @@
+alias: "resident_two Room Light Off"
+trigger:
+  platform: time
+  at: '22:00:00'
+condition:
+  - condition: state
+    entity_id: 'person.resident_two'
+    state: 'away'
+action:
+  - service: light.turn_off
+    entity_id: light.resident_twos_room

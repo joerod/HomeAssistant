@@ -1,0 +1,40 @@
+alias: 'Greet resident_one'
+trigger:
+  platform: state
+  entity_id: sensor.resident_one_basement_beacon_distance
+  from: "10"
+  to: "0"
+condition:
+  condition: time
+  after: '09:00:00'
+  before: '22:00:00'
+
+action:
+  - service: sonos.snapshot
+    continue_on_error: true
+    target:
+      entity_id: media_player.basement
+    data:
+      with_group: true
+
+  - service: tts.google_say
+    entity_id: media_player.basement
+    data:
+      message: >-
+        {{ [
+        "Welcome back to the basement resident_one!" ,
+        "Hi handsome!",
+        "Guess who's bizack."
+        ] | random }}
+
+  - wait_template: "{{ not is_state('media_player.basement', 'playing') }}"
+    timeout: '00:01:00'
+    continue_on_timeout: true
+
+  - service: sonos.restore
+    continue_on_error: true
+    target:
+      entity_id: media_player.basement
+    data:
+      with_group: true
+mode: single

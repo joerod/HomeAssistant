@@ -1,0 +1,26 @@
+alias: "Unlock side door"
+id: tessy_home_unlock_side_door
+mode: single
+trigger:
+  - platform: state
+    entity_id: device_tracker.tessy_location
+    from: "not_home"
+    to: "home"
+condition:
+  - condition: state
+    entity_id: lock.side_door
+    state: "locked"
+action:
+  - service: notify.notify
+    data:
+      title: "Tessy Home"
+      message: "🔓 Tessy arrived home. Opening the side door now."
+
+  - service: lock.unlock
+    target:
+      entity_id: lock.side_door
+
+  - service: notify.notify
+    data:
+      title: "Tessy Home"
+      message: "🚪 Side door unlock command sent."

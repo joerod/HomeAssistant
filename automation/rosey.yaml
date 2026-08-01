@@ -1,4 +1,5 @@
 alias: "Rosey vacuums the first floor"
+mode: single
 trigger:
   platform: time
   at: '09:30:00'
@@ -14,32 +15,192 @@ condition:
         - fri
     - condition: template
       value_template: >
-        {% if states('calendar.deerodster_gmail_com') == 'on' and (state_attr('calendar.deerodster_gmail_com', 'message') | regex_match('clean|dina', ignorecase=true)) == 'True' -%}
-         {{ false }}
+        {% if states('calendar.resident_one') == 'on' and (state_attr('calendar.resident_one', 'message') | regex_match('clean', ignorecase=true)) and states('calendar.holidays_in_united_states') == 'off' -%}
+        {{ false }}
         {% else %}
-         {{ true }}
+        {{ true }}
         {%- endif %}
-    - condition: state
-      entity_id: binary_sensor.rosey_bin_full
-      state: 'off'
 action:
-  - service: vacuum.start
-    entity_id: vacuum.rosey
-  - service: notify.all_notify
-    data_template:
-      message:  >-
+  - variables:
+      start_ts: "{{ as_timestamp(now()) | int(0) }}"
+      vacuum_state: "{{ states('vacuum.rosey') }}"
+      vacuum_resident_threeilable: "{{ vacuum_state not in ['unresident_threeilable', 'unknown'] }}"
+      bin_present: "{{ state_attr('vacuum.rosey', 'bin_present') in [true, 'true', 'on', 1] }}"
+      bin_full: "{{ state_attr('vacuum.rosey', 'bin_full') in [true, 'true', 'on', 1] }}"
+      status_text: "{{ state_attr('vacuum.rosey', 'status') or 'no status reported' }}"
+      issue_message: >-
+        {% if not vacuum_resident_threeilable %}
+          Rosey is not accessible right now. Current state is {{ vacuum_state }}.
+        {% elif not bin_present %}
+          Rosey's dust bin is not installed, so I cannot start cleaning.
+        {% elif bin_full %}
+          Rosey's bin is full and needs to be emptied before cleaning.
+        {% elif vacuum_state == 'error' %}
+          Rosey reported an error. Status says: {{ status_text }}.
+        {% else %}
+          Rosey is ready.
+        {% endif %}
+      start_message: >-
         {{ [
-        "🧹 I'm going to vacuum the first floor" ,
-        "🧹 Time to clean up all this cat hair.",
-        "🧹 Time to earn my living."
-        ] |random }}
+          "Initiating first floor clean. Rosey is on the move.",
+          "Housekeeping mode activated. Rosey is ready to shine.",
+          "Starting cleaning cycle now. Rosey has this under control.",
+          "Queue the retro robot voice. Rosey is cleaning the first floor.",
+          "Rosey reporting for duty. First floor cleanup has started."
+        ] | random }}
 
-  - service: tts.google_say
-    entity_id: media_player.kitchen
-    data_template:
-      message: >-
-        {{ [
-        "I'm going to vacuum the first floor" ,
-        "Time to clean up all this cat hair.",
-        "Time to earn my living."
-        ] |random }}
+  - choose:
+      - conditions:
+          - condition: template
+            value_template: "{{ (not vacuum_resident_threeilable) or (not bin_present) or bin_full or vacuum_state == 'error' }}"
+        sequence:
+          - service: sonos.snapshot
+            continue_on_error: true
+            target:
+              entity_id: media_player.kitchen
+            data:
+              with_group: true
+
+          - service: tts.google_say
+            continue_on_error: true
+            target:
+              entity_id: media_player.kitchen
+            data:
+              message: "{{ issue_message }}"
+
+          - service: notify.notify
+            continue_on_error: true
+            data:
+              title: "Rosey Not Started"
+              message: "{{ issue_message }}"
+
+          - wait_template: "{{ not is_state('media_player.kitchen', 'playing') }}"
+            timeout: '00:01:30'
+            continue_on_timeout: true
+
+          - service: sonos.restore
+            continue_on_error: true
+            target:
+              entity_id: media_player.kitchen
+            data:
+              with_group: true
+
+    default:
+      - service: vacuum.start
+        target:
+          entity_id: vacuum.rosey
+
+      - service: sonos.snapshot
+        continue_on_error: true
+        target:
+          entity_id: media_player.kitchen
+        data:
+          with_group: true
+
+      - service: tts.google_say
+        continue_on_error: true
+        target:
+          entity_id: media_player.kitchen
+        data:
+          message: "{{ start_message }}"
+
+      - service: notify.notify
+        continue_on_error: true
+        data:
+          title: "Rosey Started"
+          message: "{{ start_message }}"
+
+      - wait_template: "{{ not is_state('media_player.kitchen', 'playing') }}"
+        timeout: '00:01:30'
+        continue_on_timeout: true
+
+      - service: sonos.restore
+        continue_on_error: true
+        target:
+          entity_id: media_player.kitchen
+        data:
+          with_group: true
+
+      - wait_template: "{{ states('vacuum.rosey') not in ['cleaning', 'returning', 'paused'] }}"
+        timeout: '04:00:00'
+        continue_on_timeout: true
+
+      - variables:
+          runtime_minutes: "{{ ((as_timestamp(now()) | int(0) - start_ts | int(0)) / 60) | round(0) | int }}"
+          complete_message: >-
+            {{ [
+              "Cleaning complete in " ~ runtime_minutes ~ " minutes. Rosey was efficient, elegant, and absolutely iconic.",
+              "Rosey finished in " ~ runtime_minutes ~ " minutes. Jetsons-level housekeeping achieved.",
+              "Mission complete. Rosey wrapped the first floor in " ~ runtime_minutes ~ " minutes like a pro.",
+              "Rosey is done after " ~ runtime_minutes ~ " minutes. Retro robot excellence delivered.",
+              "First floor complete in " ~ runtime_minutes ~ " minutes. Rosey stays undefeated."
+            ] | random }}"
+          timeout_message: >-
+            Rosey started cleaning, but I did not see a completion state within 4 hours. Please check the robot status.
+
+      - choose:
+          - conditions:
+              - condition: template
+                value_template: "{{ wait.completed }}"
+            sequence:
+              - service: sonos.snapshot
+                continue_on_error: true
+                target:
+                  entity_id: media_player.kitchen
+                data:
+                  with_group: true
+
+              - service: tts.google_say
+                continue_on_error: true
+                target:
+                  entity_id: media_player.kitchen
+                data:
+                  message: "{{ complete_message }}"
+
+              - service: notify.notify
+                continue_on_error: true
+                data:
+                  title: "Rosey Finished"
+                  message: "{{ complete_message }}"
+
+              - wait_template: "{{ not is_state('media_player.kitchen', 'playing') }}"
+                timeout: '00:01:30'
+                continue_on_timeout: true
+
+              - service: sonos.restore
+                continue_on_error: true
+                target:
+                  entity_id: media_player.kitchen
+                data:
+                  with_group: true
+        default:
+          - service: sonos.snapshot
+            continue_on_error: true
+            target:
+              entity_id: media_player.kitchen
+            data:
+              with_group: true
+
+          - service: tts.google_say
+            continue_on_error: true
+            target:
+              entity_id: media_player.kitchen
+            data:
+              message: "{{ timeout_message }}"
+
+          - service: notify.notify
+            continue_on_error: true
+            data:
+              title: "Rosey Check Needed"
+              message: "{{ timeout_message }}"
+
+          - wait_template: "{{ not is_state('media_player.kitchen', 'playing') }}"
+            timeout: '00:01:30'
+            continue_on_timeout: true
+
+          - service: sonos.restore
+            continue_on_error: true
+            target:
+              entity_id: media_player.kitchen
+            data:
+              with_group: true

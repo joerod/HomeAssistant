@@ -1,0 +1,158 @@
+alias: "Knicks Win"
+mode: queued
+max: 3
+trigger:
+  - platform: template
+    value_template: >-
+      {{
+        states('sensor.team_tracker_knicks') == 'POST'
+        and state_attr('sensor.team_tracker_knicks', 'team_winner') == true
+      }}
+condition:
+  - condition: template
+    value_template: >
+      {{
+        states('sensor.team_tracker_knicks') not in ['unknown', 'unresident_threeilable'] and
+        state_attr('sensor.team_tracker_knicks', 'team_winner') == true
+      }}
+action:
+  - variables:
+      targets:
+        - media_player.kitchen
+        - media_player.basement
+      loud_volume: 0.6
+      pre_volume_kitchen: "{{ state_attr('media_player.kitchen', 'volume_level') | float(0.4) }}"
+      pre_volume_basement: "{{ state_attr('media_player.basement', 'volume_level') | float(0.4) }}"
+      now_mins: "{{ now().hour * 60 + now().minute }}"
+      late_cutoff_mins: "{{ 1410 if now().weekday() in [5, 6] else 1320 }}"
+      is_late_game: "{{ now_mins | int(0) > late_cutoff_mins | int(0) }}"
+      team_score: "{{ state_attr('sensor.team_tracker_knicks', 'team_score') | int(0) }}"
+      opp_score: "{{ state_attr('sensor.team_tracker_knicks', 'opponent_score') | int(0) }}"
+      walt_clyde_lines:
+        - "Dishing and swishing."
+        - "Posting and toasting."
+        - "Wheeling and dealing."
+        - "Hooping and swooping."
+        - "Shaking and baking."
+      walt_clyde_line: "{{ walt_clyde_lines | random }}"
+      win_announcement: >-
+        The Knicks win {{ team_score }} to {{ opp_score }}.
+        {{ walt_clyde_line }}
+      audio_buffer_seconds: 0.6
+      bang_bang_seconds: 2.52
+      go_ny_go_seconds: 19.2
+      announce_volume_kitchen: >-
+        {% set v = pre_volume_kitchen | float(0.4) %}
+        {% if now().month in [5, 6] %}
+          {{ loud_volume }}
+        {% elif is_late_game %}
+          {{ [v - 0.20, 0.18] | max }}
+        {% else %}
+          {{ loud_volume }}
+        {% endif %}
+      announce_volume_basement: >-
+        {% set v = pre_volume_basement | float(0.4) %}
+        {% if now().month in [5, 6] %}
+          {{ loud_volume }}
+        {% elif is_late_game %}
+          {{ [v - 0.20, 0.18] | max }}
+        {% else %}
+          {{ loud_volume }}
+        {% endif %}
+      team: "{{ state_attr('sensor.team_tracker_knicks', 'team_long_name') or 'New York Knicks' }}"
+      opp: "{{ state_attr('sensor.team_tracker_knicks', 'opponent_long_name') or 'their opponent' }}"
+      team_score: "{{ state_attr('sensor.team_tracker_knicks', 'team_score') | int(0) }}"
+      opp_score: "{{ state_attr('sensor.team_tracker_knicks', 'opponent_score') | int(0) }}"
+
+  - service: media_player.volume_set
+    continue_on_error: true
+    data:
+      entity_id: media_player.kitchen
+      volume_level: "{{ announce_volume_kitchen }}"
+
+  - service: media_player.volume_set
+    continue_on_error: true
+    data:
+      entity_id: media_player.basement
+      volume_level: "{{ announce_volume_basement }}"
+
+  - service: tts.google_say
+    continue_on_error: true
+    data:
+      entity_id:
+        - media_player.kitchen
+        - media_player.basement
+      message: "{{ win_announcement }}"
+      language: "en"
+
+  - wait_template: >
+      {{
+        is_state('media_player.kitchen', 'playing') or
+        is_state('media_player.basement', 'playing')
+      }}
+    timeout: '00:00:10'
+    continue_on_timeout: true
+
+  - wait_template: >
+      {{
+        not is_state('media_player.kitchen', 'playing') and
+        not is_state('media_player.basement', 'playing')
+      }}
+    timeout: '00:00:30'
+    continue_on_timeout: true
+
+  - variables:
+      bang_bang_started_at: "{{ now().isoformat() }}"
+
+  - service: media_player.play_media
+    continue_on_error: true
+    target:
+      entity_id:
+        - media_player.kitchen
+        - media_player.basement
+    data:
+      media_content_id: https://www.dropbox.com/scl/fi/9035koob7jvgi31mpndik/Mike-Breen-Bang-Bang.mp3?rlkey=zsngy5b0kkd1usv21m8ei1tcf&st=kqgrn1h2&dl=0
+      media_content_type: music
+
+  - wait_template: >
+      {{
+        now() >= as_datetime(bang_bang_started_at) + timedelta(seconds=bang_bang_seconds + audio_buffer_seconds) and
+        not is_state('media_player.kitchen', 'playing') and
+        not is_state('media_player.basement', 'playing')
+      }}
+    timeout: '00:00:30'
+    continue_on_timeout: true
+
+  - variables:
+      go_ny_go_started_at: "{{ now().isoformat() }}"
+
+  - service: media_player.play_media
+    continue_on_error: true
+    target:
+      entity_id:
+        - media_player.kitchen
+        - media_player.basement
+    data:
+      media_content_id: https://www.dropbox.com/scl/fi/ix3pfgu7wocg3e0kfkdmp/Knicks-Go-NY-Go.mp3?rlkey=a9dd35pzg63kk2pqz0rosb30f&st=6z3m321f&dl=0
+      media_content_type: music
+
+  - wait_template: >
+      {{
+        now() >= as_datetime(go_ny_go_started_at) + timedelta(seconds=go_ny_go_seconds + audio_buffer_seconds) and
+        not is_state('media_player.kitchen', 'playing') and
+        not is_state('media_player.basement', 'playing')
+      }}
+    timeout: '00:00:45'
+    continue_on_timeout: true
+
+  - service: media_player.volume_set
+    continue_on_error: true
+    data:
+      entity_id: media_player.kitchen
+      volume_level: "{{ pre_volume_kitchen }}"
+
+  - service: media_player.volume_set
+    continue_on_error: true
+    data:
+      entity_id: media_player.basement
+      volume_level: "{{ pre_volume_basement }}"

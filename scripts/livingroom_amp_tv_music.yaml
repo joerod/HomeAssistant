@@ -1,0 +1,51 @@
+tv_surround_sound_music:
+  sequence:
+    - variables:
+        spotify_device: "Living Room"
+        receiver_source: "Spotify"
+
+    - service: media_player.turn_on
+      target:
+        entity_id: media_player.yamaha_receiver
+
+    - service: wake_on_lan.send_magic_packet
+      data:
+        broadcast_port: 9
+        mac: 00:00:00:00:00:00
+
+    - delay: "00:00:03"
+
+    - wait_template: "{{ not is_state('media_player.yamaha_receiver', 'off') }}"
+      timeout: "00:00:20"
+      continue_on_timeout: true
+
+    - service: media_player.select_source
+      data:
+        entity_id: media_player.yamaha_receiver
+        source: "{{ receiver_source }}"
+
+    - service: media_player.volume_set
+      data:
+        entity_id: media_player.yamaha_receiver
+        volume_level: 0.650
+
+    - choose:
+        - conditions:
+            - condition: template
+              value_template: "{{ is_state('media_player.living_room_tv', 'on') }}"
+          sequence:
+            - service: media_player.volume_set
+              data:
+                entity_id: media_player.living_room_tv
+                volume_level: 0.0
+
+    - service: media_player.select_source
+      data:
+        entity_id: media_player.spotify_resident_one
+        source: "{{ spotify_device }}"
+
+    - delay: "00:00:02"
+
+    - service: media_player.media_play
+      target:
+        entity_id: media_player.spotify_resident_one

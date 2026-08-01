@@ -1,0 +1,5 @@
+dryer_time_left:
+  alias: Dryer Time Left
+  mode: single
+  sequence:
+    - action: script.dryer_time_remaining_alexa

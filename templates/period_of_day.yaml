@@ -1,0 +1,18 @@
+- sensor:
+    - name: "Period of Day"
+      state: >-
+        {% if (as_timestamp(state_attr('sun.sun', 'next_dusk'))) - (as_timestamp(state_attr('sun.sun', 'next_setting'))) < 0 %}
+          dusk
+        {% elif (as_timestamp(state_attr('sun.sun', 'next_rising'))) - (as_timestamp(state_attr('sun.sun', 'next_dawn'))) < 0 %}
+          dawn
+        {% elif (state_attr('sun.sun', 'elevation') | float(0)) < 0 %}
+          night
+        {% else %}
+          day
+        {% endif %}
+      icon: >-
+        {% if is_state('sun.sun', 'above_horizon') %}
+          mdi:weather-sunny
+        {% else %}
+          mdi:weather-night
+        {% endif %}

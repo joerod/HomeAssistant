@@ -1,5 +1,5 @@
   - platform: mqtt
-    name: "Arabella's Night Light"
+    name: "resident_four's Night Light"
     command_topic: "cmnd/sonoffS31-1/POWER"
     state_topic: "stat/sonoffS31-1/POWER"
     payload_on: "ON"
@@ -34,4 +34,3 @@
     payload_off: "OFF"
     retain: true
 
-   

@@ -1,4 +1,4 @@
-# Turns on sprinkler if the probability of rain is below 35%
+# Turns on sprinkler at dawn unless recent rain or forecast precipitation is high.
 alias: 'Garden Sprinkler'
 trigger:
   platform: state
@@ -7,27 +7,76 @@ trigger:
 condition:
   condition: and
   conditions:
+    - condition: time
+      weekday:
+        - tue
+        - sat
     - condition: numeric_state
-      entity_id: sensor.dark_sky_precip_probability
-      below: 35
-    - condition: numeric_state
-      entity_id: sensor.dark_sky_temperature
+      entity_id: sensor.openweathermap_feels_like_temperature
       above: 50
     - condition: template
-      value_template: '{% if now().month in [4,5,6,7,8,9] %}{{true}}{% else %}{{false}}{% endif %}'
+      value_template: '{% if now().month in [4,5,6,7,8,9,10] %}{{true}}{% else %}{{false}}{% endif %}'
 action:
-- service: switch.turn_on
-  entity_id: switch.garden_sprinkler
-- service: notify.mobile_app_joerod_s_iphone
-  data_template:
-    message: >
-      💦 Garden sprinkler has been turned on.
-      Chance of Rain - {{ states('sensor.dark_sky_precip_probability') }}%
-- delay:
-    minutes: 5
-- service: switch.turn_off
-  entity_id: switch.garden_sprinkler
-- service: notify.mobile_app_joerod_s_iphone
-  data_template:
-    message: >
-      💦 Garden sprinkler has been turned off.
+  - action: weather.get_forecasts
+    target:
+      entity_id: weather.home
+    data:
+      type: daily
+    response_variable: daily_forecast
+  - variables:
+      precipitation_threshold_in: 0.02
+      has_forecast: >-
+        {% set f = daily_forecast.get('weather.home', {}).get('forecast', []) if daily_forecast is defined else [] %}
+        {{ f | count > 0 }}
+      precipitation_amount: >-
+        {% set f = daily_forecast.get('weather.home', {}).get('forecast', []) if daily_forecast is defined else [] %}
+        {% if f | count > 0 and f[0].precipitation is not none %}
+          {{ f[0].precipitation | float(0) }}
+        {% else %}
+          -1
+        {% endif %}
+      recent_rain_total: >-
+        {% set last_5 = states('sensor.garden_rain_last_5_days_total') %}
+        {{ last_5 | float(states('sensor.garden_rain_accumulated') | float(0)) }}
+      recent_rain_threshold_in: "{{ states('input_number.garden_sprinkler_inches_per_10_minutes') | float(0.25) }}"
+  - choose:
+      - conditions:
+          - condition: template
+            value_template: "{{ recent_rain_total >= recent_rain_threshold_in }}"
+        sequence:
+          - service: notify.notify
+            data:
+              message: >-
+                🌧️ Garden sprinkler skipped because recent rain totaled
+                {{ recent_rain_total | round(2) }} in over the last few days,
+                which meets or exceeds the sprinkler cycle threshold of
+                {{ recent_rain_threshold_in | round(2) }} in.
+      - conditions:
+          - condition: template
+            value_template: "{{ has_forecast and precipitation_amount >= 0 and precipitation_amount < precipitation_threshold_in }}"
+        sequence:
+          - service: switch.turn_on
+            entity_id: switch.virtual_sprinkler
+          - service: notify.notify
+            data:
+              message: >-
+                💦 Garden sprinkler turned on (forecast precipitation
+                {{ precipitation_amount | round(2) }} in, threshold
+                {{ precipitation_threshold_in | round(2) }} in).
+      - conditions:
+          - condition: template
+            value_template: "{{ has_forecast and precipitation_amount >= precipitation_threshold_in }}"
+        sequence:
+          - service: notify.notify
+            data:
+              message: >-
+                🌧️ Garden sprinkler skipped due to forecast precipitation
+                {{ precipitation_amount | round(2) }} in (threshold
+                {{ precipitation_threshold_in | round(2) }} in).
+    default:
+      - service: notify.notify
+        data:
+          message: >-
+            🌧️ Garden sprinkler skipped because forecast data was unresident_threeilable.
+            (weather.get_forecasts returned no daily forecast)
+mode: single

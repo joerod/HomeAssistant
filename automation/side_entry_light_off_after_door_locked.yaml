@@ -18,7 +18,7 @@ action:
   - service: homeassistant.turn_off
     target:
       entity_id: group.side_entrance_lights
-  - service: notify.all_notify
+  - service: notify.notify
     data:
       message:
         The side door was locked and the side entrance light was still on so I turned it off.

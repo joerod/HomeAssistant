@@ -1,0 +1,20 @@
+  - binary_sensor:
+      - name: "Dashboard lights on"
+        unique_id: dashboard_lights_on
+        state: >
+          {{
+            is_state('switch.font_door_lights', 'on') or
+            is_state('switch.side_door_light', 'on') or
+            is_state('light.side_entrance_light', 'on') or
+            is_state('light.kitchen_light', 'on') or
+            is_state('light.dinning_room', 'on') or
+            is_state('light.office', 'on') or
+            is_state('light.office_desk_lightstrip', 'on') or
+            is_state('switch.yard_lights', 'on') or
+            is_state('group.main_bedroom_lamps', 'on') or
+            is_state('light.twinkly_37bdd1', 'on')
+          }}
+      - name: "Twinkly light exists"
+        unique_id: twinkly_light_exists
+        state: >
+          {{ states('light.twinkly_37bdd1') not in ['unknown', 'unresident_threeilable'] }}

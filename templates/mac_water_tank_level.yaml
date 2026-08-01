@@ -1,0 +1,6 @@
+- sensor:
+    - name: Mac Water Tank Level
+      icon: mdi:car-coolant-level
+      unit_of_measurement: "%"
+      state_class: measurement
+      state: "{{ state_attr('vacuum.henry_orbit', 'tank_level') }}"

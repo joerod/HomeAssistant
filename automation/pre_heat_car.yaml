@@ -16,24 +16,40 @@ condition:
       value_template: "{{is_state_attr('binary_sensor.tessy_parking_brake_sensor','shift_state','P')}}"
     - condition: numeric_state
       entity_id: sensor.tessy_temperature_sensor_inside
-      below: 50
+      below: 45
     - condition: numeric_state
       entity_id: sensor.tessy_battery_sensor
       above: 55
-    - condition: template
-      value_template: "{{is_state_attr('sensor.next_school_closure', 'status', 'Open')}}"
 action:
-- service: climate.turn_on
-  entity_id: climate.tessy_hvac_climate_system
-- service: climate.set_temperature
-  data:
-    temperature: 70
-    hvac_mode: heat
-  entity_id: climate.tessy_hvac_climate_system
-- service: notify.mobile_app_joerod_s_iphone
-  data_template:
-    message: >
-      🔥 Warming up Tessy.
-      Tessy's inside temerpature is - {{ state_attr('climate.tessy_hvac_climate_system', 'current_temperature') }}°         
-
-      
+  - action: calendar.get_events
+    target:
+      entity_id: calendar.sfp_school_calendar
+    data:
+      start_date_time: "{{ today_at('00:00') }}"
+      end_date_time: "{{ today_at('23:59:59') }}"
+    response_variable: sfp_school_events
+  - condition: template
+    value_template: >
+      {% set events = sfp_school_events['calendar.sfp_school_calendar']['events'] | default([], true) %}
+      {% set ns = namespace(skip=false) %}
+      {% for event in events %}
+        {% set summary = event.summary | default('', true) | lower %}
+        {% if summary | regex_search('no classes|no school|school(s)? closed|break|holiday|recess|conference|clerical|staff development') %}
+          {% set ns.skip = true %}
+        {% endif %}
+      {% endfor %}
+      {{ not ns.skip }}
+  - service: climate.turn_on
+    target:
+      entity_id: climate.tessy_hvac_climate_system
+  - service: climate.set_temperature
+    target:
+      entity_id: climate.tessy_hvac_climate_system
+    data:
+      temperature: 70
+      hvac_mode: heat
+  - service: notify.mobile_app_resident_one_s_iphone
+    data:
+      message: >
+        🔥 Warming up Tessy.
+        Tessy's inside temerpature is - {{ state_attr('climate.tessy_hvac_climate_system', 'current_temperature') }}%

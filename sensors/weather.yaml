@@ -1,21 +1,5 @@
-  - platform: darksky
-    api_key: !secret dark_sky_password
-    monitored_conditions:
-      - summary
-      - icon
-      - nearest_storm_distance
-      - precip_intensity_max
-      - temperature
-      - precip_type
-      - precip_probability
-      - precip_intensity
-      - cloud_cover
-  - platform: waqi
-    token: !secret waqi_token
-    locations:
-      - maspeth
   - platform: statistics
-    entity_id: sensor.dark_sky_temperature
+    entity_id: sensor.openweathermap_feels_like_temperature
     state_characteristic: value_max
     max_age:
       hours: 15

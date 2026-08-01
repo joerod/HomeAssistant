@@ -5,8 +5,8 @@
       - light.side_entrance
       - switch.kitchen_light
       - switch.dining_room_light
-      - light.arabellas_night_light
-      - light.arabellas_room
-      - light.alys_room
-      - light.avas_room
+      - light.resident_fours_night_light
+      - light.resident_fours_room
+      - light.resident_twos_room
+      - light.resident_threes_room
       - light.master_bedroom_lights

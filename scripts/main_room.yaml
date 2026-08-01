@@ -11,26 +11,26 @@ main_room_sleep:
         entity_id: light.master_bedroom_lights
     - service: climate.turn_on
       data:
-        entity_id: climate.main_bedroom   
+        entity_id: climate.main_bedroom
     - service: climate.set_fan_mode
       data:
-        entity_id: climate.main_bedroom   
-        fan_mode: Silence 
+        entity_id: climate.main_bedroom
+        fan_mode: Silence
     - service: light.turn_on
       data:
-        entity_id: light.joes_lamp
+        entity_id: light.resident_ones_lamp
         rgb_color:
           - 63
           - 57
           - 255
-        brightness: 77  
+        brightness: 77
     - service: media_player.turn_on
       target:
         entity_id: media_player.sony_bravia_tv
     - service: lock.lock
-      data:   
+      data:
         entity_id: lock.side_door
-        
+
 main_room_wake:
   sequence:
     - service: cover.open_cover

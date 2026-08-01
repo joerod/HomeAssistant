@@ -1,0 +1,75 @@
+dryer_time_remaining_alexa:
+  alias: Dryer Time Remaining Alexa
+  mode: single
+  sequence:
+    - variables:
+        dryer_tts_target: media_player.main_bedroom
+        dryer_status: "{{ states('sensor.dryer_current_status') | lower }}"
+        dryer_remaining_time: "{{ states('sensor.dryer_remaining_time') }}"
+        dryer_is_active: "{{ dryer_status in ['running', 'initial', 'cooling'] }}"
+        dryer_minutes_left: >-
+          {% set bad = ['unknown', 'unresident_threeilable', '', 'none'] %}
+          {% if dryer_is_active and dryer_remaining_time | lower not in bad %}
+            {% set mins = (((as_timestamp(dryer_remaining_time) - as_timestamp(now())) / 60) | round(0, 'ceil')) | int %}
+            {% if mins < 0 and dryer_status == 'cooling' %}
+              0
+            {% else %}
+              {{ [mins, 0] | max }}
+            {% endif %}
+          {% else %}
+            -1
+          {% endif %}
+        dryer_response: >-
+          {% if dryer_is_active and dryer_minutes_left | int >= 0 %}
+            The dryer has about {{ dryer_minutes_left }} minute{% if dryer_minutes_left | int != 1 %}s{% endif %} remaining.
+          {% elif dryer_status in ['end', 'power_off', 'off', 'idle'] %}
+            The dryer is not running right now.
+          {% else %}
+            I can't read the dryer time right now.
+          {% endif %}
+    - choose:
+        - conditions:
+            - condition: template
+              value_template: "{{ states(dryer_tts_target) not in ['unknown', 'unresident_threeilable'] }}"
+          sequence:
+            - service: sonos.snapshot
+              continue_on_error: true
+              data:
+                with_group: true
+                entity_id:
+                  - "{{ dryer_tts_target }}"
+
+            - service: media_player.media_stop
+              continue_on_error: true
+              target:
+                entity_id: "{{ dryer_tts_target }}"
+
+            - delay: "00:00:01"
+
+            - service: tts.google_say
+              continue_on_error: true
+              data:
+                entity_id: "{{ dryer_tts_target }}"
+                message: "{{ dryer_response }}"
+                cache: false
+                language: en-us
+
+            - wait_template: "{{ is_state(dryer_tts_target, 'playing') }}"
+              timeout: "00:00:08"
+              continue_on_timeout: true
+
+            - wait_template: "{{ not is_state(dryer_tts_target, 'playing') }}"
+              timeout: "00:00:45"
+              continue_on_timeout: true
+
+            - service: sonos.restore
+              continue_on_error: true
+              data:
+                with_group: true
+                entity_id:
+                  - "{{ dryer_tts_target }}"
+      default:
+        - action: notify.mobile_app_resident_one_iphone
+          data:
+            title: Dryer status
+            message: "{{ dryer_response }}"

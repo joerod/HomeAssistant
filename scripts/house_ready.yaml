@@ -1,0 +1,43 @@
+house_ready:
+  sequence:
+    - service: vacuum.start
+      entity_id: vacuum.rosey
+    - service: cover.set_cover_position
+      data:
+        entity_id: cover.kitchen_blind
+        position: 55
+    - service: switch.turn_on
+      entity_id: switch.switch_4
+    - choose:
+        - conditions:
+            - condition: numeric_state
+              entity_id: sun.sun
+              attribute: elevation
+              below: -2.5
+          sequence:
+            - service: light.turn_on
+              data:
+                entity_id:
+                  - light.kitchen_light
+                  - light.dinning_room
+                brightness_pct: 20
+            - service: light.turn_on
+              target:
+                entity_id:
+                  - light.resident_ones_lamp
+                  - light.hue_go_1
+              data:
+                rgb_color:
+                  - 239
+                  - 46
+                  - 46
+    - choose:
+        - conditions:
+            - condition: template
+              value_template: >
+                {{ states.climate.main_bedroom.attributes.current_temperature > 70 and (5 <= now().month <= 10) }}
+          sequence:
+            - service: climate.set_hvac_mode
+              entity_id: climate.main_bedroom
+              data:
+                hvac_mode: cool

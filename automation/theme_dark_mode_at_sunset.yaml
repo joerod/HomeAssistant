@@ -1,0 +1,10 @@
+alias: Theme dark mode at sunset
+mode: single
+trigger:
+  - platform: sun
+    event: sunset
+action:
+  - service: frontend.set_theme
+    data:
+      name: default
+      name_dark: ios-dark-mode

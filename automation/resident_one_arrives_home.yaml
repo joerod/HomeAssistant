@@ -1,0 +1,44 @@
+trigger:
+  platform: state
+  entity_id: person.resident_one
+  from: "not_home"
+  to: "home"
+  for:
+    seconds: 60
+condition:
+  condition: time
+  before: "20:00:00"
+  after:
+    "08:00:00"
+    #"{{ states('input_number.lock_min')|int }}"
+action:
+  - service: input_number.set_value
+    data_template:
+      entity_id: input_number.kitchen_sonos
+      value: "{{ r | float }}"
+  - service: notify.mobile_app_resident_one_s_iphone
+    data:
+      message: Welcome home Mr. R
+  - service: lock.unlock
+    entity_id: lock.side_door_lock
+  - delay: 00:00:10
+  - service: tts.google_say
+    entity_id: media_player.kitchen
+    data_template:
+      message: >-
+        {{ [
+        "Welcome home Mr. R. " ,
+        "Hi resident_one " ,
+        "Nice to see you back resident_one. " ,
+        "What's going on resident_one Rod? " ,
+        "Hi resident_one, looking handsome as always. "
+        ] |random }}
+  - service: tts.google_say
+    entity_id: media_player.basement
+    data:
+      message: "resident_one is home"
+  - service: media_player.volume_set
+    data_template:
+      entity_id: media_player.kitchen
+      volume_level: "{{ input_number.kitchen_sonos }}"
+alias: "Welcome home resident_one"

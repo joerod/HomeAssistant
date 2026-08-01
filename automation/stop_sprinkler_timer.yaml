@@ -1,0 +1,10 @@
+alias: Turn Off Sprinkler When Timer Ends
+trigger:
+  - platform: event
+    event_type: timer.finished
+    event_data:
+      entity_id: timer.sprinkler_timer
+action:
+  - service: switch.turn_off
+    target:
+      entity_id: switch.virtual_sprinkler

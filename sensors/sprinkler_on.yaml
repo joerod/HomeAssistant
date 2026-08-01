@@ -1,0 +1,14 @@
+  - platform: history_stats
+    name: Sprinkler ON today
+    entity_id: switch.virtual_sprinkler
+    state: "on"
+    type: time
+    start: "{{ now().replace(hour=0, minute=0, second=0) }}"
+    end: "{{ now() }}"
+  - platform: history_stats
+    name: Sprinkler ON last 7 days
+    entity_id: switch.virtual_sprinkler
+    state: "on"
+    type: time
+    start: "{{ now() - timedelta(days=7) }}"
+    end: "{{ now() }}"

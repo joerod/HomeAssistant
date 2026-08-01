@@ -1,0 +1,25 @@
+  - binary_sensor:
+      - default_entity_id: binary_sensor.sanitation_pickup_tomorrow
+        name: "Sanitation Pickup Tomorrow"
+        state: >-
+          {% set exception = is_state('binary_sensor.nyc311_sanitation_exception_tomorrow', 'on') %}
+          {% set pickup_weekdays = [0, 3] %}
+          {% set tomorrow = (now() + timedelta(days=1)).date() %}
+          {{ (not exception) and (tomorrow.weekday() in pickup_weekdays) }}
+        icon: >-
+          {% if is_state('binary_sensor.nyc311_sanitation_exception_tomorrow', 'on') %}
+            mdi:delete-off
+          {% elif (now() + timedelta(days=1)).date().weekday() in [0, 3] %}
+            mdi:delete
+          {% else %}
+            mdi:delete-off
+          {% endif %}
+        attributes:
+          description: >-
+            {% if is_state('binary_sensor.nyc311_sanitation_exception_tomorrow', 'on') %}
+              {{ state_attr('binary_sensor.nyc311_sanitation_exception_tomorrow', 'description') }}
+            {% elif (now() + timedelta(days=1)).date().weekday() in [0, 3] %}
+              Sanitation pickup scheduled for tomorrow.
+            {% else %}
+              No pickup scheduled for tomorrow.
+            {% endif %}

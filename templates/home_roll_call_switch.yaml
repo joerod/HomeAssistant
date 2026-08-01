@@ -1,0 +1,7 @@
+- switch:
+    - name: House Check
+      unique_id: home_roll_call_switch
+      state: "{{ is_state('script.who_is_home', 'on') }}"
+      turn_on:
+        - action: script.who_is_home
+      turn_off: []

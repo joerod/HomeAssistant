@@ -1,0 +1,50 @@
+alias: "Rosey vacuums bin alert"
+trigger:
+  platform: time_pattern
+  hours: "/1"
+condition:
+  condition: and
+  conditions:
+    - condition: state
+      entity_id: binary_sensor.agnes_bin_full
+      state: 'on'
+    - condition: time
+      before: '20:00:00'
+      after: '18:00:00'
+    - condition: state
+      entity_id: person.resident_one
+      state: 'home'
+action:
+  - service: notify.notify
+    data:
+      message: "🧹 Agnes' bin is full."
+
+  - service: sonos.snapshot
+    continue_on_error: true
+    target:
+      entity_id: media_player.basement
+    data:
+      with_group: true
+
+  - service: tts.google_say
+    entity_id:
+      - media_player.basement
+    data:
+      message: >-
+        {{ [
+        "Agnes'bin is full.",
+        "Hey, give Agnes a look, her bin is full.",
+        "Agnes' can't clean if her bin is full, please empty it."
+        ] | random }}
+
+  - wait_template: "{{ not is_state('media_player.basement', 'playing') }}"
+    timeout: '00:01:00'
+    continue_on_timeout: true
+
+  - service: sonos.restore
+    continue_on_error: true
+    target:
+      entity_id: media_player.basement
+    data:
+      with_group: true
+mode: single

@@ -1,0 +1,111 @@
+alias: "Rangers Win"
+trigger:
+  platform: state
+  entity_id: sensor.team_tracker_nyrangers
+  from: "IN"
+condition:
+  condition: template
+  value_template: >
+    {{ state_attr('sensor.team_tracker_nyrangers', 'team_winner') == true }}
+action:
+  - service: sonos.snapshot
+    continue_on_error: true
+    target:
+      entity_id:
+        - media_player.kitchen
+        - media_player.basement
+    data:
+      with_group: true
+
+  - variables:
+      pre_volume_kitchen: "{{ state_attr('media_player.kitchen', 'volume_level') | float(0.4) }}"
+      pre_volume_basement: "{{ state_attr('media_player.basement', 'volume_level') | float(0.4) }}"
+      now_mins: "{{ now().hour * 60 + now().minute }}"
+      late_cutoff_mins: "{{ 1410 if now().weekday() in [5, 6] else 1320 }}"
+      is_late_game: "{{ now_mins | int(0) > late_cutoff_mins | int(0) }}"
+      announce_volume_kitchen: >-
+        {% set v = pre_volume_kitchen | float(0.4) %}
+        {% if is_late_game %}
+          {{ [v - 0.20, 0.18] | max }}
+        {% else %}
+          {{ v }}
+        {% endif %}
+      announce_volume_basement: >-
+        {% set v = pre_volume_basement | float(0.4) %}
+        {% if is_late_game %}
+          {{ [v - 0.20, 0.18] | max }}
+        {% else %}
+          {{ v }}
+        {% endif %}
+      audio_buffer_seconds: 0.6
+      horn_seconds: 24.696
+
+  - service: media_player.volume_set
+    continue_on_error: true
+    data:
+      entity_id: media_player.kitchen
+      volume_level: "{{ announce_volume_kitchen }}"
+
+  - service: media_player.volume_set
+    continue_on_error: true
+    data:
+      entity_id: media_player.basement
+      volume_level: "{{ announce_volume_basement }}"
+
+  - service: tts.google_say
+    entity_id:
+      - media_player.kitchen
+      - media_player.basement
+    data:
+      message: >-
+        {{ [
+          "Rangers win!",
+          "Broadway blue shirts take it!",
+          "Rangers win at the Garden!"
+        ] | random }}
+
+  - wait_template: >
+      {{
+        is_state('media_player.kitchen', 'playing') or
+        is_state('media_player.basement', 'playing')
+      }}
+    timeout: '00:00:10'
+    continue_on_timeout: true
+
+  - wait_template: >
+      {{
+        not is_state('media_player.kitchen', 'playing') and
+        not is_state('media_player.basement', 'playing')
+      }}
+    timeout: '00:01:00'
+    continue_on_timeout: true
+
+  - variables:
+      horn_started_at: "{{ now().isoformat() }}"
+
+  - service: media_player.play_media
+    data:
+      entity_id:
+        - media_player.kitchen
+        - media_player.basement
+      media_content_id: https://dl.dropboxusercontent.com/scl/fi/6uu6nxlj7ut6fv60hfyum/rangers_horn_goal.mp3?rlkey=w3pvo4oodt0wjafsja5ij97gt&dl=0
+      media_content_type: music
+
+  - wait_template: >
+      {{
+        now() >= as_datetime(horn_started_at) + timedelta(seconds=horn_seconds + audio_buffer_seconds) and
+        not is_state('media_player.kitchen', 'playing') and
+        not is_state('media_player.basement', 'playing')
+      }}
+    timeout: '00:00:45'
+    continue_on_timeout: true
+
+  - service: sonos.restore
+    continue_on_error: true
+    target:
+      entity_id:
+        - media_player.kitchen
+        - media_player.basement
+    data:
+      with_group: true
+mode: single

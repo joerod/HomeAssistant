@@ -15,11 +15,10 @@ condition:
       entity_id: sun.sun
       value_template: "{{ state_attr('sun.sun', 'elevation') }}"
       below: -2.5
-action:      
+action:
   - service: switch.turn_on
-    data:   
-      entity_id: 
-        - switch.front_door_lights
+    data:
+      entity_id: switch.font_door_lights
   - service: timer.start
     target:
       entity_id: timer.front_door_lights

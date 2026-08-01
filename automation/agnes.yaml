@@ -20,32 +20,53 @@ condition:
          {{ true }}
         {%- endif %}
     - condition: state
-      entity_id: binary_sensor.rosie_bin_full
+      entity_id: binary_sensor.agnes_bin_full
       state: 'off'
 action:
   - service: vacuum.start
     entity_id: vacuum.agnes
+
   - service: light.turn_on
-    data:   
-      entity_id: 
+    data:
+      entity_id:
         - light.side_entrace_basement
-        - light.office_light      
-      brightness_pct: 100  
-  - service: notify.all_notify
-    data_template:
-      message:  >-
+        - light.office_light
+      brightness_pct: 100
+
+  - service: notify.notify
+    data:
+      message: >-
         {{ [
         "🧹 I'm going to vacuum the basement" ,
         "🧹 Time to clean up all this cat hair.",
         "🧹 Time to earn my living."
-        ] |random }}
+        ] | random }}
+
+  - service: sonos.snapshot
+    continue_on_error: true
+    target:
+      entity_id: media_player.basement
+    data:
+      with_group: true
 
   - service: tts.google_say
     entity_id: media_player.basement
-    data_template:
+    data:
       message: >-
         {{ [
         "I'm going to vacuum the basement" ,
         "Time to clean up all this cat hair.",
         "Time to earn my living."
-        ] |random }}
+        ] | random }}
+
+  - wait_template: "{{ not is_state('media_player.basement', 'playing') }}"
+    timeout: '00:01:00'
+    continue_on_timeout: true
+
+  - service: sonos.restore
+    continue_on_error: true
+    target:
+      entity_id: media_player.basement
+    data:
+      with_group: true
+mode: single

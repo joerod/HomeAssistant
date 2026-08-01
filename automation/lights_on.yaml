@@ -1,62 +1,69 @@
 alias: 'Sunset Outside Lights On'
 trigger:
-  platform: numeric_state
-  entity_id: sun.sun
-  value_template: "{{ state_attr('sun.sun', 'elevation') }}"
-  below: -2.5
+  - platform: numeric_state
+    entity_id: sun.sun
+    value_template: "{{ state_attr('sun.sun', 'elevation') }}"
+    below: -2.5
+  - platform: state
+    entity_id: sensor.team_tracker_usmnt
+    to:
+      - "PRE"
+      - "IN"
 condition:
   - condition: state
     entity_id: automation.holiday_lights_on
-    state: 'off'  
+    state: 'off'
+  - condition: template
+    value_template: >-
+      {{ trigger.platform == 'numeric_state'
+         or (state_attr('sun.sun', 'elevation') | float(99)) < -2.5 }}
 action:
-  - service: hue.hue_activate_scene
-    data_template:
-      group_name: "Garden"
-      scene_name: >
-        {% if is_state("calendar.holidays_in_united_states","on") -%}
-          {% if state_attr('calendar.holidays_in_united_states','message') == "Valentine's Day" -%}
-            Valentine's
-          {% elif state_attr('calendar.holidays_in_united_states','message') == "Presidents' Day (regional holiday)" %}  
-            USA
-          {% elif state_attr('calendar.holidays_in_united_states','message') == "Lunar New Year" %}
-            Red
-          {% elif state_attr('calendar.holidays_in_united_states','message') == "St. Patrick's Day" %}
-            Jets
-          {% elif state_attr('calendar.holidays_in_united_states','message') == "Easter Sunday" %}
-            Easter
-          {% elif state_attr('calendar.holidays_in_united_states','message') == "Mother's Day" %}
-            Mother's Day
-          {% elif state_attr('calendar.holidays_in_united_states','message') == "Memorial Day" %}
-            USA
-          {% elif state_attr('calendar.holidays_in_united_states','message') == "Independence Day" %}
-            USA
-          {% elif state_attr('calendar.holidays_in_united_states','message') == "Halloween" %}
-            Halloween
-          {% elif state_attr('calendar.holidays_in_united_states','message') == "Election Day" %}
-            USA
-          {% elif state_attr('calendar.holidays_in_united_states','message') == "Labor Day" %}
-            USA
-          {% elif state_attr('calendar.holidays_in_united_states','message') == "Veterans Day" %}
-            USA
-          {% elif state_attr('calendar.holidays_in_united_states','message') == "Thanksgiving Day" %}
-            Fall
-          {% elif state_attr('calendar.holidays_in_united_states','message') == "Christmas Day" %}
-            Christmas
+  - service: scene.turn_on
+    target:
+       entity_id: >
+          {% if states('sensor.team_tracker_usmnt') in ['PRE', 'IN'] -%}
+            scene.garden_usa
+          {% elif is_state("calendar.holidays_in_united_states","on") -%}
+            {% if state_attr('calendar.holidays_in_united_states','message') == "Valentine's Day" -%}
+              scene.garden_ruby_romance
+            {% elif state_attr('calendar.holidays_in_united_states','message') == "Presidents' Day (regional holiday)" %}
+              scene.garden_usa
+            {% elif state_attr('calendar.holidays_in_united_states','message') == "Lunar New Year" %}
+              scene.garden_ruby_romance
+            {% elif state_attr('calendar.holidays_in_united_states','message') == "St. Patrick's Day" %}
+              scene.garden_st_patricks_day
+            {% elif state_attr('calendar.holidays_in_united_states','message') == "Easter Sunday" %}
+              scene.garden_spring_blossom
+            {% elif state_attr('calendar.holidays_in_united_states','message') == "Mother's Day" %}
+              scene.garden_spring_blossom
+            {% elif state_attr('calendar.holidays_in_united_states','message') == "Fathers's Day" %}
+              scene.garden_fathers_day
+            {% elif state_attr('calendar.holidays_in_united_states','message') == "Memorial Day" %}
+              scene.garden_usa
+            {% elif state_attr('calendar.holidays_in_united_states','message') == "Independence Day" %}
+              scene.garden_usa
+            {% elif state_attr('calendar.holidays_in_united_states','message') == "Election Day" %}
+              scene.garden_usa
+            {% elif state_attr('calendar.holidays_in_united_states','message') == "Labor Day" %}
+              scene.garden_usa
+            {% elif state_attr('calendar.holidays_in_united_states','message') == "Veterans Day" %}
+              scene.garden_usa
+            {% elif state_attr('calendar.holidays_in_united_states','message') == "Thanksgiving Day" %}
+              scene.garden_golden_star
+            {% else %}
+              scene.garden_resident_garden
+            {%- endif %}
+          {% elif now().month == 9 and now().day == 11 %}
+            scene.garden_usa
+          {% elif now().month == 10 and now().day > 2 %}
+            scene.garden_halloween
+          {% elif now().month == 7 and now().day < 5 and now().day > 1 %}
+            scene.garden_usa
           {% else %}
-            Rodriguez Garden
+            scene.garden_resident_garden
           {%- endif %}
-        {% elif now().month == 9 and now().day == 11 %}
-          USA  
-        {% elif now().month == 10 and now().day > 2 %}
-          Halloween  
-        {% elif now().month == 7 and now().day < 5 and now().day > 1%}
-          USA  
-        {% else %}
-          Rodriguez Garden
-        {%- endif %}
   - service: switch.turn_on
-    data:   
-      entity_id: 
-        - switch.front_door_lights
+    data:
+      entity_id:
         - switch.side_door_light
-        - switch.arabella_s_night_light
+        - switch.font_door_lights

@@ -1,10 +1,10 @@
   garden_sprinkler:
     name: "Garden sprinkler is still on"
     done_message: "Garden sprinkler is now off"
-    entity_id: switch.garden_sprinkler
+    entity_id: binary_sensor.sprinkler_on_too_long
     state: 'on'
-    repeat: 30
+    repeat: 13
     can_acknowledge: true
     skip_first: true
     notifiers:
-      - all_notify
+      - notify.notify

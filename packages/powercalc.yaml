@@ -1,0 +1,244 @@
+powercalc:
+  sensors:
+    - entity_id: light.garden
+      name: Garden Lights Power
+      fixed:
+        power: 12
+
+    - entity_id: light.vestibule
+      name: Vestibule Power
+      fixed:
+        power: 8
+
+    - entity_id: light.kitchen_light
+      name: Kitchen Light Power
+      fixed:
+        power: 12
+
+    - entity_id: light.dinning_room
+      name: Dining Room Light Power
+      fixed:
+        power: 12
+
+    - entity_id: light.office
+      name: Office Light Power
+      fixed:
+        power: 10
+
+    - entity_id: light.office_desk_lightstrip
+      name: Office Desk Lightstrip Power
+      fixed:
+        power: 8
+
+    - entity_id: light.twinkly_37bdd1
+      name: Christmas Tree Power
+      fixed:
+        power: 15
+
+    # Hue bulbs and individual Hue fixtures
+    - entity_id: light.resident_threes_room_lamp
+      name: resident_three's Room Lamp Power
+      fixed:
+        power: 6
+
+    - entity_id: light.resident_twoannas_hue_lightstrip_plus
+      name: resident_twoanna's Hue Lightstrip Power
+      fixed:
+        power: 18
+
+    - entity_id: light.side_entrance_light
+      name: Side Entrance Light Power
+      fixed:
+        power: 8
+
+    - entity_id: light.side_entrace_basement
+      name: Side Entrance Basement Power
+      fixed:
+        power: 8
+
+    - entity_id: light.resident_ones_lamp
+      name: resident_one's Lamp Power
+      fixed:
+        power: 6
+
+    - entity_id: light.office_back
+      name: Office Back Power
+      fixed:
+        power: 8
+
+    - entity_id: light.office_front
+      name: Office Front Power
+      fixed:
+        power: 8
+
+    - entity_id: light.hue_go_1
+      name: Hue Go 1 Power
+      fixed:
+        power: 6
+
+    - entity_id: light.garden_left
+      name: Garden Left Power
+      fixed:
+        power: 8
+
+    - entity_id: light.garden_middle
+      name: Garden Middle Power
+      fixed:
+        power: 8
+
+    - entity_id: light.garden_right
+      name: Garden Right Power
+      fixed:
+        power: 8
+
+    - entity_id: light.front_door_lights
+      name: Front Door Lights Power
+      fixed:
+        power: 10
+
+    - entity_id: light.office_light
+      name: Office Light Power
+      fixed:
+        power: 8
+
+    - entity_id: light.resident_fours_light
+      name: resident_four's Light Power
+      fixed:
+        power: 8
+
+    - entity_id: light.master_bedroom_lights
+      name: Master Bedroom Lights Power
+      fixed:
+        power: 12
+
+    - entity_id: light.yard_switch
+      name: Yard Switch Power
+      fixed:
+        power: 10
+
+    - entity_id: switch.font_door_lights
+      name: Front Door Lights Power
+      fixed:
+        power: 10
+
+    - entity_id: switch.side_door_light
+      name: Side Door Light Power
+      fixed:
+        power: 10
+
+    - entity_id: switch.yard_lights
+      name: Yard Lights Power
+      fixed:
+        power: 10
+
+    - entity_id: switch.livingroom_lamp
+      name: Living Room Lamp Power
+      fixed:
+        power: 8
+
+    - entity_id: switch.candle
+      name: Candle Power
+      fixed:
+        power: 3
+
+    - entity_id: fan.main_bedroom_fan
+      name: Main Bedroom Fan Power
+      fixed:
+        power: 35
+      standby_power: 2
+
+    - entity_id: fan.office
+      name: Office Fan Power
+      fixed:
+        power: 30
+      standby_power: 1
+
+    - entity_id: media_player.yamaha_receiver
+      name: Living Room Amp Power
+      fixed:
+        states_power:
+          playing: 45
+          paused: 20
+          idle: 12
+      standby_power: 2
+
+    - entity_id: media_player.yamaha_receiver_zone_2
+      name: Yamaha Receiver Zone 2 Power
+      fixed:
+        states_power:
+          playing: 30
+          paused: 15
+          idle: 10
+      standby_power: 2
+
+    - entity_id: media_player.sony_bravia_tv
+      name: Bravia TV Power
+      fixed:
+        states_power:
+          playing: 90
+          paused: 20
+          idle: 10
+      standby_power: 1
+
+    - entity_id: media_player.living_room_tv
+      name: Living Room TV Power
+      fixed:
+        states_power:
+          playing: 80
+          paused: 20
+          idle: 10
+      standby_power: 1
+
+    - entity_id: media_player.lg_webos_tv_ut7000pua
+      name: LG UT7000 TV Power
+      fixed:
+        states_power:
+          playing: 75
+          paused: 20
+          idle: 10
+      standby_power: 1
+
+    - entity_id: media_player.lg_webos_tv_oled77b2pua
+      name: LG OLED TV Power
+      fixed:
+        states_power:
+          playing: 120
+          paused: 30
+          idle: 12
+      standby_power: 1
+
+    - entity_id: media_player.samsung_cu7000_43_2
+      name: Samsung CU7000 Power
+      fixed:
+        states_power:
+          playing: 60
+          paused: 15
+          idle: 8
+      standby_power: 1
+
+    - entity_id: media_player.basement_tv
+      name: Basement TV Power
+      fixed:
+        states_power:
+          playing: 70
+          paused: 15
+          idle: 8
+      standby_power: 1
+
+    - entity_id: media_player.basement_xbox
+      name: Basement Xbox Power
+      fixed:
+        states_power:
+          playing: 125
+          paused: 25
+          idle: 15
+      standby_power: 2
+
+    - entity_id: media_player.xbox_2
+      name: Xbox 2 Power
+      fixed:
+        states_power:
+          playing: 125
+          paused: 25
+          idle: 15
+      standby_power: 2

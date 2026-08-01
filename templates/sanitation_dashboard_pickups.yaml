@@ -1,0 +1,233 @@
+- sensor:
+    - default_entity_id: sensor.dashboard_garbage_pickup
+      name: "Dashboard Trash Pickup"
+      state: >-
+        {% set today = now().date() %}
+        {% set tomorrow = today + timedelta(days=1) %}
+        {% set today_str = today.strftime('%Y-%m-%d') %}
+        {% set tomorrow_str = tomorrow.strftime('%Y-%m-%d') %}
+        {% set wd = today.weekday() %}
+        {% set holiday_today = is_state('calendar.holidays_in_united_states', 'on') and ('holiday' in ((state_attr('calendar.holidays_in_united_states', 'description') or '') | lower) or 'holiday' in ((state_attr('calendar.holidays_in_united_states', 'message') or '') | lower)) %}
+        {% set exc_today = (is_state('binary_sensor.nyc311_sanitation_exception_today', 'on') and (state_attr('binary_sensor.nyc311_sanitation_exception_today', 'date') == today_str)) or holiday_today %}
+        {% set exc_today_desc = ((state_attr('binary_sensor.nyc311_sanitation_exception_today', 'description') or '') ~ ' ' ~ (state_attr('binary_sensor.nyc311_sanitation_exception_today', 'status') or '')) | lower %}
+        {% set block_today_shift = exc_today and ('suspend' in exc_today_desc or 'no collection' in exc_today_desc or 'cancel' in exc_today_desc) %}
+        {% set exc_tomorrow = is_state('binary_sensor.nyc311_sanitation_exception_tomorrow', 'on') and (state_attr('binary_sensor.nyc311_sanitation_exception_tomorrow', 'date') == tomorrow_str) %}
+        {% set exc_tomorrow_desc = (state_attr('binary_sensor.nyc311_sanitation_exception_tomorrow', 'description') or '') | lower %}
+        {% set block_tomorrow_shift = exc_tomorrow and ('suspend' in exc_tomorrow_desc or 'no collection' in exc_tomorrow_desc) %}
+        {% set mon = today + timedelta(days=(0 - wd) % 7) %}
+        {% set thu = today + timedelta(days=(3 - wd) % 7) %}
+        {% set next_pickup = mon if mon <= thu else thu %}
+        {% if next_pickup == today and block_today_shift %}
+          {% set next_pickup = next_pickup + timedelta(days=1) %}
+        {% endif %}
+        {% if next_pickup == tomorrow and block_tomorrow_shift %}
+          {% set next_pickup = next_pickup + timedelta(days=1) %}
+        {% endif %}
+        {% if next_pickup == today %}
+          Today
+        {% elif next_pickup == tomorrow %}
+          Tomorrow
+        {% else %}
+          {{ next_pickup.strftime('%a %b %-d') }}
+        {% endif %}
+      icon: >-
+        {% set today = now().date() %}
+        {% set tomorrow = today + timedelta(days=1) %}
+        {% set today_str = today.strftime('%Y-%m-%d') %}
+        {% set tomorrow_str = tomorrow.strftime('%Y-%m-%d') %}
+        {% set wd = today.weekday() %}
+        {% set holiday_today = is_state('calendar.holidays_in_united_states', 'on') and ('holiday' in ((state_attr('calendar.holidays_in_united_states', 'description') or '') | lower) or 'holiday' in ((state_attr('calendar.holidays_in_united_states', 'message') or '') | lower)) %}
+        {% set exc_today = (is_state('binary_sensor.nyc311_sanitation_exception_today', 'on') and (state_attr('binary_sensor.nyc311_sanitation_exception_today', 'date') == today_str)) or holiday_today %}
+        {% set exc_today_desc = ((state_attr('binary_sensor.nyc311_sanitation_exception_today', 'description') or '') ~ ' ' ~ (state_attr('binary_sensor.nyc311_sanitation_exception_today', 'status') or '')) | lower %}
+        {% set block_today_shift = exc_today and ('suspend' in exc_today_desc or 'no collection' in exc_today_desc or 'cancel' in exc_today_desc) %}
+        {% set exc_tomorrow = is_state('binary_sensor.nyc311_sanitation_exception_tomorrow', 'on') and (state_attr('binary_sensor.nyc311_sanitation_exception_tomorrow', 'date') == tomorrow_str) %}
+        {% set exc_tomorrow_desc = (state_attr('binary_sensor.nyc311_sanitation_exception_tomorrow', 'description') or '') | lower %}
+        {% set block_tomorrow_shift = exc_tomorrow and ('suspend' in exc_tomorrow_desc or 'no collection' in exc_tomorrow_desc) %}
+        {% set mon = today + timedelta(days=(0 - wd) % 7) %}
+        {% set thu = today + timedelta(days=(3 - wd) % 7) %}
+        {% set next_pickup = mon if mon <= thu else thu %}
+        {% if next_pickup == today and block_today_shift %}
+          {% set next_pickup = next_pickup + timedelta(days=1) %}
+        {% endif %}
+        {% if next_pickup == tomorrow and block_tomorrow_shift %}
+          {% set next_pickup = next_pickup + timedelta(days=1) %}
+        {% endif %}
+        {% if next_pickup == today %}
+          mdi:trash-can
+        {% elif next_pickup == tomorrow %}
+          mdi:trash-can-clock
+        {% else %}
+          mdi:trash-can-outline
+        {% endif %}
+
+    - default_entity_id: sensor.dashboard_recycling_pickup
+      name: "Dashboard Recycling Pickup"
+      state: >-
+        {% set today = now().date() %}
+        {% set tomorrow = today + timedelta(days=1) %}
+        {% set today_str = today.strftime('%Y-%m-%d') %}
+        {% set tomorrow_str = tomorrow.strftime('%Y-%m-%d') %}
+        {% set wd = today.weekday() %}
+        {% set holiday_today = is_state('calendar.holidays_in_united_states', 'on') and ('holiday' in ((state_attr('calendar.holidays_in_united_states', 'description') or '') | lower) or 'holiday' in ((state_attr('calendar.holidays_in_united_states', 'message') or '') | lower)) %}
+        {% set exc_today = (is_state('binary_sensor.nyc311_sanitation_exception_today', 'on') and (state_attr('binary_sensor.nyc311_sanitation_exception_today', 'date') == today_str)) or holiday_today %}
+        {% set exc_today_desc = ((state_attr('binary_sensor.nyc311_sanitation_exception_today', 'description') or '') ~ ' ' ~ (state_attr('binary_sensor.nyc311_sanitation_exception_today', 'status') or '')) | lower %}
+        {% set block_today_shift = exc_today and ('suspend' in exc_today_desc or 'no collection' in exc_today_desc or 'cancel' in exc_today_desc) %}
+        {% set exc_tomorrow = is_state('binary_sensor.nyc311_sanitation_exception_tomorrow', 'on') and (state_attr('binary_sensor.nyc311_sanitation_exception_tomorrow', 'date') == tomorrow_str) %}
+        {% set exc_tomorrow_desc = (state_attr('binary_sensor.nyc311_sanitation_exception_tomorrow', 'description') or '') | lower %}
+        {% set block_tomorrow_shift = exc_tomorrow and ('suspend' in exc_tomorrow_desc or 'no collection' in exc_tomorrow_desc) %}
+        {% set next_pickup = today + timedelta(days=(0 - wd) % 7) %}
+        {% if next_pickup == today and block_today_shift %}
+          {% set next_pickup = next_pickup + timedelta(days=1) %}
+        {% endif %}
+        {% if next_pickup == tomorrow and block_tomorrow_shift %}
+          {% set next_pickup = next_pickup + timedelta(days=1) %}
+        {% endif %}
+        {% if next_pickup == today %}
+          Today
+        {% elif next_pickup == tomorrow %}
+          Tomorrow
+        {% else %}
+          {{ next_pickup.strftime('%a %b %-d') }}
+        {% endif %}
+      icon: >-
+        {% set today = now().date() %}
+        {% set tomorrow = today + timedelta(days=1) %}
+        {% set today_str = today.strftime('%Y-%m-%d') %}
+        {% set tomorrow_str = tomorrow.strftime('%Y-%m-%d') %}
+        {% set wd = today.weekday() %}
+        {% set holiday_today = is_state('calendar.holidays_in_united_states', 'on') and ('holiday' in ((state_attr('calendar.holidays_in_united_states', 'description') or '') | lower) or 'holiday' in ((state_attr('calendar.holidays_in_united_states', 'message') or '') | lower)) %}
+        {% set exc_today = (is_state('binary_sensor.nyc311_sanitation_exception_today', 'on') and (state_attr('binary_sensor.nyc311_sanitation_exception_today', 'date') == today_str)) or holiday_today %}
+        {% set exc_today_desc = ((state_attr('binary_sensor.nyc311_sanitation_exception_today', 'description') or '') ~ ' ' ~ (state_attr('binary_sensor.nyc311_sanitation_exception_today', 'status') or '')) | lower %}
+        {% set block_today_shift = exc_today and ('suspend' in exc_today_desc or 'no collection' in exc_today_desc or 'cancel' in exc_today_desc) %}
+        {% set exc_tomorrow = is_state('binary_sensor.nyc311_sanitation_exception_tomorrow', 'on') and (state_attr('binary_sensor.nyc311_sanitation_exception_tomorrow', 'date') == tomorrow_str) %}
+        {% set exc_tomorrow_desc = (state_attr('binary_sensor.nyc311_sanitation_exception_tomorrow', 'description') or '') | lower %}
+        {% set block_tomorrow_shift = exc_tomorrow and ('suspend' in exc_tomorrow_desc or 'no collection' in exc_tomorrow_desc) %}
+        {% set next_pickup = today + timedelta(days=(0 - wd) % 7) %}
+        {% if next_pickup == today and block_today_shift %}
+          {% set next_pickup = next_pickup + timedelta(days=1) %}
+        {% endif %}
+        {% if next_pickup == tomorrow and block_tomorrow_shift %}
+          {% set next_pickup = next_pickup + timedelta(days=1) %}
+        {% endif %}
+        {% if next_pickup == today %}
+          mdi:recycle
+        {% elif next_pickup == tomorrow %}
+          mdi:recycle-variant
+        {% else %}
+          mdi:recycle
+        {% endif %}
+
+    - default_entity_id: sensor.dashboard_organics_pickup
+      name: "Dashboard Organics Pickup"
+      state: >-
+        {% set today = now().date() %}
+        {% set tomorrow = today + timedelta(days=1) %}
+        {% set today_str = today.strftime('%Y-%m-%d') %}
+        {% set tomorrow_str = tomorrow.strftime('%Y-%m-%d') %}
+        {% set wd = today.weekday() %}
+        {% set holiday_today = is_state('calendar.holidays_in_united_states', 'on') and ('holiday' in ((state_attr('calendar.holidays_in_united_states', 'description') or '') | lower) or 'holiday' in ((state_attr('calendar.holidays_in_united_states', 'message') or '') | lower)) %}
+        {% set exc_today = (is_state('binary_sensor.nyc311_sanitation_exception_today', 'on') and (state_attr('binary_sensor.nyc311_sanitation_exception_today', 'date') == today_str)) or holiday_today %}
+        {% set exc_today_desc = ((state_attr('binary_sensor.nyc311_sanitation_exception_today', 'description') or '') ~ ' ' ~ (state_attr('binary_sensor.nyc311_sanitation_exception_today', 'status') or '')) | lower %}
+        {% set block_today_shift = exc_today and ('suspend' in exc_today_desc or 'no collection' in exc_today_desc or 'cancel' in exc_today_desc) %}
+        {% set exc_tomorrow = is_state('binary_sensor.nyc311_sanitation_exception_tomorrow', 'on') and (state_attr('binary_sensor.nyc311_sanitation_exception_tomorrow', 'date') == tomorrow_str) %}
+        {% set exc_tomorrow_desc = (state_attr('binary_sensor.nyc311_sanitation_exception_tomorrow', 'description') or '') | lower %}
+        {% set block_tomorrow_shift = exc_tomorrow and ('suspend' in exc_tomorrow_desc or 'no collection' in exc_tomorrow_desc) %}
+        {% set next_pickup = today + timedelta(days=(0 - wd) % 7) %}
+        {% if next_pickup == today and block_today_shift %}
+          {% set next_pickup = next_pickup + timedelta(days=1) %}
+        {% endif %}
+        {% if next_pickup == tomorrow and block_tomorrow_shift %}
+          {% set next_pickup = next_pickup + timedelta(days=1) %}
+        {% endif %}
+        {% if next_pickup == today %}
+          Today
+        {% elif next_pickup == tomorrow %}
+          Tomorrow
+        {% else %}
+          {{ next_pickup.strftime('%a %b %-d') }}
+        {% endif %}
+      icon: >-
+        {% set today = now().date() %}
+        {% set tomorrow = today + timedelta(days=1) %}
+        {% set today_str = today.strftime('%Y-%m-%d') %}
+        {% set tomorrow_str = tomorrow.strftime('%Y-%m-%d') %}
+        {% set wd = today.weekday() %}
+        {% set holiday_today = is_state('calendar.holidays_in_united_states', 'on') and ('holiday' in ((state_attr('calendar.holidays_in_united_states', 'description') or '') | lower) or 'holiday' in ((state_attr('calendar.holidays_in_united_states', 'message') or '') | lower)) %}
+        {% set exc_today = (is_state('binary_sensor.nyc311_sanitation_exception_today', 'on') and (state_attr('binary_sensor.nyc311_sanitation_exception_today', 'date') == today_str)) or holiday_today %}
+        {% set exc_today_desc = ((state_attr('binary_sensor.nyc311_sanitation_exception_today', 'description') or '') ~ ' ' ~ (state_attr('binary_sensor.nyc311_sanitation_exception_today', 'status') or '')) | lower %}
+        {% set block_today_shift = exc_today and ('suspend' in exc_today_desc or 'no collection' in exc_today_desc or 'cancel' in exc_today_desc) %}
+        {% set exc_tomorrow = is_state('binary_sensor.nyc311_sanitation_exception_tomorrow', 'on') and (state_attr('binary_sensor.nyc311_sanitation_exception_tomorrow', 'date') == tomorrow_str) %}
+        {% set exc_tomorrow_desc = (state_attr('binary_sensor.nyc311_sanitation_exception_tomorrow', 'description') or '') | lower %}
+        {% set block_tomorrow_shift = exc_tomorrow and ('suspend' in exc_tomorrow_desc or 'no collection' in exc_tomorrow_desc) %}
+        {% set next_pickup = today + timedelta(days=(0 - wd) % 7) %}
+        {% if next_pickup == today and block_today_shift %}
+          {% set next_pickup = next_pickup + timedelta(days=1) %}
+        {% endif %}
+        {% if next_pickup == tomorrow and block_tomorrow_shift %}
+          {% set next_pickup = next_pickup + timedelta(days=1) %}
+        {% endif %}
+        {% if next_pickup == today %}
+          mdi:leaf
+        {% elif next_pickup == tomorrow %}
+          mdi:leaf-circle-outline
+        {% else %}
+          mdi:leaf
+        {% endif %}
+
+
+    - default_entity_id: sensor.dashboard_large_items_pickup
+      name: "Dashboard Large Items Pickup"
+      state: >-
+        {% set today = now().date() %}
+        {% set tomorrow = today + timedelta(days=1) %}
+        {% set today_str = today.strftime('%Y-%m-%d') %}
+        {% set tomorrow_str = tomorrow.strftime('%Y-%m-%d') %}
+        {% set wd = today.weekday() %}
+        {% set holiday_today = is_state('calendar.holidays_in_united_states', 'on') and ('holiday' in ((state_attr('calendar.holidays_in_united_states', 'description') or '') | lower) or 'holiday' in ((state_attr('calendar.holidays_in_united_states', 'message') or '') | lower)) %}
+        {% set exc_today = (is_state('binary_sensor.nyc311_sanitation_exception_today', 'on') and (state_attr('binary_sensor.nyc311_sanitation_exception_today', 'date') == today_str)) or holiday_today %}
+        {% set exc_today_desc = ((state_attr('binary_sensor.nyc311_sanitation_exception_today', 'description') or '') ~ ' ' ~ (state_attr('binary_sensor.nyc311_sanitation_exception_today', 'status') or '')) | lower %}
+        {% set block_today_shift = exc_today and ('suspend' in exc_today_desc or 'no collection' in exc_today_desc or 'cancel' in exc_today_desc) %}
+        {% set exc_tomorrow = is_state('binary_sensor.nyc311_sanitation_exception_tomorrow', 'on') and (state_attr('binary_sensor.nyc311_sanitation_exception_tomorrow', 'date') == tomorrow_str) %}
+        {% set exc_tomorrow_desc = (state_attr('binary_sensor.nyc311_sanitation_exception_tomorrow', 'description') or '') | lower %}
+        {% set block_tomorrow_shift = exc_tomorrow and ('suspend' in exc_tomorrow_desc or 'no collection' in exc_tomorrow_desc) %}
+        {% set next_pickup = today + timedelta(days=(3 - wd) % 7) %}
+        {% if next_pickup == today and block_today_shift %}
+          {% set next_pickup = next_pickup + timedelta(days=1) %}
+        {% endif %}
+        {% if next_pickup == tomorrow and block_tomorrow_shift %}
+          {% set next_pickup = next_pickup + timedelta(days=1) %}
+        {% endif %}
+        {% if next_pickup == today %}
+          Today
+        {% elif next_pickup == tomorrow %}
+          Tomorrow
+        {% else %}
+          {{ next_pickup.strftime('%a %b %-d') }}
+        {% endif %}
+      icon: >-
+        {% set today = now().date() %}
+        {% set tomorrow = today + timedelta(days=1) %}
+        {% set today_str = today.strftime('%Y-%m-%d') %}
+        {% set tomorrow_str = tomorrow.strftime('%Y-%m-%d') %}
+        {% set wd = today.weekday() %}
+        {% set holiday_today = is_state('calendar.holidays_in_united_states', 'on') and ('holiday' in ((state_attr('calendar.holidays_in_united_states', 'description') or '') | lower) or 'holiday' in ((state_attr('calendar.holidays_in_united_states', 'message') or '') | lower)) %}
+        {% set exc_today = (is_state('binary_sensor.nyc311_sanitation_exception_today', 'on') and (state_attr('binary_sensor.nyc311_sanitation_exception_today', 'date') == today_str)) or holiday_today %}
+        {% set exc_today_desc = ((state_attr('binary_sensor.nyc311_sanitation_exception_today', 'description') or '') ~ ' ' ~ (state_attr('binary_sensor.nyc311_sanitation_exception_today', 'status') or '')) | lower %}
+        {% set block_today_shift = exc_today and ('suspend' in exc_today_desc or 'no collection' in exc_today_desc or 'cancel' in exc_today_desc) %}
+        {% set exc_tomorrow = is_state('binary_sensor.nyc311_sanitation_exception_tomorrow', 'on') and (state_attr('binary_sensor.nyc311_sanitation_exception_tomorrow', 'date') == tomorrow_str) %}
+        {% set exc_tomorrow_desc = (state_attr('binary_sensor.nyc311_sanitation_exception_tomorrow', 'description') or '') | lower %}
+        {% set block_tomorrow_shift = exc_tomorrow and ('suspend' in exc_tomorrow_desc or 'no collection' in exc_tomorrow_desc) %}
+        {% set next_pickup = today + timedelta(days=(3 - wd) % 7) %}
+        {% if next_pickup == today and block_today_shift %}
+          {% set next_pickup = next_pickup + timedelta(days=1) %}
+        {% endif %}
+        {% if next_pickup == tomorrow and block_tomorrow_shift %}
+          {% set next_pickup = next_pickup + timedelta(days=1) %}
+        {% endif %}
+        {% if next_pickup == today %}
+          mdi:sofa-outline
+        {% elif next_pickup == tomorrow %}
+          mdi:truck-delivery-outline
+        {% else %}
+          mdi:package-variant-closed
+        {% endif %}

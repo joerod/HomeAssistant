@@ -1,0 +1,3 @@
+  Notify:
+    entities:
+      - notify.notify

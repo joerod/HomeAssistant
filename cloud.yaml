@@ -5,15 +5,19 @@ alexa:
       - group
       - automation
       - cover
+      - lock
       - fan
       - light
+      - climate
       - scene
       - script
       - media_player
     exclude_entities:
       - switch.fence_lights
-      - switch.fence_lights_2  
-  entity_config:    
+      - switch.fence_lights_2
+      - script.who_is_home
+      - automation.house_check_voice_command
+  entity_config:
     group.fence_lights:
       name: Fence Lights
       description: Both fence lights

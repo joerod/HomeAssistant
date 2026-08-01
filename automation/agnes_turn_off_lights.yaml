@@ -1,10 +1,15 @@
+alias: Agnes turns off basement lights when docked
 trigger:
   platform: state
   entity_id: vacuum.agnes
-  to: "Docked"
+  from:
+    - "cleaning"
+    - "returning"
+  to: "docked"
 action:
   - service: light.turn_off
-    data:   
-      entity_id: 
+    data:
+      entity_id:
         - light.side_entrace_basement
-        - light.office_lights
+        - light.office_light
+mode: single

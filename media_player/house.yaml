@@ -1,0 +1,9 @@
+  - platform: group
+    name: "House Announcement Group"
+    unique_id: house_announcement_group
+    entities:
+      - media_player.kitchen
+      - media_player.resident_twos_room
+      - media_player.basement
+      - media_player.main_bedroom
+      - media_player.resident_threes_room

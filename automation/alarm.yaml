@@ -1,0 +1,200 @@
+alias: Set Alexa Alarm
+id: set_alexa_alarm
+mode: single
+
+trigger:
+  - platform: time
+    at: "20:00:00"
+
+condition:
+  - condition: time
+    weekday: [sun, mon, tue, wed, thu]
+
+action:
+  - service: homeassistant.update_entity
+    target:
+      entity_id:
+        - weather.openweathermap
+        - sensor.team_tracker_knicks
+        - sensor.team_tracker_mets
+        - sensor.team_tracker_nyjets
+        - binary_sensor.nyc311_parking_exception_tomorrow
+  - delay: "00:00:10"
+  - service: calendar.get_events
+    target:
+      entity_id: calendar.resident_one
+    data:
+      start_date_time: "{{ (now() + timedelta(days=1)).replace(hour=0, minute=0, second=0, microsecond=0).isoformat() }}"
+      duration:
+        hours: 24
+    response_variable: resident_one_calendar_events
+  - variables:
+      sfp_in_session: "{{ is_state('binary_sensor.sfp_school_in_session_tomorrow', 'on') }}"
+      k2j_active_now: "{{ is_state('binary_sensor.kids_to_resident_one_active', 'on') }}"
+      resident_one_in_office_tomorrow: >-
+        {% set events = resident_one_calendar_events.get('calendar.resident_one', {}).get('events', []) %}
+        {% set ns = namespace(found=false) %}
+        {% for ev in events %}
+          {% set txt = ((ev.summary if ev.summary is defined else '') ~ ' ' ~ (ev.description if ev.description is defined else '')) | lower %}
+          {% set wfh = ('wfh' in txt) or ('work from home' in txt) or ('working from home' in txt) or ('home office' in txt) %}
+          {% if ('office' in txt) and (not wfh) %}
+            {% set ns.found = true %}
+          {% endif %}
+        {% endfor %}
+        {{ ns.found }}
+
+      office_has_resident_two_note_tomorrow: >-
+        {% set events = resident_one_calendar_events.get('calendar.resident_one', {}).get('events', []) %}
+        {% set ns = namespace(found=false) %}
+        {% for ev in events %}
+          {% set txt = ((ev.summary if ev.summary is defined else '') ~ ' ' ~ (ev.description if ev.description is defined else '')) | lower %}
+          {% if ('office' in txt) and (('resident_two getting ride' in txt) or ('no resident_two' in txt)) %}
+            {% set ns.found = true %}
+          {% endif %}
+        {% endfor %}
+        {{ ns.found }}
+
+      bank_holiday_tomorrow: >-
+        {% set msg = (state_attr('calendar.holidays_in_united_states', 'message') or '') | lower %}
+        {% set s_raw = state_attr('calendar.holidays_in_united_states', 'start_time') %}
+        {% set e_raw_attr = state_attr('calendar.holidays_in_united_states', 'end_time') %}
+        {% set s = as_local(as_datetime(s_raw)) if s_raw else none %}
+        {% set e_raw = as_local(as_datetime(e_raw_attr)) if e_raw_attr else none %}
+        {% set e = (e_raw - timedelta(seconds=1)) if e_raw else none %}
+        {% set t = (now() + timedelta(days=1)).date() %}
+        {{
+          is_state('calendar.holidays_in_united_states', 'on')
+          and s and e
+          and (t >= s.date()) and (t <= e.date())
+          and ('bank holiday' in msg or 'holiday' in msg)
+        }}
+
+      alarm_time: >-
+        {% if (resident_one_in_office_tomorrow | bool) and (not (sfp_in_session | bool)) %}
+          7:15 am
+        {% else %}
+          8:15 am
+        {% endif %}
+
+      tomorrow_str: "{{ (now() + timedelta(days=1)).strftime('%A, %B %-d') }}"
+      resident_four_alarm_final: "{{ k2j_active_now and (sfp_in_session | bool) and (not bank_holiday_tomorrow) }}"
+
+      weather_brief: >-
+        {% set cond = states('weather.openweathermap') %}
+        {% set temp = state_attr('weather.openweathermap', 'temperature') %}
+        {% set feels = state_attr('weather.openweathermap', 'apparent_temperature') %}
+        {% if cond in ['unknown', 'unresident_threeilable', 'none', 'None', ''] %}
+          Weather update is currently unresident_threeilable.
+        {% elif temp is not none and feels is not none %}
+          Weather update: currently {{ cond }}, {{ temp | round(0) }} degrees, feels like {{ feels | round(0) }}.
+        {% elif temp is not none %}
+          Weather update: currently {{ cond }}, {{ temp | round(0) }} degrees.
+        {% else %}
+          Weather update: currently {{ cond }}.
+        {% endif %}
+
+      knicks_play_tomorrow: >-
+        {% set dt_raw = state_attr('sensor.team_tracker_knicks', 'date') %}
+        {% set dt = as_local(as_datetime(dt_raw)) if dt_raw else none %}
+        {{ dt and (dt.date() == (now() + timedelta(days=1)).date()) and (states('sensor.team_tracker_knicks') in ['PRE', 'IN']) }}
+
+      mets_play_tomorrow: >-
+        {% set dt_raw = state_attr('sensor.team_tracker_mets', 'date') %}
+        {% set dt = as_local(as_datetime(dt_raw)) if dt_raw else none %}
+        {{ dt and (dt.date() == (now() + timedelta(days=1)).date()) and (states('sensor.team_tracker_mets') in ['PRE', 'IN']) }}
+
+      jets_play_tomorrow: >-
+        {% set dt_raw = state_attr('sensor.team_tracker_nyjets', 'date') %}
+        {% set dt = as_local(as_datetime(dt_raw)) if dt_raw else none %}
+        {{ dt and (dt.date() == (now() + timedelta(days=1)).date()) and (states('sensor.team_tracker_nyjets') in ['PRE', 'IN']) }}
+
+      knicks_brief: >-
+        {% set opponent = state_attr('sensor.team_tracker_knicks', 'opponent_name') or 'their opponent' %}
+        {% set clock = state_attr('sensor.team_tracker_knicks', 'clock') %}
+        {% if knicks_play_tomorrow %}
+          Knicks play tomorrow versus {{ opponent }}{% if clock %}, {{ clock }}{% endif %}.
+        {% else %}
+          {{ '' }}
+        {% endif %}
+
+      mets_brief: >-
+        {% set opponent = state_attr('sensor.team_tracker_mets', 'opponent_name') or 'their opponent' %}
+        {% set clock = state_attr('sensor.team_tracker_mets', 'clock') %}
+        {% if mets_play_tomorrow %}
+          Mets play tomorrow versus {{ opponent }}{% if clock %}, {{ clock }}{% endif %}.
+        {% else %}
+          {{ '' }}
+        {% endif %}
+
+      jets_brief: >-
+        {% set opponent = state_attr('sensor.team_tracker_nyjets', 'opponent_name') or 'their opponent' %}
+        {% set clock = state_attr('sensor.team_tracker_nyjets', 'clock') %}
+        {% if jets_play_tomorrow %}
+          Jets play tomorrow versus {{ opponent }}{% if clock %}, {{ clock }}{% endif %}.
+        {% else %}
+          {{ '' }}
+        {% endif %}
+
+      sports_brief: >-
+        {% set parts = [knicks_brief, mets_brief, jets_brief] | reject('equalto', '') | list %}
+        {% if parts | length > 0 %}
+          {{ parts | join(' ') }}
+        {% else %}
+          {{ '' }}
+        {% endif %}
+
+      asp_suspended_tomorrow: >-
+        {% set on_exc = is_state('binary_sensor.nyc311_parking_exception_tomorrow', 'on') %}
+        {% set status = (state_attr('binary_sensor.nyc311_parking_exception_tomorrow', 'status') or '') | lower %}
+        {% set desc = (state_attr('binary_sensor.nyc311_parking_exception_tomorrow', 'description') or '') | lower %}
+        {{ on_exc and ('suspend' in status or 'suspend' in desc or 'alternate side parking' in desc) }}
+
+      asp_brief: >-
+        {% if asp_suspended_tomorrow %}
+          Alternate side parking is suspended tomorrow.
+        {% else %}
+          Alternate side parking is in effect tomorrow.
+        {% endif %}
+
+      alarm_briefing: >-
+        {{ [weather_brief, sports_brief, asp_brief] | reject('equalto', '') | join(' ') }}
+
+      resident_four_alarm_time: >-
+        7:30 am
+
+
+  - choose:
+      - conditions:
+          - condition: template
+            value_template: "{{ not bank_holiday_tomorrow }}"
+        sequence:
+          - service: alexa_devices.send_text_command
+            data:
+              device_id: 00e69e9ca5fa5a3959e28897268a9c0d
+              text_command: "set an alarm for {{ alarm_time }}"
+
+          - choose:
+              - conditions:
+                  - condition: template
+                    value_template: "{{ resident_four_alarm_final }}"
+                sequence:
+                  - service: alexa_devices.send_text_command
+                    data:
+                      device_id: f6cfa2e7be561c923335d9d54b0079a9
+                      text_command: "set an alarm for {{ resident_four_alarm_time }}"
+
+  - service: notify.notify
+    data:
+      message: >-
+        {% if bank_holiday_tomorrow %}
+        Skipped alarms for {{ tomorrow_str }} due to bank holiday ({{ state_attr('calendar.holidays_in_united_states', 'message') or 'Holiday' }}).
+        {% else %}
+        Set {{ alarm_time }} main Alexa alarm for {{ tomorrow_str }}.
+        Kids to resident_one active now: {{ 'Yes' if k2j_active_now else 'No' }}.
+        St. Francis in session: {{ 'Yes' if sfp_in_session else 'No' }}.
+        resident_one in office tomorrow: {{ 'Yes' if resident_one_in_office_tomorrow else 'No' }}.
+        resident_four alarm: {{ ('Set for ' ~ resident_four_alarm_time) if resident_four_alarm_final else 'Skipped' }}.
+        Weather brief: {{ weather_brief }}
+        {% if sports_brief %}Sports brief: {{ sports_brief }}{% endif %}
+        ASP brief: {{ asp_brief }}
+        {% endif %}

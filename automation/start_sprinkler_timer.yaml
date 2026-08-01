@@ -1,0 +1,10 @@
+alias: Start Sprinkler Timer
+trigger:
+  - platform: state
+    entity_id: switch.virtual_sprinkler
+    to: 'on'
+action:
+  - service: timer.start
+    data:
+      entity_id: timer.sprinkler_timer
+      duration: "{{ states('input_number.sprinkler_duration') | int * 60 }}"

@@ -1,23 +1,22 @@
 alias: 'Sunrise Lights Off'
 trigger:
-  platform: numeric_state
-  entity_id: sun.sun
-  value_template: "{{ state_attr('sun.sun', 'elevation') }}"
-  above: -2.25
+  - platform: numeric_state
+    entity_id: sun.sun
+    value_template: "{{ state_attr('sun.sun', 'elevation') }}"
+    above: -2.25
 action:
   - service: light.turn_off
-    data:
-      entity_id: 
+    target:
+      entity_id:
         - light.garden
-        - light.alyannas_hue_lightstrip_plus
         - light.twinkly_37bdd1
   - service: switch.turn_off
-    data:  
-      entity_id: 
-        - switch.front_door_lights
+    target:
+      entity_id:
+        - switch.font_door_lights
         - switch.side_door_light
-        - switch.outdoor_switch
-        - switch.arabella_s_night_light
         - group.holiday_outside_lights
-        - switch.christmas_window_lights
-        - switch.drier
+        - group.holiday_inside_lights
+  - service: cover.open_cover
+    target:
+      entity_id: cover.kitchen_blind

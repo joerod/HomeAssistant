@@ -1,0 +1,23 @@
+iaqualink_robot_bin_full:
+  name: iAqualink Robot Bin Full
+  done_message: iAqualink robot bin is no longer full
+  entity_id: binary_sensor.iaqualink_robot_bin_full
+  state: 'on'
+  repeat: 60
+  can_acknowledge: true
+  skip_first: false
+  message: "iAqualink canister level is {{ states('sensor.wally_canister_level') }}%."
+  notifiers:
+    - notify.notify
+
+iaqualink_robot_error:
+  name: iAqualink Robot Error
+  done_message: iAqualink robot error cleared
+  entity_id: binary_sensor.iaqualink_robot_has_error
+  state: 'on'
+  repeat: 60
+  can_acknowledge: true
+  skip_first: false
+  message: "iAqualink error state: {{ states('sensor.wally_error_state') }}."
+  notifiers:
+    - notify.notify

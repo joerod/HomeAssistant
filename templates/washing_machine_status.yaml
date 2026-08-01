@@ -1,0 +1,11 @@
+  - binary_sensor:
+      - default_entity_id: binary_sensor.washing_machine_status
+        name: "Washing machine status"
+        state: >
+          {{ states('sensor.current_power_usage_switch_2') | float(0) > 5 }}
+        icon: >
+          {% if states('sensor.current_power_usage_switch_2') | float(0) > 5 %}
+            mdi:washing-machine
+          {% else %}
+            mdi:washing-machine-off
+          {% endif %}

@@ -6,7 +6,7 @@ trigger:
 action:
   - service: switch.turn_on
     entity_id: switch.tesla_model_y_sentry_mode_switch
-  - service: notify.mobile_app_joerod_s_iphone
+  - service: notify.mobile_app_resident_one_s_iphone
     data_template:
       message: >
-        📷 Tessy sentry mode initiated 
+        📷 Tessy sentry mode initiated

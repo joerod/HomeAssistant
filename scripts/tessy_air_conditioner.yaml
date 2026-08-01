@@ -1,0 +1,15 @@
+tessy_air_conditioner:
+  alias: Tessy Air Conditioner
+  sequence:
+    - service: button.press
+      target:
+        entity_id: button.tessy_wake
+    - delay:
+        seconds: 5
+    - service: climate.set_temperature
+      target:
+        entity_id: climate.tessy_climate
+      data:
+        hvac_mode: heat_cool
+        temperature: 66
+  mode: single

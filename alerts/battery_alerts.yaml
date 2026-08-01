@@ -1,0 +1,83 @@
+low_battery_rosey:
+  name: Rosey Battery Low
+  done_message: Rosey's battery is above 10%
+  entity_id: sensor.rosey_battery
+  state: 'on'
+  repeat: 60
+  can_acknowledge: true
+  skip_first: false
+  message: "Rosey battery is low: {{ states('sensor.rosey_battery') }}%"
+  notifiers:
+    - notify.notify
+
+low_battery_mac:
+  name: Henry Orbit Battery Low
+  done_message: Henry Orbit battery is above 10%
+  entity_id: sensor.henry_orbit_battery
+  state: 'on'
+  repeat: 60
+  can_acknowledge: true
+  skip_first: false
+  message: "Henry Orbit battery is low: {{ states('sensor.henry_orbit_battery') }}%"
+  notifiers:
+    - notify.notify
+
+low_battery_agnes:
+  name: Agnes Battery Low
+  done_message: Agnes's battery is above 10%
+  entity_id: sensor.agnes_battery_level
+  state: 'on'
+  repeat: 60
+  can_acknowledge: true
+  skip_first: false
+  message: "Agnes battery is low: {{ states('sensor.agnes_battery_level') }}%"
+  notifiers:
+    - notify.notify
+
+low_battery_basement_door:
+  name: Basement Door Sensor Battery Low
+  done_message: Basement door sensor battery is above 10%
+  entity_id: sensor.basement_door_battery
+  state: 'on'
+  repeat: 60
+  can_acknowledge: true
+  skip_first: false
+  message: "Basement Door Sensor battery is low: {{ states('sensor.basement_door_battery') }}%"
+  notifiers:
+    - notify.notify
+
+low_battery_iphone:
+  name: resident_one's iPhone Battery Low
+  done_message: resident_one's iPhone battery is above 10%
+  entity_id: sensor.resident_one_iphone_battery_level
+  state: 'on'
+  repeat: 60
+  can_acknowledge: true
+  skip_first: false
+  message: "resident_one's iPhone battery is low: {{ states('sensor.resident_one_iphone_battery_level') }}%"
+  notifiers:
+    - notify.notify
+
+low_battery_kitchen_blind:
+  name: Kitchen Blind Battery Low
+  done_message: Kitchen blind battery is above 10%
+  entity_id: sensor.kitchen_blind_battery_level
+  state: 'on'
+  repeat: 60
+  can_acknowledge: true
+  skip_first: false
+  message: "Kitchen Blind battery is low: {{ states('sensor.kitchen_blind_battery_level') }}%"
+  notifiers:
+    - notify.notify
+
+low_battery_smart_lock:
+  name: Aqara Smart Lock Battery Low
+  done_message: Smart lock battery is above 10%
+  entity_id: sensor.aqara_smart_lock_u100_battery
+  state: 'on'
+  repeat: 60
+  can_acknowledge: true
+  skip_first: false
+  message: "Side Door Lock battery is low: {{ states('sensor.aqara_smart_lock_u100_battery') }}%"
+  notifiers:
+    - notify.notify

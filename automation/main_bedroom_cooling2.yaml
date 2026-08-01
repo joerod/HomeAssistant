@@ -1,9 +1,7 @@
 alias: 'Main Bedroom Cooling 2'
-
 trigger:
-  platform: template
-  value_template: "{{states.climate.main_bedroom.attributes.current_temperature > 75}}"
-
+  platform: time
+  at: '15:00:00'
 condition:
   condition: and
   conditions:
@@ -11,26 +9,27 @@ condition:
       entity_id: climate.upstairs
       state: 'off'
     - condition: time
-      after: '16:30:00'
       weekday:
         - mon
         - tue
         - wed
         - thu
         - fri
+    - condition: template
+      value_template: "{{states.climate.main_bedroom.attributes.current_temperature > 75}}"
 action:
   - service: cover.close_cover
     entity_id: cover.skylight_1
   - service: cover.close_cover
-    entity_id: cover.blind_1 
+    entity_id: cover.blind_1
   - service: fan.turn_off
     entity_id: fan.main_bedroom_fan
   - service: climate.set_hvac_mode
     entity_id: climate.main_bedroom
     data:
       hvac_mode: cool
-  - service: notify.mobile_app_joerod_s_iphone
-    data_template:
+  - service: notify.notify
+    data:
       message: >
         😎 Main Bedroom Cooling Phase 2.
         Main Bedroom Temperature - {{states.climate.main_bedroom.attributes.current_temperature}}°

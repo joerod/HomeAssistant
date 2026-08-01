@@ -1,0 +1,22 @@
+alias: Close skylight when feels-like < 55°F
+description: Closes skylight if open when feels-like temperature drops below 55°F.
+trigger:
+  - platform: numeric_state
+    entity_id: sensor.openweathermap_feels_like_temperature
+    below: 55
+    for: "00:05:00"  # Optional debounce
+condition:
+  - condition: state
+    entity_id: cover.skylight_1
+    state: open
+action:
+  - service: cover.close_cover
+    target:
+      entity_id: cover.skylight_1
+  - service: notify.notify
+    data:
+      message: >
+        The skylight was open and the feels-like temperature
+        dropped below 55°F (currently
+        {{ states('sensor.openweathermap_feels_like_temperature') | float(0) | round(1) }}°F).
+        I've closed the skylight to prevent heat loss and protect the interior.

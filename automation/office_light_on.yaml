@@ -1,0 +1,15 @@
+alias: 'OFfice lights on Basement color'
+trigger:
+  platform: state
+  entity_id: light.office
+  to: "on"
+condition:
+  - condition: state
+    entity_id: script.meeting_lights
+    state: "off"
+  - condition: template
+    value_template: "{{ (state_attr('light.office_back', 'color_temp') != 359) or (state_attr('light.office_front', 'color_temp') != 359) }}"
+action:
+  - service: scene.turn_on
+    target:
+      entity_id: scene.office_basements

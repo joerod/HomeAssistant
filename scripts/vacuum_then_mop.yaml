@@ -1,0 +1,140 @@
+vacuum_then_mop:
+  alias: Vacuum then Mop
+  sequence:
+    - alias: Vacuum phase start
+      choose:
+        - conditions:
+            - condition: template
+              value_template: "{{ is_state('vacuum.rosey', 'cleaning') }}"
+          sequence:
+            - alias: Notify already vacuuming
+              service: notify.notify
+              data:
+                message: "Vacuum+Mop: Rosey is already cleaning. Waiting for her to finish before mopping."
+            - alias: Already vacuuming TTS
+              service: tts.google_say
+              target:
+                entity_id: media_player.kitchen
+              data:
+                message: >-
+                  {{ [
+                    "I'm already vacuuming. I'll mop after I finish.",
+                    "Rosey is mid-clean. Mop comes after the dust settles.",
+                    "Vacuum first, mop later. Try not to make it worse.",
+                    "Already vacuuming. Mopping will follow when I'm done judging you.",
+                    "I'm on it. Mopping happens after I finish this pass.",
+                    "Patience. I'll mop after I'm done chasing crumbs.",
+                    "Vacuuming now. Mop time is queued.",
+                    "Hold your horses. Mop after vacuum, always.",
+                    "Already cleaning. I'll mop once the floor is less embarrassing.",
+                    "Currently vacuuming. Mopping is next in line."
+                  ] | random }}
+      default:
+        - alias: Notify vacuum starting
+          service: notify.notify
+          data:
+            message: "Vacuum+Mop: Starting Rosey vacuum run."
+        - alias: Start vacuuming with Rosey
+          service: vacuum.start
+          target:
+            entity_id: vacuum.rosey
+        - alias: Vacuum start TTS
+          service: tts.google_say
+          target:
+            entity_id: media_player.kitchen
+          data:
+            message: >-
+              {{ [
+                "Initiating Operation: Save This Filthy House.",
+                "Time to clean up the crime scene you call a floor.",
+                "If dirt were a decoration, you'd be ready for the holidays.",
+                "Rosey's vacuuming now. Try not to drop snacks while she works.",
+                "Starting cleanup. Mopping will follow because... yikes.",
+                "You ever seen a robot cry? Keep messing this place up and you might.",
+                "Deploying Rosey. Henry's on deck with the mop because this place looks like a frat house.",
+                "So much dust, I half expected a tumbleweed to roll by.",
+                "Starting to vacuum now. Next up: mopping away the sins of your feet.",
+                "One does not simply vacuum this mess. Mopping backup is required."
+              ] | random }}
+        - alias: Pause to let TTS play
+          delay: "00:00:30"
+
+    - alias: Notify waiting for Rosey completion
+      service: notify.notify
+      data:
+        message: "Vacuum+Mop: Waiting for Rosey to dock (or report error)."
+
+    - alias: Wait until Rosey docked or error
+      wait_template: "{{ states('vacuum.rosey') in ['docked', 'error'] }}"
+      continue_on_timeout: false
+
+    - alias: Error guard before mop
+      choose:
+        - conditions:
+            - condition: state
+              entity_id: vacuum.rosey
+              state: "error"
+          sequence:
+            - alias: Notify vacuum error and skip mop
+              service: notify.notify
+              data:
+                message: "Vacuum+Mop: Rosey reported an error. Skipping mopping step."
+            - alias: Announce vacuum+mop failure (funny)
+              service: tts.google_say
+              target:
+                entity_id: media_player.kitchen
+              data:
+                message: >-
+                  {{ [
+                    "I was supposed to vacuum and mop, but I hit an error. Please check Rosey to fix the issue.",
+                    "Update: I planned to vacuum and mop. Instead I crashed and chose chaos. Please check Rosey to fix the issue.",
+                    "I came to vacuum and mop, and I'm all out of functioning. Please check Rosey to fix the issue.",
+                    "Breaking news: vacuum and mop canceled. I found an error and filed for dramatic leave. Please check Rosey to fix the issue.",
+                    "I was ready to vacuum and mop, then I threw an error and quit like a sitcom character. Please check Rosey to fix the issue.",
+                    "Mission failed: vacuum plus mop. I'm currently a very expensive floor ornament. Please check Rosey to fix the issue.",
+                    "I was supposed to vacuum and mop, but I've entered my villain era: error mode. Please check Rosey to fix the issue.",
+                    "Today's plan was vacuum then mop. Today's reality is me refusing to cooperate. Please check Rosey to fix the issue.",
+                    "Vacuum and mop were on the schedule. Error happened. My union says no overtime. Please check Rosey to fix the issue.",
+                    "I intended to vacuum and mop, but I broke character and now I'm done. Please check Rosey to fix the issue."
+                  ] | random }}
+            - alias: Stop script on vacuum error
+              stop: "Rosey error - mop skipped"
+      default:
+        - alias: Notify vacuum complete
+          service: notify.notify
+          data:
+            message: "Vacuum+Mop: Rosey docked successfully. Proceeding to mop."
+
+        - alias: Mop phase TTS
+          service: tts.google_say
+          target:
+            entity_id: media_player.kitchen
+          data:
+            message: >-
+              {{ [
+                "Now it's Henry's time to shine.",
+                "Mopping up the aftermath of your lifestyle.",
+                "Because sticky floors don't clean themselves.",
+                "Here comes the wet stuff - brace yourself.",
+                "If your shoes are sticking, it's already too late.",
+                "Henry the Mop is on a mission from cleanliness.",
+                "Cue dramatic music - it's mop time.",
+                "This floor is about to sparkle like your excuses.",
+                "Slippery when clean. You've been warned.",
+                "You made the mess, Henry's doing the penance."
+              ] | random }}
+
+        - alias: Notify mop starting
+          service: notify.notify
+          data:
+            message: "Vacuum+Mop: Starting Henry Orbit mopping run."
+
+        - alias: Start mopping with Henry Orbit
+          service: vacuum.start
+          target:
+            entity_id: vacuum.henry_orbit
+
+        - alias: Notify mop started
+          service: notify.notify
+          data:
+            message: "Vacuum+Mop: Henry Orbit mop command sent."

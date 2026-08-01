@@ -6,8 +6,8 @@ trigger:
 condition:
   condition: template
   value_template:  "{{ state_attr('light.dinning_room', 'brightness') != 255 }}"
-action:    
+action:
   - service: light.turn_on
     data:
-      entity_id: llight.dinning_room'
+      entity_id: light.dinning_room
       brightness_pct: 100

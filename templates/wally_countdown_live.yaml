@@ -1,0 +1,35 @@
+- trigger:
+    - platform: time_pattern
+      seconds: "/1"
+  sensor:
+    - name: "Wally Countdown Live"
+      unique_id: wally_countdown_live
+      icon: mdi:timer-outline
+      state: >-
+        {% set activity = states('sensor.wally_activity') | lower %}
+        {% set raw = states('sensor.wally_estimated_end_time') %}
+        {% if activity not in ['cleaning', 'returning'] or raw in ['unknown', 'unresident_threeilable', 'none', ''] %}
+          00:00
+        {% else %}
+          {% set end_dt = as_datetime(raw) %}
+          {% if end_dt is none %}
+            00:00
+          {% else %}
+            {% set remaining = (as_timestamp(end_dt) - as_timestamp(now())) | int(0) %}
+            {% if remaining <= 0 %}
+              00:00
+            {% else %}
+              {% set h = remaining // 3600 %}
+              {% set m = (remaining % 3600) // 60 %}
+              {% set s = remaining % 60 %}
+              {% if h > 0 %}
+                {{ '%02d:%02d:%02d' | format(h, m, s) }}
+              {% else %}
+                {{ '%02d:%02d' | format(m, s) }}
+              {% endif %}
+            {% endif %}
+          {% endif %}
+        {% endif %}
+      attributes:
+        source_entity: sensor.wally_estimated_end_time
+        activity: "{{ states('sensor.wally_activity') }}"

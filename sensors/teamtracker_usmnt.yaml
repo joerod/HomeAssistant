@@ -1,0 +1,4 @@
+  - platform: teamtracker
+    league_id: "WC"
+    team_id: "USA"
+    name: "team_tracker_usmnt"

@@ -1,0 +1,23 @@
+- binary_sensor:
+    - name: "Knicks Win"
+      unique_id: knicks_win
+      state: >-
+        {{ state_attr('sensor.team_tracker_knicks', 'team_winner') == true }}
+      icon: >-
+        {% if is_state('binary_sensor.knicks_win', 'on') %}
+          mdi:hand-back-right
+        {% else %}
+          mdi:hand-back-right-off
+        {% endif %}
+      attributes:
+        attribution: "Data provided by ESPN"
+        team_score: "{{ state_attr('sensor.team_tracker_knicks', 'team_score') }}"
+        opponent_score: "{{ state_attr('sensor.team_tracker_knicks', 'opponent_score') }}"
+        event_name: "{{ state_attr('sensor.team_tracker_knicks', 'event_name') }}"
+        event_url: "{{ state_attr('sensor.team_tracker_knicks', 'event_url') }}"
+        date: "{{ state_attr('sensor.team_tracker_knicks', 'date') }}"
+        team_name: "{{ state_attr('sensor.team_tracker_knicks', 'team_long_name') }}"
+        opponent_name: "{{ state_attr('sensor.team_tracker_knicks', 'opponent_long_name') }}"
+        venue: "{{ state_attr('sensor.team_tracker_knicks', 'venue') }}"
+        location: "{{ state_attr('sensor.team_tracker_knicks', 'location') }}"
+        tv_network: "{{ state_attr('sensor.team_tracker_knicks', 'tv_network') }}"

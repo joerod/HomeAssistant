@@ -1,0 +1,50 @@
+  - sensor:
+      - default_entity_id: sensor.garbage_collection_status
+        name: "Garbage Collection"
+        state: >-
+          {% set exception =
+            is_state('binary_sensor.nyc311_sanitation_exception_today','on')
+            or is_state('binary_sensor.nyc311_sanitation_exception_tomorrow','on')
+          %}
+          {% if exception %}
+            No Collection
+          {% else %}
+            {{ states('sensor.garbage') }}
+          {% endif %}
+        icon: >-
+          {% set exception =
+            is_state('binary_sensor.nyc311_sanitation_exception_today','on')
+            or is_state('binary_sensor.nyc311_sanitation_exception_tomorrow','on')
+          %}
+          {% if exception %}
+            mdi:trash-can-off
+          {% else %}
+            mdi:trash-can
+          {% endif %}
+
+      - default_entity_id: sensor.recycling_collection_status
+        name: "Recycling"
+        state: >-
+          {% set exception =
+            is_state('binary_sensor.nyc311_sanitation_exception_today','on')
+            or is_state('binary_sensor.nyc311_sanitation_exception_tomorrow','on')
+          %}
+          {% if exception %}
+            No Collection
+          {% elif now().weekday() == 0 %}
+            Recycling Today
+          {% else %}
+            No Recycling
+          {% endif %}
+        icon: >-
+          {% set exception =
+            is_state('binary_sensor.nyc311_sanitation_exception_today','on')
+            or is_state('binary_sensor.nyc311_sanitation_exception_tomorrow','on')
+          %}
+          {% if exception %}
+            mdi:calendar-remove
+          {% elif now().weekday() == 0 %}
+            mdi:recycle
+          {% else %}
+            mdi:recycle
+          {% endif %}

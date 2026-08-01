@@ -1,0 +1,71 @@
+kitchen_aloe_watering:
+  name: Kitchen Aloe Watering Due
+  entity_id: binary_sensor.kitchen_alo_watering_due
+  state: "on"
+  message: "Water Kitchen Aloe."
+  done_message: "Kitchen Aloe has been watered."
+  repeat: 1440
+  can_acknowledge: true
+  skip_first: false
+  notifiers:
+    - mobile_app_resident_one_iphone
+
+dwarf_alberta_spruce_watering:
+  name: Dwarf Alberta Spruce Watering Due
+  entity_id: binary_sensor.dwarf_alberta_spruce_black_pot_watering_due
+  state: "on"
+  message: "Water Dwarf Alberta Spruce."
+  done_message: "Dwarf Alberta Spruce has been watered."
+  repeat: 1440
+  can_acknowledge: true
+  skip_first: false
+  notifiers:
+    - mobile_app_resident_one_iphone
+
+arborvitae_watering:
+  name: Arborvitae Watering Due
+  entity_id: binary_sensor.arborvitae_background_pot_watering_due
+  state: "on"
+  message: "Water Arborvitae."
+  done_message: "Arborvitae has been watered."
+  repeat: 1440
+  can_acknowledge: true
+  skip_first: false
+  notifiers:
+    - mobile_app_resident_one_iphone
+
+spiral_juniper_watering:
+  name: Spiral Juniper Watering Due
+  entity_id: binary_sensor.spiral_juniper_watering_due
+  state: "on"
+  message: "Water Spiral Juniper."
+  done_message: "Spiral Juniper has been watered."
+  repeat: 1440
+  can_acknowledge: true
+  skip_first: false
+  notifiers:
+    - mobile_app_resident_one_iphone
+
+hosta_watering:
+  name: Hosta Watering Due
+  entity_id: binary_sensor.hosta_gray_pot_watering_due
+  state: "on"
+  message: "Water Hosta."
+  done_message: "Hosta has been watered."
+  repeat: 1440
+  can_acknowledge: true
+  skip_first: false
+  notifiers:
+    - mobile_app_resident_one_iphone
+
+lavender_watering:
+  name: Lavender Watering Due
+  entity_id: binary_sensor.backyard_lavender_watering_due
+  state: "on"
+  message: "Water Lavender."
+  done_message: "Lavender has been watered."
+  repeat: 1440
+  can_acknowledge: true
+  skip_first: false
+  notifiers:
+    - mobile_app_resident_one_iphone

@@ -1,7 +1,7 @@
 alias: 'Turn On Office Light When Back Door is Open after Sunset.'
 trigger:
   platform: state
-  entity_id:  binary_sensor.basement_door_contact
+  entity_id: binary_sensor.basement_door_contact
   from: 'off'
   to: 'on'
 condition:
@@ -11,27 +11,50 @@ condition:
       entity_id: sun.sun
       state: below_horizon
     - condition: state
-      entity_id: light.office_light
+      entity_id: light.office
       state: 'off'
 action:
+  - service: sonos.snapshot
+    continue_on_error: true
+    target:
+      entity_id: media_player.basement
+    data:
+      with_group: true
+
   - service: media_player.volume_set
     data:
       entity_id: media_player.basement
       volume_level: 0.7
+
   - service: light.turn_on
     data:
-      entity_id: light.office_light
+      entity_id: light.office
       brightness_pct: 100
-  - service: notify.mobile_app_joerod_s_iphone
+
+  - service: notify.notify
     data:
-      message:
-        You came in through the basement and it was dark out so I turned on the lights.  Don't forget to turn the office light off. {{ states('input_number.basement_sonos_vol') }}
+      message: >-
+        You came in through the basement and it was dark out, so I turned on the office light.
+        Don't forget to lock the door and turn the office light off.
+
   - service: tts.google_say
     entity_id: media_player.basement
-    data_template:
+    data:
       message: >-
         {{ [
-        "Don't forget to lock the door and turn off the office light. " ,
-        "Let me get the light for you. ",
+        "Don't forget to lock the door and turn off the office light.",
+        "Let me get the light for you.",
         "Please remember to lock the basement door."
-        ] |random }}
+        ] | random }}
+
+  - wait_template: "{{ not is_state('media_player.basement', 'playing') }}"
+    timeout: '00:01:00'
+    continue_on_timeout: true
+
+  - service: sonos.restore
+    continue_on_error: true
+    target:
+      entity_id: media_player.basement
+    data:
+      with_group: true
+mode: single

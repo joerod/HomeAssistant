@@ -1,0 +1,25 @@
+  - binary_sensor:
+      - name: "iAqualink Robot Bin Full"
+        unique_id: iaqualink_robot_bin_full
+        device_class: problem
+        state: >
+          {{ states('sensor.wally_canister_level') | float(-1) >= 95 }}
+        icon: >
+          {% if is_state('binary_sensor.iaqualink_robot_bin_full', 'on') %}
+            mdi:trash-can-alert
+          {% else %}
+            mdi:trash-can-outline
+          {% endif %}
+
+      - name: "iAqualink Robot Has Error"
+        unique_id: iaqualink_robot_has_error
+        device_class: problem
+        state: >
+          {% set e = states('sensor.wally_error_state') | lower %}
+          {{ e not in ['unknown', 'unresident_threeilable', 'none', '', '0', 'ok', 'no_error', 'no_data', 'update_failed', 'setup_cancelled', 'connection_failed'] }}
+        icon: >
+          {% if is_state('binary_sensor.iaqualink_robot_has_error', 'on') %}
+            mdi:robot-vacuum-alert
+          {% else %}
+            mdi:robot-vacuum
+          {% endif %}

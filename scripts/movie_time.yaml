@@ -2,11 +2,11 @@ movie_on:
   sequence:
     - service: switch.turn_on
       data:
-        entity_id: switch.lg
+        entity_id: switch.living_room_tv
     - service: cover.set_cover_position
       data:
         entity_id: cover.kitchen_blind
-        position: 55 
+        position: 55
     - service: light.turn_off
       data:
         entity_id: light.vestibule
@@ -19,15 +19,15 @@ movie_on:
     - service: switch.turn_off
       data:
         entity_id: switch.dining_room_light
-    - wait_template: "{{ is_state('media_player.living_room_tv', 'on') }}"    
+    - wait_template: "{{ is_state('media_player.living_room_tv', 'on') }}"
     - service: media_player.select_source
       data:
         entity_id: media_player.living_room_tv
-        source: Plex
+        source: HDMI2
     - service: webostv.select_sound_output
       data:
         entity_id: media_player.living_room_tv
-        sound_output: external_speaker
+        sound_output: tv_external_speaker
     - service: media_player.select_source
       data:
         entity_id: media_player.yamaha_receiver

@@ -1,0 +1,47 @@
+living_room_command_help:
+  alias: Living Room Command Help
+  sequence:
+    - action: script.alexa_command_help
+      data:
+        room: living room
+  mode: single
+
+main_bedroom_command_help:
+  alias: Main Bedroom Command Help
+  sequence:
+    - action: script.alexa_command_help
+      data:
+        room: main bedroom
+  mode: single
+
+kitchen_command_help:
+  alias: Kitchen Command Help
+  sequence:
+    - action: script.alexa_command_help
+      data:
+        room: kitchen
+  mode: single
+
+basement_command_help:
+  alias: Basement Command Help
+  sequence:
+    - action: script.alexa_command_help
+      data:
+        room: basement
+  mode: single
+
+bedroom_command_help:
+  alias: Bedroom Command Help
+  sequence:
+    - action: script.alexa_command_help
+      data:
+        room: bedrooms
+  mode: single
+
+yard_command_help:
+  alias: Yard Command Help
+  sequence:
+    - action: script.alexa_command_help
+      data:
+        room: yard
+  mode: single

@@ -1,0 +1,5 @@
+side_entrance_lights:
+  name: Side Entrance Lights
+  entities:
+    - light.side_entrance_light
+    - light.side_entrace_basement

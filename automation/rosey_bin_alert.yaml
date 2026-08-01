@@ -12,7 +12,7 @@ condition:
       before: '20:00:00'
       after: '18:00:00'
     - condition: state
-      entity_id: 'person.joerod'
+      entity_id: 'person.resident_one'
       state: 'home'
 action:
   - service: notify.all_notify

@@ -1,0 +1,59 @@
+alias: Split units auto cool setpoint
+id: split_units_auto_cool_setpoint
+mode: queued
+max: 10
+
+trigger:
+  - platform: state
+    entity_id:
+      - climate.main_bedroom
+      - climate.kitchen
+      - climate.resident_two
+      - climate.resident_four
+      - climate.resident_three_room
+      - climate.living_room
+    to: cool
+  - platform: state
+    entity_id:
+      - climate.main_bedroom
+      - climate.kitchen
+      - climate.resident_two
+      - climate.resident_four
+      - climate.resident_three_room
+      - climate.living_room
+    to: heat_cool
+
+condition:
+  - condition: template
+    value_template: "{{ trigger.from_state is not none and trigger.from_state.state != trigger.to_state.state }}"
+
+action:
+  - variables:
+      climate_entity: "{{ trigger.entity_id }}"
+      current_temp: "{{ state_attr(trigger.entity_id, 'current_temperature') | float(none) }}"
+
+  - choose:
+      - conditions:
+          - condition: template
+            value_template: "{{ trigger.to_state.state == 'cool' }}"
+        sequence:
+          - service: climate.set_temperature
+            target:
+              entity_id: "{{ climate_entity }}"
+            data:
+              temperature: 67
+
+      - conditions:
+          - condition: template
+            value_template: "{{ trigger.to_state.state == 'heat_cool' and current_temp is not none and current_temp >= 70 }}"
+        sequence:
+          - service: climate.set_hvac_mode
+            target:
+              entity_id: "{{ climate_entity }}"
+            data:
+              hvac_mode: cool
+          - service: climate.set_temperature
+            target:
+              entity_id: "{{ climate_entity }}"
+            data:
+              temperature: 67

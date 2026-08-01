@@ -11,8 +11,8 @@ condition:
       entity_id: automation.holiday_lights_on
       state: 'on'
     - condition: state
-      entity_id: switch.front_door_lights
+      entity_id: switch.font_door_lights
       state: 'on'
 action:
-  service: switch.turn_off
-  entity_id: switch.front_door_lights     
+  service: switch.turn_on
+  entity_id: switch.font_door_lights

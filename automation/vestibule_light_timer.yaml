@@ -1,0 +1,12 @@
+alias: Turn off vestibule light after 10 Minutes
+trigger:
+  - platform: state
+    entity_id: input_boolean.vestibule_light_triggered
+    to: 'on'
+    for:
+      minutes: 10
+action:
+  - service: light.turn_off
+    data:
+      entity_id: light.vestibule
+mode: single

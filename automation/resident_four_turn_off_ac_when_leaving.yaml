@@ -1,0 +1,18 @@
+alias: resident_four turns off AC when leaving
+id: resident_four_turn_off_ac_when_leaving
+mode: single
+
+trigger:
+  - platform: state
+    entity_id: person.resident_four
+    from: home
+    to: not_home
+
+condition:
+  - condition: template
+    value_template: "{{ not is_state('climate.resident_four', 'off') }}"
+
+action:
+  - service: climate.turn_off
+    target:
+      entity_id: climate.resident_four

@@ -1,0 +1,6 @@
+holiday_inside_lights:
+  name: Inside Holiday Lights
+  entities:
+    - switch.switch_1
+    - switch.switch_4
+    - switch.front_window

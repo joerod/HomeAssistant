@@ -1,0 +1,71 @@
+template:
+  - switch:
+      - name: House Guide
+        unique_id: alexa_command_help_all
+        icon: mdi:comment-question
+        state: "{{ false }}"
+        turn_on:
+          - action: script.alexa_command_help
+            data:
+              room: all
+        turn_off: []
+
+      - name: Living Room Guide
+        unique_id: alexa_command_help_living_room
+        icon: mdi:sofa
+        state: "{{ false }}"
+        turn_on:
+          - action: script.alexa_command_help
+            data:
+              room: living room
+        turn_off: []
+
+      - name: Main Bedroom Guide
+        unique_id: alexa_command_help_main_bedroom
+        icon: mdi:bed-king
+        state: "{{ false }}"
+        turn_on:
+          - action: script.alexa_command_help
+            data:
+              room: main bedroom
+        turn_off: []
+
+      - name: Kitchen Guide
+        unique_id: alexa_command_help_kitchen
+        icon: mdi:countertop
+        state: "{{ false }}"
+        turn_on:
+          - action: script.alexa_command_help
+            data:
+              room: kitchen
+        turn_off: []
+
+      - name: Basement Guide
+        unique_id: alexa_command_help_basement
+        icon: mdi:home-floor-b
+        state: "{{ false }}"
+        turn_on:
+          - action: script.alexa_command_help
+            data:
+              room: basement
+        turn_off: []
+
+      - name: Bedroom Guide
+        unique_id: alexa_command_help_bedrooms
+        icon: mdi:bed
+        state: "{{ false }}"
+        turn_on:
+          - action: script.alexa_command_help
+            data:
+              room: bedrooms
+        turn_off: []
+
+      - name: Yard Guide
+        unique_id: alexa_command_help_yard
+        icon: mdi:tree
+        state: "{{ false }}"
+        turn_on:
+          - action: script.alexa_command_help
+            data:
+              room: yard
+        turn_off: []

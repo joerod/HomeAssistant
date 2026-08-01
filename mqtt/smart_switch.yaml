@@ -1,0 +1,48 @@
+sensor:
+    #sonoffS31-3 sensor sonoff_pow_watts:
+  - name: Current Power Usage Switch 4
+    state_topic: "tele/washing_machine/SENSOR"
+    value_template: "{{value_json['ENERGY'].Power }}"
+    qos: 1
+    unit_of_measurement : "W"
+    #sonoffS31-3 sensor sonoff_pow_volts:
+  - name: Current Voltage Switch 4
+    state_topic: "tele/washing_machine/SENSOR"
+    value_template: "{{ value_json['ENERGY'].Voltage }}"
+    qos: 1
+    unit_of_measurement : "V"
+    #sonoffS31-3 sensor sonoff_pow_current:
+  - name: Current Amps Switch 4
+    state_topic: "tele/washing_machine/SENSOR"
+    value_template: "{{ value_json['ENERGY'].Current }}"
+    qos: 1
+    unit_of_measurement : "A"
+switch:
+  - unique_id: front_window
+    name: "Front Window"
+    state_topic: "cmnd/front_window/POWER"
+    command_topic: "cmnd/front_window/POWER"
+    payload_on: "ON"
+    payload_off: "OFF"
+    retain: true
+  - unique_id: resident_four_name_light_legacy
+    name: "resident_four's Name Light Legacy"
+    state_topic: "stat/resident_four_name_light/POWER"
+    command_topic: "cmnd/resident_four_name_light/POWER"
+    payload_on: "ON"
+    payload_off: "OFF"
+    retain: false
+  - unique_id: candle
+    name: "Candle"
+    state_topic: "cmnd/candle/POWER"
+    command_topic: "cmnd/candle/POWER"
+    payload_on: "ON"
+    payload_off: "OFF"
+    retain: true
+  - unique_id: washing_machine
+    name: "Washing Machine"
+    state_topic: "cmnd/washing_machine/POWER"
+    command_topic: "cmnd/washing_machine/POWER"
+    payload_on: "ON"
+    payload_off: "OFF"
+    retain: true

@@ -1,4 +1,4 @@
-# this will anounce how far the bus is from my stop every weekday between 6:47AM - 7:10AM
+# this will announce how far the bus is from my stop every weekday between 6:47AM - 7:10AM
 alias: 'Get to the subway by bus'
 trigger:
   platform: time_pattern
@@ -16,41 +16,48 @@ condition:
         - thu
         - fri
     - condition: state
-      entity_id: 'person.joerod'
+      entity_id: person.resident_one
       state: 'home'
     - condition: template
       value_template: >
-        {% if states('calendar.joe_rodriguez') == 'on' and state_attr('calendar.joe_rodriguez', 'message') == "Day off" or state_attr('calendar.joe_rodriguez', 'message') != "Joe - In Office" -%}
-          {{false}}
+        {% set msg = (state_attr('calendar.resident_one', 'message') or '') | lower %}
+        {% if states('calendar.resident_one') == 'on' and 'office' not in msg -%}
+          {{ false }}
         {% else %}
-          {{true}}
+          {{ true }}
         {%- endif %}
 action:
-  - service: input_number.set_value
-    data_template:
-      entity_id: input_number.basement_sonos
-      value: "{{ state_attr('media_player.basement', 'volume_level') | float}}"
-  - service: notify.mobile_app_joerod_s_iphone
+  - service: notify.mobile_app_resident_one_s_iphone
     data:
-      message:
-        The bus is {{ ((as_timestamp(state_attr('sensor.home_to_subway', 'origin_stop_arrival_time'))-(as_timestamp(now()))) / 60)|int }} minutes away
-  - service: media_player.volume_set
-    data:
-      entity_id:
-        - media_player.basement
-      volume_level: 0.7
-  - service: tts.google_say
-    entity_id:
-      - media_player.basement
-    data_template:
-      message: >
-        The bus is {{ ((as_timestamp(state_attr('sensor.home_to_subway', 'origin_stop_arrival_time'))-(as_timestamp(now()))) / 60)|int }} minutes away
-  - delay: '00:00:10'
-  - service: media_player.volume_set
-    data_template:
+      message: >-
+        The bus is {{ states('sensor.1_dry_harbor_rd_63_av') | float(0) | round(0) | int }} minutes away
+
+  - service: sonos.snapshot
+    continue_on_error: true
+    target:
       entity_id: media_player.basement
-      volume_level: "{{ states('input_number.basement_sonos') }}"
+    data:
+      with_group: true
+
   - service: media_player.volume_set
-    data_template:
-      entity_id: media_player.kitchen
-      volume_level: "{{ states('input_number.kitchen_sonos') }}"
+    data:
+      entity_id: media_player.basement
+      volume_level: 0.7
+
+  - service: tts.google_say
+    entity_id: media_player.basement
+    data:
+      message: >
+        The bus is {{ states('sensor.1_dry_harbor_rd_63_av') | float(0) | round(0) | int }} minutes away
+
+  - wait_template: "{{ not is_state('media_player.basement', 'playing') }}"
+    timeout: '00:01:00'
+    continue_on_timeout: true
+
+  - service: sonos.restore
+    continue_on_error: true
+    target:
+      entity_id: media_player.basement
+    data:
+      with_group: true
+mode: single

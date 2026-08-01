@@ -1,0 +1,4 @@
+- sensor:
+    - name: "Uptime Minutes"
+      state: >-
+        {{ ((as_timestamp(now()) - as_timestamp(states('sensor.uptime'))) // 60) | round(0) }}

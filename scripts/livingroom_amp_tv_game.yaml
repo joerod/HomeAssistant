@@ -1,0 +1,38 @@
+tv_surround_sound_game:
+  sequence:
+    - service: media_player.turn_on
+      target:
+        entity_id: media_player.yamaha_receiver
+
+    - service: wake_on_lan.send_magic_packet
+      data:
+        broadcast_port: 9
+        mac: 00:00:00:00:00:00
+
+    - wait_template: "{{ is_state('media_player.living_room_tv', 'on') }}"
+      timeout: "00:00:20"
+      continue_on_timeout: true
+
+    # 1. Set LG TV sound output to external speakers
+    - service: webostv.select_sound_output
+      data:
+        sound_output: tv_external_speaker
+      target:
+        entity_id: media_player.living_room_tv
+
+    # 3. Select Yamaha receiver input
+    - service: media_player.select_source
+      data:
+        entity_id: media_player.yamaha_receiver
+        source: AUDIO1
+
+    # 4. Volume settings for both TV and receiver
+    - service: media_player.volume_set
+      data:
+        entity_id: media_player.living_room_tv
+        volume_level: 0.12
+
+    - service: media_player.volume_set
+      data:
+        entity_id: media_player.yamaha_receiver
+        volume_level: 0.75

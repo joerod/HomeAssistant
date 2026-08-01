@@ -1,0 +1,42 @@
+room_fun_off:
+  alias: Room Fun Off
+  sequence:
+    - service: media_player.media_pause
+      continue_on_error: true
+      target:
+        entity_id: media_player.main_bedroom
+    - service: media_player.media_stop
+      continue_on_error: true
+      target:
+        entity_id: media_player.main_bedroom
+    - service: media_player.clear_playlist
+      continue_on_error: true
+      target:
+        entity_id: media_player.main_bedroom
+    - service: media_player.media_stop
+      continue_on_error: true
+      target:
+        entity_id: media_player.spotify_resident_one
+    - service: scene.turn_on
+      continue_on_error: true
+      target:
+        entity_id: scene.bedroom_fun_time_previous_lamps
+    - choose:
+        - conditions:
+            - condition: state
+              entity_id: input_boolean.room_fun_tv_was_on
+              state: "on"
+          sequence:
+            - service: remote.turn_on
+              target:
+                entity_id: remote.bravia_vu31
+            - service: media_player.turn_on
+              target:
+                entity_id: media_player.bravia_vu31
+            - service: input_boolean.turn_off
+              target:
+                entity_id: input_boolean.room_fun_tv_was_on
+    - service: input_boolean.turn_off
+      target:
+        entity_id: input_boolean.room_fun_active
+  mode: single

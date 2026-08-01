@@ -1,33 +1,35 @@
 homeassistant:
-  name: Rodriguez Home
+  name: resident Home
   latitude: !secret home_lat
   longitude: !secret home_lon
-  elevation: 12
+  elevation: 30
   unit_system: imperial
   time_zone: America/New_York
-  #customize: !include customize.yaml
-  #packages: !include_dir_named packages
+  customize: !include customize.yaml
+  packages: !include_dir_named packages
   external_url: !secret external_url
   internal_url: !secret internal_url
+  country: US
 
 frontend:
   themes: !include_dir_merge_named themes
 
-lovelace:
-  dashboards:
-    joerod:
-      mode: yaml
-      title: Rodriguez Home
-      icon: mdi:home-assistant
-      show_in_sidebar: true
-      filename: joerod.yml
-
+my:
 alexa:
-cloud: !include cloud.yaml
+  smart_home:
+    endpoint: https://api.amazonalexa.com/v3/events
+    client_id: !secret alexa_client_id
+    client_secret: !secret alexa_client_secret
+    locale: en-US
+    filter:
+      include_entities: !include alexa_include_entities.yaml
+    entity_config:
+      group.fence_lights:
+        name: Fence Lights
+        description: Both fence lights
+        display_categories: LIGHT
 config:
-mqtt:
 person:
-discovery:
 conversation:
 history:
 logbook:
@@ -35,65 +37,37 @@ sun:
 wake_on_lan:
 system_health:
 mobile_app:
-media_extractor:
 media_source:
 logger:
   default: info
+  logs:
+    alexapy: debug
 stream:
 
 http:
   ip_ban_enabled: True
-  login_attempts_threshold: 10
+  login_attempts_threshold: -1
   use_x_forwarded_for: true
   trusted_proxies:
-    - 172.30.33.9
-    - 172.30.33.8
-    - 192.168.1.31
+    - 192.0.2.1/23
+    - 192.0.2.1/24
+    - 192.0.2.1/24
 
 tts:
   - platform: google_translate
+    language: en-uk
     service_name: google_say
     cache: true
-
-weather:
-  - platform: darksky
-    api_key: !secret dark_sky_password
-    mode: daily
-
-nest:
-  client_id: !secret nest_id
-  client_secret: !secret nest_password
-  # "Project ID" in the Device Access Console
-  project_id: !secret nest_project
-  # Provide the full path exactly as shown under "Subscription name" in Google Cloud Console
-  subscriber_id: !secret nest_subscriber
-
-spotify:
-  client_id: !secret spotify_id
-  client_secret: !secret spotify_secret
-
-panel_iframe:
-  tasmoadmin:
-    title: TasmoAdmin
-    icon: mdi:toggle-switch
-    url: !secret tasmoadmin
+  - platform: microsoft
+    api_key: !secret ms_tts
+    region: eastus
+    language: en-us
+    gender: Male
+    type: en-US-GuyNeural
+    cache: true
 
 ifttt:
   key: !secret ifttt_password
-
-influxdb:
-  host: a0d7b954-influxdb
-  port: 8086
-  database: homeassistant
-  username: homeassistant
-  password: !secret influxdb_password
-  max_retries: 3
-  default_measurement: state
-
-camera:
-  - platform: generic
-    still_image_url: "https://s.w-x.co/staticmaps/wu/wu/wxtype1200_cur/usbgm/animate.png"
-    name: "NY Radar"
 
 timer:
   front_door_lights:
@@ -103,15 +77,32 @@ input_boolean:
   panic:
     name: Panic
     icon: mdi:alert-octagram-outline
+  vestibule_light_triggered:
+    name: vestibule_light_triggered
+    initial: off
+  toggle_spotify_av1:
+    name: Toggle Spotify and AV1
+    initial: off
+  washer_was_running:
+    name: Washer Was Running
+    icon: mdi:washing-machine
+  room_fun_tv_was_on:
+    name: Room Fun TV Was On
+    initial: off
+  room_fun_active:
+    name: Room Fun Active
+    initial: off
 
 group: !include_dir_merge_named groups
 automation: !include_dir_list automation
-sensor: !include_dir_merge_list sensors/
-binary_sensor: !include_dir_merge_list binary_sensors/
+sensor: !include_dir_merge_list sensors
 media_player: !include_dir_merge_list media_player
 switch: !include_dir_merge_list switches
 alert: !include_dir_merge_named alerts
 script: !include_dir_merge_named scripts/
 notify: !include_dir_merge_list notify/
 zone: !include_dir_merge_list zones/
-device_tracker: !include_dir_merge_list device_tracker/
+mqtt:  !include mqtt/smart_switch.yaml
+cloud: !include cloud.yaml
+cover: !include_dir_merge_named cover
+template: !include_dir_merge_list templates/

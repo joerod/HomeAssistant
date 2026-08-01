@@ -19,8 +19,8 @@ action:
     entity_id: fan.main_bedroom_fan
     data:
       speed: 'medium'
-  - service: notify.mobile_app_joerod_s_iphone
-    data_template:
+  - service: notify.notify
+    data:
       message: >
         😎 Main Bedroom Cooling Phase 1.
         Main Bedroom Temperature - {{states.climate.main_bedroom.attributes.current_temperature}}°
